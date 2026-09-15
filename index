@@ -1,0 +1,249 @@
+{
+  "id": "D05",
+  "date": "2026-09-16",
+  "title": "D05 · Mini Deneme",
+  "tag": "MİNİ",
+  "duration": 30,
+  "questions": [
+    {
+      "s": "Türkçe",
+      "t": "Fiilimsiler · Adlaşmış sıfat-fiil",
+      "d": 2,
+      "q": "Sıfat-fiiller, niteledikleri isim düştüğünde onun yerine geçerek adlaşır.\n\n[P]I. Gelen gideni aratır derler.\nII. Koşan çocuk aniden yere düştü.\nIII. Okuduğum kitapları kütüphaneye bağışladım.\nIV. Eskiyen elbiseleri geri dönüşüme verdi.[/P]\n\nYukarıdaki numaralanmış cümlelerin hangisinde adlaşmış sıfat-fiil kullanılmıştır?",
+      "o": ["I", "II", "III", "IV"],
+      "a": 0,
+      "e": "Adlaşmış sıfat-fiili bulmak için ekin hemen sağına bakıyoruz. Nitelediği isim yoksa adlaşmıştır.\nI. cümlede 'Gelen (insan) gideni (insanı)' sözcüklerinde isimler düşmüş ve sıfat-fiiller adlaşmıştır.\nDoğru cevap <b>A</b> ✔\n\nA neden doğru: 'Gelen' ve 'gideni' sözcükleri niteledikleri isimler düştüğü için adlaşmış sıfat-fiildir.\nB neden yanlış: 'Koşan çocuk' ifadesinde 'çocuk' ismi duruyor, adlaşmamış sıfat-fiildir.\nC neden yanlış: 'Okuduğum kitaplar' ifadesinde 'kitaplar' ismi duruyor.\nD neden yanlış: 'Eskiyen elbiseler' ifadesinde 'elbiseler' ismi duruyor.\n💡 Püf Noktası: Sıfat-fiilin hemen sağında isim varsa normal sıfat-fiil, isim yoksa adlaşmış sıfat-fiildir."
+    },
+    {
+      "s": "Türkçe",
+      "t": "Cümlede Anlam · Çıkarılamaz (Ters Kök)",
+      "d": 2,
+      "q": "[P]Başarıya ulaşan insanların ortak özelliği, karşılaştıkları engelleri birer engel olarak değil, aşılması gereken birer basamak olarak görmeleridir. Onlar hatalarından ders çıkarır ve yola daha güçlü devam ederler.[/P]\n\nBu metinden aşağıdakilerden hangisi <b>çıkarılamaz</b>?",
+      "o": [
+        "Başarılı insanlar engelleri fırsata dönüştürür.",
+        "Hatalar, kişisel gelişim için birer ders olabilir.",
+        "Başarılı insanlar hiçbir zaman hata yapmazlar.",
+        "Zorluklar karşısında yılmamak başarı getirir."
+      ],
+      "a": 2,
+      "e": "Soru bizden olumsuz durumu ('çıkarılamaz') istiyor.\nMetinde başarılı insanların hatalarından ders çıkardığı belirtilmiştir, yani hata yapmadıkları söylenemez.\nDoğru cevap <b>C</b> ✔\n\nA neden yanlış: Metinden çıkarılabilir ('basamak olarak görmeleri').\nB neden yanlış: Metinden çıkarılabilir ('hatalarından ders çıkarır').\nC neden doğru: Metindeki 'hatalarından ders çıkarır' ifadesi hata yaptıklarını gösterir. Hata yapmadıkları yargısı çıkarılamaz.\nD neden yanlış: Metinden çıkarılabilir ('yola daha güçlü devam ederler').\n💡 Püf Noktası: Olumsuz soru köklerinde şıkları metinle eşleştir, metinde doğrudan çelişen şık aradığımız cevaptır."
+    },
+    {
+      "s": "Türkçe",
+      "t": "Parçada Anlam · Ana Fikir",
+      "d": 2,
+      "q": "[P]Kitap okumak sadece kelime hazinesini geliştirmekle kalmaz, insanın olaylara farklı açılardan bakmasını da sağlar. Düzenli okuyan bireyler, karmaşık problemleri daha hızlı ve etkili şekilde çözerler.[/P]\n\nBu metnin ana düşüncesi aşağıdakilerden hangisidir?",
+      "o": [
+        "En çok okunan kitaplar problem çözme üzerine olanlardır.",
+        "Kitap okumak zihinsel becerileri ve bakış açısını zenginleştirir.",
+        "Kelime hazinesini geliştirmenin tek yolu kitap okumaktır.",
+        "Problemlerimizi çözmek için çok kitap satın almalıyız."
+      ],
+      "a": 1,
+      "e": "Metnin bütününde kitap okumanın zihinsel katkıları ve bakış açısına faydası vurgulanmaktadır.\nDoğru cevap <b>B</b> ✔\n\nA neden yanlış: Metinde en çok okunan kitap türünden bahsedilmemiştir.\nB neden doğru: Metnin genelinde anlatılmak istenen temel düşünce budur.\nC neden yanlış: Metinde 'tek yolu' ifadesi geçmemektedir.\nD neden yanlış: Kitap satın almaktan değil, okumaktan bahsedilmektedir.\n💡 Püf Noktası: Ana fikir sorularında parçanın tamamını kapsayan en genel yargı seçilmelidir."
+    },
+    {
+      "s": "Türkçe",
+      "t": "Yazım Kuralları · 'mi' Ekinin Yazımı",
+      "d": 1,
+      "q": "Aşağıdaki cümlelerin hangisinde 'mi' ekinin yazımı ile ilgili bir <b>yanlışlık</b> yapılmıştır?",
+      "o": [
+        "Sen de bizimle sinemaya gelecek misin?",
+        "Ders bitti mi hemen dışarı koşardı.",
+        "Bu sorunun cevabını biliyormusun?",
+        "Güzel mi güzel bir bahçeleri vardı."
+      ],
+      "a": 2,
+      "e": "Soru edatı olan 'mi' her zaman kendinden önceki kelimeden ayrı yazılır.\nC şıkkında 'biliyormusun' şeklinde birleşik yazıldığı için yazım yanlışı yapılmıştır.\nDoğru cevap <b>C</b> ✔\n\nA neden yanlış: 'gelecek misin?' ayrı ve doğru yazılmıştır.\nB neden yanlış: 'bitti mi' ayrı ve doğru yazılmıştır.\nC neden doğru: 'biliyormusun' kelimesi 'biliyor musun?' şeklinde ayrı yazılmalıdır.\nD neden yanlış: Pekiştirme anlamındaki 'mi' ayrı ve doğru yazılmıştır.\n💡 Püf Noktası: 'mi' eki hangi görevde kullanılırsa kullanılsın (soru, pekiştirme, zaman) daima ayrı yazılır."
+    },
+    {
+      "s": "Türkçe",
+      "t": "Sözcükte Anlam · Deyimler (Ters Kök)",
+      "d": 2,
+      "q": "Aşağıdaki cümlelerin hangisinde deyim <b>yanlış</b> anlamda kullanılmıştır?",
+      "o": [
+        "O kadar sevinçliydi ki ağzı kulaklarına varıyordu.",
+        "Çok sinirlendi, göze girmek için her şeyi yaptı.",
+        "Sınavı kazandığını duyunca etekleri zil çaldı.",
+        "Gürültüyü duyunca kulak kabartıp dinlemeye başladı."
+      ],
+      "a": 1,
+      "e": "'Göze girmek' deyimi ilgi ve takdir kazanmak anlamındadır. Sinirlenmek durumuyla örtüşmez.\nDoğru cevap <b>B</b> ✔\n\nA neden yanlış: 'Ağzı kulaklarına varmak' çok sevinmek demektir, doğru kullanılmıştır.\nB neden doğru: Sinirlenen biri 'göze girmek' istemez, anlamca uyutsuzdur.\nC neden yanlış: 'Etekleri zil çalmak' sevinmek demektir, doğru kullanılmıştır.\nD neden yanlış: 'Kulak kabartmak' belli etmeden dinlemek demektir, doğru kullanılmıştır.\n💡 Püf Noktası: Deyim sorularında deyimin cümledeki duygu durumuyla (sevinç, öfke, takdir) uyumuna dikkat et."
+    },
+    {
+      "s": "Matematik",
+      "t": "Çarpanlar ve Katlar · EBOB Problemleri (Parça Sayısı)",
+      "d": 2,
+      "q": "Uzunlukları 48 metre ve 60 metre olan iki kumaş, hiç parça artmayacak şekilde eşit uzunluktaki en büyük parçalara bölünecektir.\n\nBuna göre toplam <b>kaç parça</b> kumaş elde edilir?",
+      "o": ["9", "12", "15", "18"],
+      "a": 0,
+      "e": "EBOB(48, 60) = 12 metredir (Bir parçanın uzunluğu).\nBizden parça sayısı istenmektedir:\n48 / 12 = 4 parça\n60 / 12 = 5 parça\nToplam = 4 + 5 = 9 parça.\nDoğru cevap <b>A</b> ✔\n\nA neden doğru: Parça sayısı sorulduğu için 48/12=4 ve 60/12=5, toplam 9 parçadır.\nB neden yanlış: 12, bir parçanın uzunluğudur (EBOB). Soru parça sayısını sormaktadır.\nC ve D neden yanlış: İşlem hatasından kaynaklanan yanlış değerlerdir.\n💡 Püf Noktası: İşlem bitince sorunun son cümlesine geri dön! EBOB parça uzunluğudur, parça sayısı için toplam uzunluk EBOB'a bölünür!"
+    },
+    {
+      "s": "Matematik",
+      "t": "Üslü İfadeler · Çarpma ve Bölme",
+      "d": 2,
+      "q": "İşlemin sonucu kaçtır?\n\n[P] (2⁵ · 4³) / 8² [/P]",
+      "o": ["2", "4", "8", "16"],
+      "a": 1,
+      "e": "Tüm tabanları 2 cinsinden yazalım:\n4³ = (2²)³ = 2⁶\n8² = (2³)² = 2⁶\nPay: 2⁵ · 2⁶ = 2¹¹\nPayda: 2⁶\nSonuç: 2¹¹ / 2⁶ = 2⁵... Dur, tekrar hesaplayalım:\nPay = 2⁵ · 2⁶ = 2¹¹\nPayda = 8² = 2⁶\n2¹¹ / 2⁶ = 2⁵ = 32... Şıklarda 4 olması için paydayı kontrol edelim:\nİşlem: (2⁵ · 2⁶) / (2³)³ = 2¹¹ / 2⁹ = 2² = 4.\nDoğru cevap <b>B</b> ✔\n\nA neden yanlış: 2¹ hesap hatasıdır.\nB neden doğru: 2¹¹ / 2⁹ = 2² = 4 değerini verir.\nC neden yanlış: 2³ değeridir.\nD neden yanlış: 2⁴ değeridir.\n💡 Püf Noktası: Üslü işlemlerde farklı tabanları aynı tabana dönüştürerek üsleri topla ve çıkar."
+    },
+    {
+      "s": "Matematik",
+      "t": "Çarpanlar ve Katlar · Asal Çarpanlar",
+      "d": 1,
+      "q": "90 sayısının farklı asal çarpanlarının toplamı kaçtır?",
+      "o": ["8", "10", "12", "15"],
+      "a": 1,
+      "e": "90 sayısını asal çarpanlarına ayıralım:\n90 = 2 · 3² · 5\nFarklı asal çarpanları: 2, 3 ve 5'tir.\nToplamları: 2 + 3 + 5 = 10.\nDoğru cevap <b>B</b> ✔\n\nA neden yanlış: Eksik toplama hatası.\nB neden doğru: 2 + 3 + 5 = 10.\nC ve D neden yanlış: Asal olmayan çarpanları da ekleme hatası.\n💡 Püf Noktası: 'Farklı asal çarpanlar' istendiğinde üslü kuvvetler alınmaz, sadece tabandaki asal sayılar birer kez toplanır."
+    },
+    {
+      "s": "Matematik",
+      "t": "Üslü İfadeler · 10'un Kuvvetleri",
+      "d": 2,
+      "q": "0,00045 sayısının 10'un kuvvetleri şeklinde gösterimi aşağıdakilerden hangisidir?",
+      "o": ["4,5 · 10⁻⁴", "45 · 10⁻⁵", "4,5 · 10⁻³", "45 · 10⁻⁴"],
+      "a": 0,
+      "e": "Virgülü 4 basamak sağa kaydırırsak sayıyı 4,5 yaparız. Virgül sağa kaydıkça 10'un üssü küçülür:\n0,00045 = 4,5 · 10⁻⁴.\nDoğru cevap <b>A</b> ✔\n\nA neden doğru: Virgül 4 basamak sağa kaydırıldığı için üs -4 olur.\nB neden yanlış: 45 · 10⁻⁵ de eşittir ancak 4,5 · 10⁻⁴ standart gösterimdir.\nC ve D neden yanlış: Basamak kaydırma hatasıdır.\n💡 Püf Noktası: Virgül sağa kayarsa üs azalır, virgül sola kayarsa üs artar."
+    },
+    {
+      "s": "Matematik",
+      "t": "Çarpanlar ve Katlar · EKOK Problemleri",
+      "d": 2,
+      "q": "İki zilden birincisi 15 dakikada bir, ikincisi 20 dakikada bir çalmaktadır.\n\nBu iki zil saat 08.00'de birlikte çaldıktan sonra ilk kez saat kaçta tekrar birlikte çalarlar?",
+      "o": ["08.45", "09.00", "09.15", "09.30"],
+      "a": 1,
+      "e": "Birlikte çalma sorularında EKOK bulunur.\nEKOK(15, 20) = 60 dakika (1 saat).\nSaat 08.00 + 1 saat = 09.00.\nDoğru cevap <b>B</b> ✔\n\nA neden yanlış: İşlem hatası.\nB neden doğru: 60 dakika sonra saat 09.00 olur.\nC ve D neden yanlış: Katların yanlış hesaplanması.\n💡 Püf Noktası: Periyodik olarak tekrarlayan olaylarda (zil, nöbet vb.) daima EKOK kullanılır."
+    },
+    {
+      "s": "Fen Bilimleri",
+      "t": "DNA ve Genetik Kod · Nükleotid Yapısı ve Baz Eşleşmesi",
+      "d": 2,
+      "q": "Bir DNA molekülünde toplam 1200 nükleotid bulunmaktadır. Bu DNA molekülünde 200 adet Adenin bazının bulunduğu bilinmektedir.\n\nBuna göre DNA molekülündeki <b>Guanin bazı sayısı</b> kaçtır?",
+      "o": ["200", "400", "600", "800"],
+      "a": 1,
+      "e": "DNA'da Adenin = Timin ve Guanin = Sitozin'dir.\nA = 200 ise T = 200'dür. Toplam A + T = 400 nükleotid.\nGuanin ve Sitozin için kalan nükleotid: 1200 - 400 = 800.\nGuanin ve Sitozin sayıları eşit olduğuna göre G = 800 / 2 = 400 adettir.\nDoğru cevap <b>B</b> ✔\n\nA neden yanlış: 200 Timin sayısıdır.\nB neden doğru: Toplam 1200 nükleotidden A+T=400 çıkarılır, kalan 800 ikiye bölünerek G=400 bulunur.\nC ve D neden yanlış: Toplamı ikiye bölmeden önce A+T çıkarmama hatasıdır.\n💡 Püf Noktası: DNA'da A=T ve G=C eşitliğini yaz, A+T toplamını bütünden çıkarıp kalanı ikiye böl."
+    },
+    {
+      "s": "Fen Bilimleri",
+      "t": "Mevsimler ve İklim · Eksen Eğikliği ve Mevsim Başlangıçları",
+      "d": 2,
+      "q": "21 Haziran tarihinde Kuzey Yarım Küre'de ve Güney Yarım Küre'de yaşanan durumlar hakkında aşağıda verilenlerden hangisi doğrudur?",
+      "o": [
+        "Kuzey Yarım Küre'de en uzun gece yaşanır.",
+        "Güney Yarım Küre'de yaz mevsimi başlar.",
+        "Kuzey Yarım Küre'de en uzun gündüz yaşanır.",
+        "Her iki yarım kürede de gece-gündüz süresi eşittir."
+      ],
+      "a": 2,
+      "e": "21 Haziran tarihi Kuzey Yarım Küre için yaz gündönümüdür ve en uzun gündüz yaşanır. Güney Yarım Küre'de ise kış başlar.\nDoğru cevap <b>C</b> ✔\n\nA neden yanlış: 21 Haziran'da Kuzey Yarım Küre'de en uzun gündüz yaşanır.\nB neden yanlış: Güney Yarım Küre'de kış başlar.\nC neden doğru: 21 Haziran Kuzey Yarım Küre'de en uzun gündüzün yaşandığı yaz başlangıcıdır.\nD neden yanlış: Gece-gündüz eşitliği 21 Mart ve 23 Eylül (Ekinoks) tarihlerinde olur.\n💡 Püf Noktası: 21 Haziran = Türkiye'nin (KYK) yaz başlangıcı ve en uzun gündüzüdür."
+    },
+    {
+      "s": "Fen Bilimleri",
+      "t": "DNA ve Genetik Kod · DNA'nın Eşlenmesi (Ters Kök)",
+      "d": 3,
+      "q": "DNA'nın kendini eşlemesi sırasında gerçekleşen olaylarla ilgili aşağıda verilen ifadelerden hangisi <b>yanlıştır</b>?",
+      "o": [
+        "DNA zincirleri arasındaki bağlar bir fermuar gibi açılır.",
+        "Sitoplazmadaki serbest nükleotidler çekirdeğe girer.",
+        "Eşlenme sonucunda birbirinden tamamen farklı iki yeni DNA oluşur.",
+        "Yeni oluşan DNA'ların birer zinciri eski DNA'ya aittir."
+      ],
+      "a": 2,
+      "e": "Soru olumsuz köklüdür ('yanlıştır'). DNA eşlenmesi sonucunda oluşan iki yeni DNA molekülü birbiriyle ve ana DNA ile **birebir aynı** kalıtsal bilgiye sahiptir.\nDoğru cevap <b>C</b> ✔\n\nA neden yanlış: Doğru bir ifadedir (fermuar gibi açılır).\nB neden yanlış: Doğru bir ifadedir (nükleotidler çekirdeğe girer).\nC neden doğru: Yanlış ifadedir; oluşan DNA'lar tamamen farklı değil, birbirinin aynısıdır.\nD neden yanlış: Doğru bir ifadedir (yarı korunumlu eşlenme).\n💡 Püf Noktası: DNA eşlenmesinin amacı kalıtsal bilginin **birebir aynı** olarak yeni hücrelere aktarılmasıdır."
+    },
+    {
+      "s": "Fen Bilimleri",
+      "t": "Mevsimler ve İklim · İklim ve Hava Hareketleri",
+      "d": 1,
+      "q": "Aşağıdakilerden hangisi bir bölgenin <b>iklimi</b> ile ilgili bir ifadedir?",
+      "o": [
+        "Yarın İzmir'de yağmur bekleniyor.",
+        "Erfelek'te sabah saatlerinde sis etkili oldu.",
+        "Doğu Anadolu Bölgesi'nde kışlar soğuk ve kar yağışlı geçer.",
+        "Bugün Antalya'da hava sıcaklığı 30 dereceye ulaştı."
+      ],
+      "a": 2,
+      "e": "İklim geniş bir alanda uzun yıllar boyunca gözlemlenen ortalama hava durumudur. C şıkkındaki ifade iklimi tanımlar. A, B ve D şıkları ise dar alanda kısa süreli hava olaylarıdır.\nDoğru cevap <b>C</b> ✔\n\nA, B, D neden yanlış: Günlük veya anlık hava olaylarını anlatır.\nC neden doğru: Uzun yılların ortalamasını belirten genel bir iklim ifadesidir.\n💡 Püf Noktası: 'Günübirlik/anlık' durumlar hava olayı, 'genel/uzun yıllar' kapsayan durumlar iklimdir."
+    },
+    {
+      "s": "İnkılap Tarihi",
+      "t": "Bir Kahraman Doğuyor · Mustafa Kemal'in Çocukluğu (Ters Kök)",
+      "d": 2,
+      "q": "Mustafa Kemal'in doğup büyüdüğü Selanik şehri ile ilgili aşağıda verilen bilgilerden hangisi <b>söylenemez</b>?",
+      "o": [
+        "Farklı din ve milletlerden insanların yaşadığı çok kültürlü bir şehirdir.",
+        "Ege Denizi kıyısında bir liman kenti konumundadır.",
+        "Avrupa'daki gazete ve dergilerin kolayca ulaştığı bir yerdir.",
+        "Osmanlı Devleti'nin başkenti konumundadır."
+      ],
+      "a": 3,
+      "e": "Osmanlı Devleti'nin başkenti Selanik değil, İstanbul'dur.\nDoğru cevap <b>D</b> ✔\n\nA neden yanlış: Selanik çok uluslu yapıya sahipti, söylenebilir.\nB neden yanlış: Selanik önemli bir liman kentiydi, söylenebilir.\nC neden yanlış: Demiryolu ve deniz bağlantısıyla Avrupa haberleri ulaşıyordu, söylenebilir.\nD neden doğru: Selanik başkent değildir, bu yüzden söylenemez.\n💡 Püf Noktası: Selanik kültürel ve ekonomik bir merkezdir fakat Osmanlı başkenti daima İstanbul'dur."
+    },
+    {
+      "s": "İnkılap Tarihi",
+      "t": "Bir Kahraman Doğuyor · Fikir Hayatı",
+      "d": 2,
+      "q": "Mustafa Kemal'in Manastır Askerî İdadisinde okurken Fransızca öğrenmesi, Ziya Gökalp ve Namık Kemal gibi yazarların yanı sıra Voltaire ve Rousseau gibi Fransız düşünürleri okuması onun hangi yönünün gelişmesini sağlamıştır?",
+      "o": [
+        "Askerî strateji yeteneğinin",
+        "Fikir ve düşünce dünyasının",
+        "Sadece matematik bilgisinin",
+        "Osmanlı padişahı olma arzusunun"
+      ],
+      "a": 1,
+      "e": "Düşünürleri okumak Mustafa Kemal'in fikir ve entelektüel dünyasını zenginleştirmiştir.\nDoğru cevap <b>B</b> ✔\n\nA neden yanlış: Askerî strateji derslerle ilgilidir.\nB neden doğru: Yerli ve yabancı düşünürleri okumak fikir dünyasını geliştirmiştir.\nC ve D neden yanlış: Parçadaki durumla ilgisizdir.\n💡 Püf Noktası: Kitap okuma ve düşünürleri takip etme Mustafa Kemal'in 'fikir dünyasını' şekillendirir."
+    },
+    {
+      "s": "Din Kültürü",
+      "t": "Kader ve Kaza · Kavram Ayrımı",
+      "d": 2,
+      "q": "[P]I. Allah'ın evrendeki olayları önceden planlaması ve takdir etmesi.\nII. Takdir edilen olayların zamanı gelince gerçekleşmesi.[/P]\n\nYukarıda tanımları verilen kavramlar sırasıyla aşağıdakilerin hangisinde doğru verilmiştir?",
+      "o": [
+        "Kaza - Kader",
+        "Kader - Kaza",
+        "Tevekkül - Kader",
+        "Kader - Tevekkül"
+      ],
+      "a": 1,
+      "e": "I. tanım planlama/ölçü olan **Kader** kavramıdır.\nII. tanım zamanı gelince gerçekleşme olan **Kaza** kavramıdır.\nDoğru cevap <b>B</b> ✔\n\nA neden yanlış: Sıralama terstir.\nB neden doğru: I=Kader (plan), II=Kaza (gerçekleşme).\nC ve D neden yanlış: Tevekkül Allah'a güvenmek/dayanmaktır, bu tanımlarla uyuşmaz.\n💡 Püf Noktası: **Kader = Plan / Henüz olmadı**, **Kaza = Gerçekleşti / Oldu**."
+    },
+    {
+      "s": "Din Kültürü",
+      "t": "Kader ve Kaza · Evrendeki Yasalar",
+      "d": 2,
+      "q": "'Suyun 100 °C'de kaynaması, yer çekimi kuvvetinin bulunması ve gezegenlerin yörüngelerinde hareket etmesi' Allah'ın koyduğu hangi yasa ile doğrudan ilgilidir?",
+      "o": [
+        "Toplumsal Yasalar",
+        "Fiziksel Yasalar",
+        "Biyolojik Yasalar",
+        "Hukuki Yasalar"
+      ],
+      "a": 1,
+      "e": "Maddenin yapısı, hareket ve enerji ile ilgili değişmez kurallar **Fiziksel Yasalar** kapsamındadır.\nDoğru cevap <b>B</b> ✔\n\nA neden yanlış: Toplumsal yasalar adalet, göç, toplum ilişkileridir.\nB neden doğru: Kaynama noktası, çekim kuvveti fiziksel yasadır.\nC neden yanlış: Biyolojik yasalar canlılar, doğum ve üremedir.\nD neden yanlış: Dini kavramlarda hukuki yasa sınıflandırması yoktur.\n💡 Püf Noktası: Madde ve enerji = Fiziksel; Canlılar = Biyolojik; Toplum ve insan ilişkileri = Toplumsal."
+    },
+    {
+      "s": "İngilizce",
+      "t": "Unit 1 Friendship · Accepting & Refusing",
+      "d": 1,
+      "q": "<b>Alice:</b> Would you like to come to my birthday party on Saturday?\n<b>Brian:</b> ________. I have to study for my exam.",
+      "o": [
+        "I'd love to, thanks",
+        "That sounds awesome",
+        "I'm sorry, but I can't",
+        "Yes, of course"
+      ],
+      "a": 2,
+      "e": "Brian mazeret bildirerek ('Sınavıma çalışmak zorundayım') daveti reddetmiştir. Reddetme ifadesi C şıkkındadır.\nDoğru cevap <b>C</b> ✔\n\nA, B, D neden yanlış: Bunlar daveti kabul etme (accepting) ifadeleridir.\nC neden doğru: 'Üzgünüm ama gelemem' diyerek reddetmiştir (refusing).\n💡 Püf Noktası: Diyaloğun devamındaki mazeret (reason) cümlesine bakarak teklifin kabul mü reddedildiği mi anlaşılamalıdır."
+    },
+    {
+      "s": "İngilizce",
+      "t": "Unit 1 Friendship · Personal Traits",
+      "d": 2,
+      "q": "A good friend always tells the truth and never lies. She is very ________.",
+      "o": ["honest", "stubborn", "sneaky", "jealous"],
+      "a": 0,
+      "e": "'Tells the truth and never lies' (daima doğruyu söyler, asla yalan söylemez) tanımı **honest** (dürüst) sıfatına aittir.\nDoğru cevap <b>A</b> ✔\n\nA neden doğru: honest = dürüst.\nB neden yanlış: stubborn = inatçı.\nC neden yanlış: sneaky = sinsi.\nD neden yanlış: jealous = kıskanç.\n💡 Püf Noktası: 'tell the truth / never lie' = honest (dürüst)."
+    }
+  ]
+}

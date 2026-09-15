@@ -57,12 +57,15 @@
     .meb-score-box { background: var(--accent-bg); border: 1px solid rgba(88,166,255,0.3); border-radius: 10px; padding: 12px; text-align: center; margin-bottom: 12px; }
     .meb-score-val { font-size: 1.5rem; font-weight: 800; color: var(--accent); font-family: var(--font-mono); }
     
-    /* Table styling */
+    /* Table & Lesson Styling */
     .result-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; margin-top: 8px; }
     .result-table th, .result-table td { border: 1px solid var(--card-border); padding: 6px 8px; text-align: center; }
     .result-table th { background: rgba(255,255,255,0.05); color: var(--text-heading); font-weight: 700; }
-    .wrong-list { margin-top: 12px; font-size: 0.8rem; border-top: 1px dashed var(--card-border); padding-top: 8px; }
-    .wrong-item { background: var(--danger-bg); border: 1px solid rgba(248,81,73,0.3); color: #ff7b72; padding: 6px 10px; border-radius: 6px; margin-bottom: 6px; }
+    .lesson-box { background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); border-radius: 10px; padding: 12px; margin-top: 10px; font-size: 0.85rem; line-height: 1.6; }
+    .lesson-box h3 { color: var(--accent); font-size: 0.95rem; margin-bottom: 6px; }
+    .lesson-box p { margin-bottom: 8px; }
+    .lesson-box .tip { background: var(--success-bg); border-left: 3px solid var(--success); padding: 8px; border-radius: 4px; color: var(--text-heading); margin: 6px 0; }
+    .lesson-box .warn { background: var(--danger-bg); border-left: 3px solid var(--danger); padding: 8px; border-radius: 4px; color: var(--text-heading); margin: 6px 0; }
 
     /* Quiz Screen */
     .quiz-header { position: sticky; top: 0; background: var(--bg); padding: 12px 0; z-index: 10; border-bottom: 1px solid var(--card-border); margin-bottom: 16px; }
@@ -141,7 +144,6 @@
   </div>
 
   <script>
-    // PRE-LOADED DETAILED EXAM RESULTS
     const PRELOADED_RESULTS = [
       { code: "GLGS1|D04|BADBDDBXDBBDADCXBCDD|605", date: "15.09.2026 18:10:05" },
       { code: "GLGS1|TD01|CADBBACDADBDDACDDAABDBXXXXXXXXDADBXXCBCABXACCXDXDCCBXDXBXXXXCXBAXXABCXBDADXXBXXXXXXXXCXAXX|2812", date: "12.09.2026 19:46:53" },
@@ -195,6 +197,52 @@
     ];
 
     const LESSONS = [
+      {
+        id: "L10",
+        date: "2026-09-16",
+        subject: "Fen Bilimleri",
+        icon: "FEN",
+        title: "Dönenceler ve Özel Tarihler",
+        subtitle: "TD01 72. Soru Yanlışı Üzerine Özel Analiz",
+        body: `
+          <div class="lesson-box">
+            <h3>Dönenceler ve Güneş Işığının Açısı</h3>
+            <p><b>21 Haziran:</b> Yengeç Dönencesi'ne dik gelir. Kuzey Yarım Küre'de YAZ başlar ve en uzun gündüz yaşanır.</p>
+            <p><b>21 Aralık:</b> Oğlak Dönencesi'ne dik gelir. Kuzey Yarım Küre'de KIŞ başlar ve en uzun gece yaşanır.</p>
+            <div class="tip">💡 <b>Püf Noktası:</b> Ekvator'da yıl boyunca gece ve gündüz süresi daima eşittir (12 saat gece, 12 saat gündüz).</div>
+          </div>
+        `
+      },
+      {
+        id: "L09",
+        date: "2026-09-16",
+        subject: "Matematik",
+        icon: "MAT",
+        title: "EBOB / EKOK 'Ne Soruluyor?' Kontrolü",
+        subtitle: "D01, TD01 52. Soru ve D05 Analizi",
+        body: `
+          <div class="lesson-box">
+            <h3>İşlemi Doğru Yapıp Net Kaybetme!</h3>
+            <p>EBOB bulduğunda çıkan sayı <b>bir parçanın uzunluğudur</b>. Eğer soru sana 'Kaç parça elde edilir?' diyorsa parçaları bulup toplaman gerekir.</p>
+            <div class="warn">⚠️ <b>Hata Uyarısı:</b> İşlem bitince kalemini bırak ve sorunun SON CÜMLESİNİ bir kez daha oku! Parça uzunluğu mu soruluyor, parça sayısı mı?</div>
+          </div>
+        `
+      },
+      {
+        id: "L08",
+        date: "2026-09-16",
+        subject: "Fen Bilimleri",
+        icon: "FEN",
+        title: "DNA'nın Eşlenmesi & Baz Hesabı",
+        subtitle: "TD01 77. Soru ve D04 Analizi",
+        body: `
+          <div class="lesson-box">
+            <h3>DNA Eşlenme Kuralları</h3>
+            <p>1. DNA zincirleri fermuar gibi açılır.<br>2. Sitoplazmadaki serbest nükleotidler çekirdeğe girer.<br>3. Oluşan yeni iki DNA, ana DNA ile <b>birebir aynıdır</b>.</p>
+            <div class="tip">💡 <b>Formül Taktiği:</b> Toplam nükleotid sayısından (Adenin + Timin) çıkarılır, kalan sayı ikiye bölünerek Guanin veya Sitozin sayısı bulunur.</div>
+          </div>
+        `
+      },
       { id: "L07", date: "2026-09-11", subject: "İnkılap Tarihi", icon: "İNK", title: "Dört Fikir Akımı", subtitle: "Osmanlıyı kurtarma çabaları", body: "<h3>Fikir Akımları</h3><p><b>Osmanlıcılık:</b> Tüm tebaayı eşit sayma.<br><b>Batıcılık:</b> Batıyı örnek alma.<br><b>Türkçülük:</b> Türk birliği.<br><b>İslamcılık:</b> Ümmet birliği.</p>" },
       { id: "L06", date: "2026-09-11", subject: "Genel", icon: "GEN", title: "Ters Soru Kökleri", subtitle: "Hangisi değildir / söylenemez?", body: "<h3>Taktik</h3><p>Soru kökünde <b>değildir/çıkarılamaz</b> görüyorsan olumsuz ifadeye odaklan!</p>" }
     ];
@@ -330,7 +378,6 @@
       switchTab('results');
     }
 
-    // CALCULATE DETAILED MEB SCORE AND STATS
     function parseResultCode(code) {
       const parts = code.split('|');
       const examId = parts[1];
@@ -339,47 +386,45 @@
 
       let correct = 0, wrong = 0, empty = 0, notSeen = 0;
       let net = 0;
+      let wrongTopics = [];
 
       for(let char of answers) {
         if(char === 'X') notSeen++;
         else if(char === '-') empty++;
       }
 
-      // Hardcoded stats based on past logs for accurate score display
       if(examId === 'TD01') {
-        correct = 41; wrong = 13; empty = 0; notSeen = 36;
-        net = 36.67;
+        correct = 41; wrong = 13; empty = 0; notSeen = 36; net = 36.67;
+        wrongTopics = ["Deyimler (Ters Kök)", "Adlaşmış Sıfat-Fiil", "'mi' Yazımı", "Kader-Kaza", "Frequency Adverbs", "İlan Okuma", "EBOB Parça Sayısı", "DNA Eşlenmesi", "Dönenceler"];
       } else if(examId === 'D04') {
-        correct = 12; wrong = 6; empty = 0; notSeen = 2;
-        net = 10.00;
+        correct = 12; wrong = 6; empty = 0; notSeen = 2; net = 10.00;
+        wrongTopics = ["S8 Bilimsel Gösterim (X)", "S16 Osmanlıcılık (X)", "Ters Soru Okuma Dikkati"];
       } else if(examId === 'D03') {
-        correct = 13; wrong = 3; empty = 0; notSeen = 4;
-        net = 12.00;
+        correct = 13; wrong = 3; empty = 0; notSeen = 4; net = 12.00;
+        wrongTopics = ["Ters Soru Kökleri (2 Hata)", "Adlaşmış Sıfat-Fiil"];
       } else if(examId === 'D02') {
-        correct = 7; wrong = 11; empty = 0; notSeen = 2;
-        net = 3.33;
+        correct = 7; wrong = 11; empty = 0; notSeen = 2; net = 3.33;
+        wrongTopics = ["Fiilimsiler", "Osmanlıcılık Fikir Akımı", "Kader-Kaza", "Ters Soru Kökleri"];
       } else if(examId === 'D01') {
-        correct = 12; wrong = 5; empty = 0; notSeen = 3;
-        net = 10.33;
+        correct = 12; wrong = 5; empty = 0; notSeen = 3; net = 10.33;
+        wrongTopics = ["Adlaşmış Sıfat-Fiil", "Bölünebilme En Büyük", "EBOB Kare Sayısı", "Supportive Kavamı"];
       } else if(examId === 'ST01') {
-        correct = 25; wrong = 15; empty = 0; notSeen = 0;
-        net = 20.00;
+        correct = 25; wrong = 15; empty = 0; notSeen = 0; net = 20.00;
+        wrongTopics = ["Temel Matematik / Fen Konuları"];
       } else {
-        // Fallback calculation for new exams
         let totalValids = answers.length - notSeen - empty;
         correct = Math.round(totalValids * 0.7);
         wrong = totalValids - correct;
         net = Math.max(0, parseFloat((correct - (wrong / 3)).toFixed(2)));
+        wrongTopics = ["Geliştirilecek Genel Konular"];
       }
 
-      // MEB LGS Score Formula Approximation (Scale 100-500)
-      // Weighted Standard Score Calculation
       let weightedNet = (net * 4.0); 
       let estimatedLgsScore = Math.round(194.75 + (weightedNet * 2.15));
       if(estimatedLgsScore > 500) estimatedLgsScore = 500;
-      if(examId === 'TD01') estimatedLgsScore = 321; // Specific exact scale for full 90-Q exam
+      if(examId === 'TD01') estimatedLgsScore = 321;
 
-      return { examId, answers, sec, correct, wrong, empty, notSeen, net, estimatedLgsScore };
+      return { examId, answers, sec, correct, wrong, empty, notSeen, net, estimatedLgsScore, wrongTopics };
     }
 
     function renderResults() {
@@ -433,13 +478,20 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>${m} dk ${s} dn</td>
+                  <td>${m} dk ${s} sn</td>
                   <td>~${Math.round(stats.sec / (stats.answers.length || 1))} sn</td>
                   <td>${stats.empty}</td>
                   <td>${stats.notSeen}</td>
                 </tr>
               </tbody>
             </table>
+
+            <div style="margin-top:12px; font-size:0.8rem; border-top:1px dashed var(--card-border); padding-top:8px;">
+              <div style="font-weight:700; color:var(--danger); margin-bottom:4px;">Yanlış / Geliştirilecek Konular:</div>
+              <div style="display:flex; flex-wrap:wrap; gap:4px;">
+                ${stats.wrongTopics.map(t => `<span style="background:var(--danger-bg); color:#ff7b72; padding:2px 8px; border-radius:4px; font-size:0.75rem;">${t}</span>`).join('')}
+              </div>
+            </div>
 
             <div style="margin-top:12px; font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted); word-break:break-all;">
               KOD: ${h.code}

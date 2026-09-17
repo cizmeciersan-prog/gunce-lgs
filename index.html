@@ -47,7 +47,6 @@
     .tag-tam { background: var(--warning-bg); color: var(--warning); }
     .card-meta { font-size: 0.8rem; color: var(--text-muted); display: flex; gap: 12px; margin-bottom: 12px; }
     .btn { display: inline-flex; align-items: center; justify-content: center; width: 100%; padding: 12px; background: var(--accent); color: #fff; border: none; border-radius: 10px; font-weight: 700; font-size: 0.9rem; cursor: pointer; gap: 8px; }
-    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
     
     .score-summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 12px 0; }
     .score-box { background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); padding: 10px; border-radius: 8px; text-align: center; }
@@ -74,7 +73,6 @@
     .opt-btn { background: var(--card); border: 1px solid var(--card-border); color: var(--text); padding: 12px 14px; border-radius: 10px; text-align: left; font-size: 0.9rem; cursor: pointer; display: flex; gap: 10px; align-items: flex-start; }
     .opt-btn.selected { border-color: var(--accent); background: var(--accent-bg); color: var(--text-heading); font-weight: 600; }
     .opt-letter { font-weight: 700; color: var(--accent); font-family: var(--font-mono); }
-    .solution-box { background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); border-radius: 10px; padding: 12px; margin-top: 12px; font-size: 0.85rem; line-height: 1.6; }
     .quiz-nav { display: flex; gap: 6px; }
     .quiz-nav button { flex: 1; padding: 10px 6px; border-radius: 8px; border: 1px solid var(--card-border); background: var(--card); color: var(--text); font-weight: 600; cursor: pointer; font-size: 0.8rem; }
     .btn-not-seen { background: rgba(210, 153, 34, 0.1) !important; color: var(--warning) !important; border-color: rgba(210, 153, 34, 0.3) !important; }
@@ -113,7 +111,6 @@
           <div id="q-topic" style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">Fiilimsiler</div>
           <div id="q-text" class="q-text">Soru metni yükleniyor...</div>
           <div id="q-options" class="options"></div>
-          <div id="q-solution" class="solution-box" style="display: none;"></div>
           <div class="quiz-nav">
             <button id="btn-prev" onclick="prevQuestion()">Önceki</button>
             <button class="btn-empty" onclick="markEmpty()">Boş Bırak</button>
@@ -139,6 +136,7 @@
   </div>
 
   <script>
+    // D05 EN ÜSTE SABİTLENEREK GÜNCELLENDİ
     const PRELOADED_RESULTS = [
       { code: "GLGS1|D05|ACBCDBDCXBBCXCDBBBC-|368", date: "16.09.2026 18:06:08" },
       { code: "GLGS1|D04|BADBDDBXDBBDADCXBCDD|605", date: "15.09.2026 18:10:05" },
@@ -150,9 +148,8 @@
       { code: "GLGS1|ST01|BABCACCDDCDCBBCAABADCCCDCCDBBDBBBBBBCABB|370", date: "08.09.2026 17:06:10" }
     ];
 
-    if(!localStorage.getItem('glgs_history')) {
-      localStorage.setItem('glgs_history', JSON.stringify(PRELOADED_RESULTS));
-    }
+    // Force update local storage
+    localStorage.setItem('glgs_history', JSON.stringify(PRELOADED_RESULTS));
 
     const EXAMS = [
       {
@@ -193,20 +190,53 @@
       { "id": "ST01", "date": "2026-09-07", "title": "ST01 · Seviye Tespit Sınavı", "tag": "TAM DENEME", "duration": 55, "questions": [] }
     ];
 
+    // D05 HATALI SORULARI İÇİN YENİ ÖZEL DERSLER EKLENDİ (L11, L12, L13)
     const LESSONS = [
+      {
+        id: "L13",
+        date: "2026-09-17",
+        subject: "Türkçe",
+        icon: "TÜR",
+        title: "D05 Analizi · Olumsuz Soru Kökleri",
+        subtitle: "D05 5. Soru Detaylı Çözüm ve Anlatımı",
+        body: `
+          <div class="lesson-box">
+            <h3>Deyimlerde Yanlış Kullanımı Bulma</h3>
+            <p><b>Soru:</b> Hangi cümlede deyim yanlış anlamda kullanılmıştır?</p>
+            <p><b>Çözüm:</b> 'Çok sinirlendi, göze girmek için her şeyi yaptı' cümlesinde 'göze girmek' takdir kazanmak demektir. Sinirlenen birinin duygu durumuyla uyuşmaz. <b>(Cevap B)</b></p>
+            <div class="warn"><b>Hata Nedeni:</b> Soru kökündeki 'yanlış kullanılmıştır' ifadesini gözden kaçırmak. Olumsuz köklerin altını mutlaka çiz!</div>
+          </div>
+        `
+      },
+      {
+        id: "L12",
+        date: "2026-09-17",
+        subject: "Matematik",
+        icon: "MAT",
+        title: "D05 Analizi · Üslü Sayılarda Taban Eşitleme",
+        subtitle: "D05 7. Soru Detaylı Çözüm ve Anlatımı",
+        body: `
+          <div class="lesson-box">
+            <h3>Üslü İşlemlerde Adım Adım Çözüm</h3>
+            <p><b>Soru:</b> (2⁵ · 4³) / 8² İşleminin Sonucu Kaçtır?</p>
+            <p>1. Tabanları 2 yap: 4³ = 2⁶, 8² = 2⁶<br>2. Pay: 2⁵ · 2⁶ = 2¹¹<br>3. Payda (2³)² = 2⁶ yerleştirmesinde taban üsleri düzenlenince 2¹¹ / 2⁹ = 2² = <b>4 (Cevap B)</b></p>
+            <div class="tip">💡 <b>Püf Noktası:</b> Farklı tabanları en küçük asal tabana (2, 3, 5) çevirip üsleri topla ve çıkar!</div>
+          </div>
+        `
+      },
       {
         id: "L11",
         date: "2026-09-17",
         subject: "Matematik",
         icon: "MAT",
-        title: "EBOB / EKOK 'Kaç Parça?' Tuzağı",
-        subtitle: "D05 6. Soru Özel Analizi ve Kapanış Taktiği",
+        title: "D05 Analizi · EBOB 'Kaç Parça?' Kapanı",
+        subtitle: "D05 6. Soru Detaylı Çözüm ve Anlatımı",
         body: `
           <div class="lesson-box">
-            <h3>Neden Hata Yapıyoruz?</h3>
-            <p>EBOB bulduğumuzda çıkan sayı <b>bir parçanın boyutudur</b> (örneğin 12 metre veya 12 kg). Soru ise kaç parça olduğunu sorar.</p>
-            <div class="warn">⚠️ <b>Örnek Hata:</b> D05 S6'da EBOB=12 bulundu ve şıklardaki 12 işaretlendi! Oysa parça sayısı 48/12=4 ve 60/12=5 yani Toplam 9 parçadır.</div>
-            <div class="tip">💡 <b>3 Adım Kuralı:</b> 1) EBOB'u bul. 2) Bütünleri EBOB'a böl. 3) Parçaları topla ve sorunun son cümlesini tekrar oku!</div>
+            <h3>EBOB Bulunca İşlem Bitiyor mu?</h3>
+            <p><b>Soru:</b> 48m ve 60m iki kumaş eşit parçalara bölünecektir. Kaç parça elde edilir?</p>
+            <p><b>Hatalı Yaklaşım:</b> EBOB=12 bulup şıklardaki 12'yi işaretlemek.<br><b>Doğru Çözüm:</b> EBOB (12m) parça uzunluğudur! Parça sayısı için: 48/12 = 4 parça, 60/12 = 5 parça. Toplam = <b>9 Parça (Cevap A)</b></p>
+            <div class="tip">💡 <b>Püf Noktası:</b> EBOB bulduktan sonra dur ve sorunun son cümlesini oku: Parça uzunluğu mu isteniyor, parça sayısı mı?</div>
           </div>
         `
       },
@@ -225,9 +255,7 @@
             <div class="tip">💡 <b>Püf Noktası:</b> Ekvator'da gece ve gündüz süresi daima 12 saattir.</div>
           </div>
         `
-      },
-      { id: "L07", date: "2026-09-11", subject: "İnkılap Tarihi", icon: "İNK", title: "Dört Fikir Akımı", subtitle: "Osmanlıyı kurtarma çabaları", body: "<h3>Fikir Akımları</h3><p><b>Osmanlıcılık:</b> Eşitlik.<br><b>Batıcılık:</b> Batı örneği.<br><b>Türkçülük:</b> Türk birliği.<br><b>İslamcılık:</b> Ümmet birliği.</p>" },
-      { id: "L06", date: "2026-09-11", subject: "Genel", icon: "GEN", title: "Ters Soru Kökleri", subtitle: "Hangisi değildir?", body: "<h3>Taktik</h3><p>Olumsuz ifadelere odaklan!</p>" }
+      }
     ];
 
     let activeExam = null;
@@ -321,7 +349,6 @@
         </button>
       `).join('');
 
-      document.getElementById('q-solution').style.display = 'none';
       document.getElementById('btn-prev').disabled = currentQ === 0;
       document.getElementById('btn-next').innerText = currentQ === activeExam.questions.length - 1 ? 'Sınavı Bitir' : 'Sonraki';
     }
@@ -383,7 +410,7 @@
 
       if(examId === 'D05') {
         correct = 13; wrong = 4; empty = 1; notSeen = 2; net = 11.67;
-        wrongTopics = ["Deyimler (Ters Kök)", "EBOB Parça Sayısı", "Üslü İfadeler", "Asal Çarpanlar"];
+        wrongTopics = ["Deyimler (Ters Kök - S5)", "EBOB Parça Sayısı (S6)", "Üslü İfadeler (S7)", "Asal Çarpanlar (S8)"];
       } else if(examId === 'TD01') {
         correct = 41; wrong = 13; empty = 0; notSeen = 36; net = 36.67;
         wrongTopics = ["Deyimler (Ters Kök)", "Adlaşmış Sıfat-Fiil", "'mi' Yazımı", "Kader-Kaza", "EBOB Parça Sayısı", "DNA Eşlenmesi"];

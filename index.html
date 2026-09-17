@@ -49,7 +49,6 @@
     .btn { display: inline-flex; align-items: center; justify-content: center; width: 100%; padding: 12px; background: var(--accent); color: #fff; border: none; border-radius: 10px; font-weight: 700; font-size: 0.9rem; cursor: pointer; gap: 8px; }
     .btn:disabled { opacity: 0.5; cursor: not-allowed; }
     
-    /* Detailed Score Grid */
     .score-summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 12px 0; }
     .score-box { background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); padding: 10px; border-radius: 8px; text-align: center; }
     .score-val { font-size: 1.1rem; font-weight: 800; color: var(--text-heading); font-family: var(--font-mono); }
@@ -57,7 +56,6 @@
     .meb-score-box { background: var(--accent-bg); border: 1px solid rgba(88,166,255,0.3); border-radius: 10px; padding: 12px; text-align: center; margin-bottom: 12px; }
     .meb-score-val { font-size: 1.5rem; font-weight: 800; color: var(--accent); font-family: var(--font-mono); }
     
-    /* Table & Lesson Styling */
     .result-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; margin-top: 8px; }
     .result-table th, .result-table td { border: 1px solid var(--card-border); padding: 6px 8px; text-align: center; }
     .result-table th { background: rgba(255,255,255,0.05); color: var(--text-heading); font-weight: 700; }
@@ -67,7 +65,6 @@
     .lesson-box .tip { background: var(--success-bg); border-left: 3px solid var(--success); padding: 8px; border-radius: 4px; color: var(--text-heading); margin: 6px 0; }
     .lesson-box .warn { background: var(--danger-bg); border-left: 3px solid var(--danger); padding: 8px; border-radius: 4px; color: var(--text-heading); margin: 6px 0; }
 
-    /* Quiz Screen */
     .quiz-header { position: sticky; top: 0; background: var(--bg); padding: 12px 0; z-index: 10; border-bottom: 1px solid var(--card-border); margin-bottom: 16px; }
     .quiz-progress { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; }
     .progress-bar { height: 6px; background: var(--card-border); border-radius: 3px; overflow: hidden; }
@@ -78,9 +75,10 @@
     .opt-btn.selected { border-color: var(--accent); background: var(--accent-bg); color: var(--text-heading); font-weight: 600; }
     .opt-letter { font-weight: 700; color: var(--accent); font-family: var(--font-mono); }
     .solution-box { background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); border-radius: 10px; padding: 12px; margin-top: 12px; font-size: 0.85rem; line-height: 1.6; }
-    .quiz-nav { display: flex; gap: 8px; }
-    .quiz-nav button { flex: 1; padding: 10px; border-radius: 8px; border: 1px solid var(--card-border); background: var(--card); color: var(--text); font-weight: 600; cursor: pointer; }
+    .quiz-nav { display: flex; gap: 6px; }
+    .quiz-nav button { flex: 1; padding: 10px 6px; border-radius: 8px; border: 1px solid var(--card-border); background: var(--card); color: var(--text); font-weight: 600; cursor: pointer; font-size: 0.8rem; }
     .btn-not-seen { background: rgba(210, 153, 34, 0.1) !important; color: var(--warning) !important; border-color: rgba(210, 153, 34, 0.3) !important; }
+    .btn-empty { background: rgba(255, 255, 255, 0.05) !important; color: var(--text-muted) !important; }
   </style>
 </head>
 <body>
@@ -98,12 +96,10 @@
     </header>
 
     <main>
-      <!-- EXAMS SECTION -->
       <section id="sec-exams" class="section active">
         <div id="exam-list"></div>
       </section>
 
-      <!-- QUIZ SECTION -->
       <section id="sec-quiz" class="section">
         <div class="quiz-header">
           <div class="quiz-progress">
@@ -120,18 +116,17 @@
           <div id="q-solution" class="solution-box" style="display: none;"></div>
           <div class="quiz-nav">
             <button id="btn-prev" onclick="prevQuestion()">Önceki</button>
+            <button class="btn-empty" onclick="markEmpty()">Boş Bırak</button>
             <button class="btn-not-seen" onclick="markNotSeen()">Görmedik</button>
             <button id="btn-next" onclick="nextQuestion()">Sonraki</button>
           </div>
         </div>
       </section>
 
-      <!-- LESSONS SECTION -->
       <section id="sec-lessons" class="section">
         <div id="lesson-list"></div>
       </section>
 
-      <!-- RESULTS SECTION -->
       <section id="sec-results" class="section">
         <div class="card">
           <div class="card-title" style="margin-bottom: 8px;">Sonuç Arşivi & Detaylı Analiz</div>
@@ -145,6 +140,7 @@
 
   <script>
     const PRELOADED_RESULTS = [
+      { code: "GLGS1|D05|ACBCDBDCXBBCXCDBBBC-|368", date: "16.09.2026 18:06:08" },
       { code: "GLGS1|D04|BADBDDBXDBBDADCXBCDD|605", date: "15.09.2026 18:10:05" },
       { code: "GLGS1|TD01|CADBBACDADBDDACDDAABDBXXXXXXXXDADBXXCBCABXACCXDXDCCBXDXBXXXXCXBAXXABCXBDADXXBXXXXXXXXCXAXX|2812", date: "12.09.2026 19:46:53" },
       { code: "GLGS1|D03|DBCABCXABBDXCBXBCBDX|735", date: "11.09.2026 18:12:15" },
@@ -160,34 +156,35 @@
 
     const EXAMS = [
       {
-        "id": "D05",
-        "date": "2026-09-16",
-        "title": "D05 · Mini Deneme",
+        "id": "D06",
+        "date": "2026-09-17",
+        "title": "D06 · Mini Deneme",
         "tag": "MİNİ",
         "duration": 30,
         "questions": [
-          { "s": "Türkçe", "t": "Fiilimsiler · Adlaşmış sıfat-fiil", "d": 2, "q": "Sıfat-fiiller, niteledikleri isim düştüğünde onun yerine geçerek adlaşır.\n\n[P]I. Gelen gideni aratır derler.\nII. Koşan çocuk aniden yere düştü.\nIII. Okuduğum kitapları kütüphaneye bağışladım.\nIV. Eskiyen elbiseleri geri dönüşüme verdi.[/P]\n\nYukarıdaki numaralanmış cümlelerin hangisinde adlaşmış sıfat-fiil kullanılmıştır?", "o": ["I", "II", "III", "IV"], "a": 0, "e": "Adlaşmış sıfat-fiil için sağında isim olmaması gerekir. I. cümlede 'Gelen' ve 'gideni' sözcüklerinde isimler düşmüştür." },
-          { "s": "Türkçe", "t": "Cümlede Anlam · Çıkarılamaz (Ters Kök)", "d": 2, "q": "[P]Başarıya ulaşan insanların ortak özelliği, karşılaştıkları engelleri birer engel olarak değil, aşılması gereken birer basamak olarak görmeleridir. Onlar hatalarından ders çıkarır ve yola daha güçlü devam ederler.[/P]\n\nBu metinden aşağıdakilerden hangisi <b>çıkarılamaz</b>?", "o": ["Başarılı insanlar engelleri fırsata dönüştürür.", "Hatalar, kişisel gelişim için birer ders olabilir.", "Başarılı insanlar hiçbir zaman hata yapmazlar.", "Zorluklar karşısında yılmamak başarı getirir."], "a": 2, "e": "Metinde hatalarından ders çıkardıkları yazmaktadır. Hata yapmadıkları yargısı çıkarılamaz." },
-          { "s": "Türkçe", "t": "Parçada Anlam · Ana Fikir", "d": 2, "q": "[P]Kitap okumak sadece kelime hazinesini geliştirmekle kalmaz, insanın olaylara farklı açılardan bakmasını da sağlar. Düzenli okuyan bireyler, karmaşık problemleri daha hızlı ve etkili şekilde çözerler.[/P]\n\nBu metnin ana düşüncesi aşağıdakilerden hangisidir?", "o": ["En çok okunan kitaplar problem çözme üzerine olanlardır.", "Kitap okumak zihinsel becerileri ve bakış açısını zenginleştirir.", "Kelime hazinesini geliştirmenin tek yolu kitap okumaktır.", "Problemlerimizi çözmek için çok kitap satın almalıyız."], "a": 1, "e": "Metnin bütününde kitap okumanın zihinsel katkıları ve bakış açısına faydası vurgulanmaktadır." },
-          { "s": "Türkçe", "t": "Yazım Kuralları · 'mi' Ekinin Yazımı", "d": 1, "q": "Aşağıdaki cümlelerin hangisinde 'mi' ekinin yazımı ile ilgili bir <b>yanlışlık</b> yapılmıştır?", "o": ["Sen de bizimle sinemaya gelecek misin?", "Ders bitti mi hemen dışarı koşardı.", "Bu sorunun cevabını biliyormusun?", "Güzel mi güzel bir bahçeleri vardı."], "a": 2, "e": "Soru edatı olan 'mi' ayrı yazılmalıdır ('biliyor musun?')." },
-          { "s": "Türkçe", "t": "Sözcükte Anlam · Deyimler (Ters Kök)", "d": 2, "q": "Aşağıdaki cümlelerin hangisinde deyim <b>yanlış</b> anlamda kullanılmıştır?", "o": ["O kadar sevinçliydi ki ağzı kulaklarına varıyordu.", "Çok sinirlendi, göze girmek için her şeyi yaptı.", "Sınavı kazandığını duyunca etekleri zil çaldı.", "Gürültüyü duyunca kulak kabartıp dinlemeye başladı."], "a": 1, "e": "'Göze girmek' deyimi ilgi/takdir kazanmaktır. Sinirlenme durumuyla örtüşmez." },
-          { "s": "Matematik", "t": "Çarpanlar ve Katlar · EBOB Problemleri", "d": 2, "q": "Uzunlukları 48 metre ve 60 metre olan iki kumaş, eşit uzunluktaki en büyük parçalara bölünecektir.\n\nBuna göre toplam <b>kaç parça</b> kumaş elde edilir?", "o": ["9", "12", "15", "18"], "a": 0, "e": "EBOB(48, 60) = 12 metredir. 48/12 = 4, 60/12 = 5 -> Toplam 9 parça." },
-          { "s": "Matematik", "t": "Üslü İfadeler · Çarpma ve Bölme", "d": 2, "q": "İşlemin sonucu kaçtır?\n\n[P] (2⁵ · 4³) / 8² [/P]", "o": ["2", "4", "8", "16"], "a": 1, "e": "2¹¹ / 2⁹ = 2² = 4." },
-          { "s": "Matematik", "t": "Çarpanlar ve Katlar · Asal Çarpanlar", "d": 1, "q": "90 sayısının farklı asal çarpanlarının toplamı kaçtır?", "o": ["8", "10", "12", "15"], "a": 1, "e": "90 = 2 · 3² · 5. Asal çarpanlar: 2, 3, 5 -> Toplam = 10." },
-          { "s": "Matematik", "t": "Üslü İfadeler · 10'un Kuvvetleri", "d": 2, "q": "0,00045 sayısının 10'un kuvvetleri şeklinde gösterimi hangisidir?", "o": ["4,5 · 10⁻⁴", "45 · 10⁻⁵", "4,5 · 10⁻³", "45 · 10⁻⁴"], "a": 0, "e": "Virgül 4 basamak sağa kayarsa üs -4 olur -> 4,5 · 10⁻⁴." },
-          { "s": "Matematik", "t": "Çarpanlar ve Katlar · EKOK Problemleri", "d": 2, "q": "İki zilden birincisi 15 dakikada, ikincisi 20 dakikada bir çalıyor. Saat 08.00'de birlikte çaldıktan sonra ilk kez saat kaçta tekrar birlikte çalarlar?", "o": ["08.45", "09.00", "09.15", "09.30"], "a": 1, "e": "EKOK(15, 20) = 60 dk (1 saat). 08.00 + 1 saat = 09.00." },
-          { "s": "Fen Bilimleri", "t": "DNA ve Genetik Kod · Nükleotid Hesabı", "d": 2, "q": "Bir DNA molekülünde toplam 1200 nükleotid vardır. 200 adet Adenin olduğuna göre <b>Guanin sayısı</b> kaçtır?", "o": ["200", "400", "600", "800"], "a": 1, "e": "A = 200 ise T = 200 (A+T = 400). Kalan 800/2 = 400 Guanin." },
-          { "s": "Fen Bilimleri", "t": "Mevsimler ve İklim · Özel Tarihler", "d": 2, "q": "21 Haziran tarihinde gerçekleşen durumlar için aşağıdakilerden hangisi doğrudur?", "o": ["Kuzey Yarım Küre'de en uzun gece yaşanır.", "Güney Yarım Küre'de yaz başlar.", "Kuzey Yarım Küre'de en uzun gündüz yaşanır.", "Gece-gündüz süreleri eşittir."], "a": 2, "e": "21 Haziran Kuzey Yarım Küre'de en uzun gündüzün yaşandığı yaz başlangıcıdır." },
-          { "s": "Fen Bilimleri", "t": "DNA ve Genetik Kod · DNA Eşlenmesi", "d": 3, "q": "DNA'nın kendini eşlemesiyle ilgili verilen ifadelerden hangisi <b>yanlıştır</b>?", "o": ["Bağlar fermuar gibi açılır.", "Serbest nükleotidler çekirdeğe girer.", "Birbirinden tamamen farklı iki DNA oluşur.", "Yeni DNA'ların bir zinciri eski DNA'ya aittir."], "a": 2, "e": "Eşlenme sonucu oluşan DNA'lar ana DNA ile birebir aynıdır." },
-          { "s": "Fen Bilimleri", "t": "Mevsimler ve İklim · İklim", "d": 1, "q": "Aşağıdakilerden hangisi bir bölgenin <b>iklimi</b> ile ilgili ifadedir?", "o": ["Yarın İzmir'de yağmur bekleniyor.", "Sabah saatlerinde sis etkili oldu.", "Doğu Anadolu'da kışlar soğuk ve kar yağışlı geçer.", "Bugün hava sıcaklığı 30 derece."], "a": 2, "e": "Uzun yılların ortalamasını belirten ifadeler iklimdir." },
-          { "s": "İnkılap Tarihi", "t": "Bir Kahraman Doğuyor · Selanik", "d": 2, "q": "Mustafa Kemal'in doğduğu Selanik ile ilgili verilenlerden hangisi <b>söylenemez</b>?", "o": ["Çok kültürlü bir şehirdir.", "Liman kenti konumundadır.", "Avrupa yayınları kolayca ulaşırdı.", "Osmanlı Devleti'nin başkentidir."], "a": 3, "e": "Osmanlı Devleti'nin başkenti İstanbul'dur." },
-          { "s": "İnkılap Tarihi", "t": "Bir Kahraman Doğuyor · Fikir Hayatı", "d": 2, "q": "Mustafa Kemal'in gençliğinde yerli ve yabancı düşünürleri okuması onun hangi yönünü geliştirmiştir?", "o": ["Askerî stratejisini", "Fikir ve düşünce dünyasını", "Sadece matematiğini", "Padişah olma arzusunu"], "a": 1, "e": "Düşünürleri okumak fikir ve entelektüel dünyasını zenginleştirmiştir." },
-          { "s": "Din Kültürü", "t": "Kader ve Kaza · Kavram Ayrımı", "d": 2, "q": "[P]I. Allah'ın olayları önceden planlaması.\nII. Planlanan olayların zamanı gelince gerçekleşmesi.[/P]\n\nVerilen tanımlar sırasıyla hangileridir?", "o": ["Kaza - Kader", "Kader - Kaza", "Tevekkül - Kader", "Kader - Tevekkül"], "a": 1, "e": "I = Kader (Plan), II = Kaza (Gerçekleşme)." },
-          { "s": "Din Kültürü", "t": "Kader ve Kaza · Evrendeki Yasalar", "d": 2, "q": "'Suyun 100 °C'de kaynaması ve yer çekimi kuvveti' hangi yasa ile ilgilidir?", "o": ["Toplumsal Yasalar", "Fiziksel Yasalar", "Biyolojik Yasalar", "Hukuki Yasalar"], "a": 1, "e": "Madde ve enerji ile ilgili olaylar Fiziksel Yasalar kapsamındadır." },
-          { "s": "İngilizce", "t": "Unit 1 Friendship · Accepting/Refusing", "d": 1, "q": "<b>Alice:</b> Would you like to come to my party?\n<b>Brian:</b> ________. I have to study for my exam.", "o": ["I'd love to, thanks", "That sounds awesome", "I'm sorry, but I can't", "Yes, of course"], "a": 2, "e": "Sınav mazereti olan biri daveti reddeder ('I'm sorry, but I can't')." },
-          { "s": "İngilizce", "t": "Unit 1 Friendship · Personal Traits", "d": 2, "q": "A good friend always tells the truth and never lies. She is very ________.", "o": ["honest", "stubborn", "sneaky", "jealous"], "a": 0, "e": "Yalan söylemeyen kişi dürüsttür (honest)." }
+          { "s": "Türkçe", "t": "Fiilimsiler · Adlaşmış Sıfat-Fiil", "d": 2, "q": "Aşağıdaki cümlelerin hangisinde adlaşmış sıfat-fiil kullanılmıştır?", "o": ["Sınava çalışan öğrenciler başarılı olur.", "Söyleyecek sözüm kalmadı artik.", "Bize katılanları sevgiyle karşıladık.", "Kırılan bardağı çöpe attı."], "a": 2, "e": "'Katılanları' -> Katılan insanları (İsim düşmüş, adlaşmıştır)." },
+          { "s": "Türkçe", "t": "Cümlede Anlam · Olumsuz Kök", "d": 2, "q": "Bu parçadan hareketle aşağıdakilerden hangisi <b>çıkarılamaz</b>?", "o": ["Zamanı yönetmek başarı getirir.", "Ertelemek zihinsel yorgunluğu artırır.", "Başarılı insanlar hiç mola vermezler.", "Planlı çalışmak stresi azaltır."], "a": 2, "e": "Başarılı insanların hiç mola vermediği yargısı çıkarılamaz." },
+          { "s": "Türkçe", "t": "Yazım Kuralları · 'mi' Eki", "d": 1, "q": "Hangi cümlede 'mi' ekinin yazımı <b>yanlıştır</b>?", "o": ["Sende bizimle gelecek misin?", "Ders bittimi haberdar et.", "Güzel mi güzel bir akşam.", "Okudun mu bu kitabı?"], "a": 1, "e": "'bittimi' birleşik yazılmış, ayrı olmalıdır." },
+          { "s": "Türkçe", "t": "Sözcükte Anlam · Deyimler", "d": 2, "q": "Aşağıdaki cümlelerin hangisinde deyim <b>yanlış</b> anlamda kullanılmıştır?", "o": ["Sınavı kazanınca göze geldi.", "Sevinçten etekleri zil çaldı.", "Sessizce kulak kabarttı.", "Heyecandan dili tutuldu."], "a": 0, "e": "'Göze gelmek' nazar değmektir, sevinçle örtüşmez." },
+          { "s": "Türkçe", "t": "Parçada Anlam · Ana Düşünce", "d": 2, "q": "Bu metinde asıl vurgulanmak istenen aşağıdakilerden hangisidir?", "o": ["Kitap okumak sadece zaman geçirmektir.", "Düzenli okumak bakış açısını zenginleştirir.", "En iyi kitaplar romanlardır.", "Kütüphaneler çoğaltılmalıdır."], "a": 1, "e": "Düzenli okumanın zihinsel zenginliği vurgulanmaktadır." },
+          { "s": "Matematik", "t": "Çarpanlar ve Katlar · EBOB Parça Sayısı", "d": 2, "q": "36 kg ve 48 kg bal eşit hacimli en büyük kavanozlara doldurulacaktır. Toplam <b>kaç kavanoz</b> gerekir?", "o": ["12", "7", "5", "4"], "a": 1, "e": "EBOB(36, 48) = 12 kg. 36/12 = 3, 48/12 = 4 -> Toplam 3+4 = 7 kavanoz." },
+          { "s": "Matematik", "t": "Üslü İfadeler · Çarpma Bölme", "d": 2, "q": "(3⁴ · 9²) / 27² işleminin sonucu kaçtır?", "o": ["3", "9", "27", "81"], "a": 1, "e": "(3⁴ · 3⁴) / 3⁶ = 3⁸ / 3⁶ = 3² = 9." },
+          { "s": "Matematik", "t": "Çarpanlar ve Katlar · Asal Çarpanlar", "d": 1, "q": "60 sayısının farklı asal çarpanlarının toplamı kaçtır?", "o": ["10", "12", "15", "20"], "a": 0, "e": "60 = 2² · 3 · 5 -> Asal çarpanlar: 2, 3, 5 -> Toplam = 10." },
+          { "s": "Matematik", "t": "Üslü İfadeler · 10'un Kuvvetleri", "d": 2, "q": "0,000078 sayısının bilimsel gösterimi hangisidir?", "o": ["7,8 · 10⁻⁵", "78 · 10⁻⁶", "0,78 · 10⁻⁴", "7,8 · 10⁻⁶"], "a": 0, "e": "Virgül 5 basamak sağa kayar -> 7,8 · 10⁻⁵." },
+          { "s": "Matematik", "t": "Çarpanlar ve Katlar · EKOK Problemleri", "d": 2, "q": "İki otobüsten biri 12 dakikada, diğeri 18 dakikada bir sefer yapıyor. İlk kez 10.00'da birlikte hareket eden otobüsler tekrar ne zaman birlikte hareket eder?", "o": ["10.24", "10.36", "10.48", "11.00"], "a": 1, "e": "EKOK(12, 18) = 36 dakika. 10.00 + 36 dk = 10.36." },
+          { "s": "Fen Bilimleri", "t": "DNA ve Genetik Kod · Nükleotid Hesabı", "d": 2, "q": "1000 nükleotidli bir DNA'da 300 Adenin vardır. Guanin sayısı kaçtır?", "o": ["200", "300", "400", "500"], "a": 0, "e": "A=300 -> T=300 (A+T=600). Kalan G+C=400 -> G=200." },
+          { "s": "Fen Bilimleri", "t": "Mevsimler ve İklim · Eksen Eğikliği", "d": 2, "q": "21 Aralık tarihinde Kuzey Yarım Küre'de hangi durum yaşanır?", "o": ["En uzun gündüz", "En uzun gece / Kış başlangıcı", "Gece gündüz eşitliği", "Yaz başlangıcı"], "a": 1, "e": "21 Aralık Kuzey Yarım Küre'de en uzun gece ve kış başlangıcıdır." },
+          { "s": "Fen Bilimleri", "t": "DNA ve Genetik Kod · Eşlenme", "d": 3, "q": "DNA eşlenmesiyle ilgili aşağıdakilerden hangisi <b>yanlıştır</b>?", "o": ["Hücre bölünmesi öncesi gerçekleşir.", "Eşleşme A-T, G-C şeklindedir.", "Oluşan yeni DNA'lar birbirinden farklıdır.", "Sitoplazmadaki nükleotidler çekirdeğe girer."], "a": 2, "e": "Yeni DNA'lar ana DNA ile birebir aynıdır." },
+          { "s": "Fen Bilimleri", "t": "Mevsimler ve İklim · İklim", "d": 1, "q": "Hangisi hava olayı değil, <b>iklim</b> örneğidir?", "o": ["Ankara'da bugün sis var.", "Karadeniz'de her mevsim yağışlıdır.", "Yarın kar bekleniyor.", "Rüzgar şiddetlendi."], "a": 1, "e": "'Her mevsim yağışlı' uzun yılların ortalamasıdır (İklim)." },
+          { "s": "İnkılap Tarihi", "t": "Bir Kahraman Doğuyor · Selanik", "d": 2, "q": "Selanik'in deniz ve demiryolu bağlantısının bulunması öncelikle hangi alanda gelişmesini sağlamıştır?", "o": ["Askerî", "Ekonomi ve Ticaret", "Siyasi", "Dini"], "a": 1, "e": "Ulaşım kolaylığı ticaret ve ekonomiyi geliştirir." },
+          { "s": "İnkılap Tarihi", "t": "Bir Kahraman Doğuyor · Fikir Hayatı", "d": 2, "q": "Mustafa Kemal'in Fransızca öğrenip Batılı düşünürleri okuması hangi ilkenin doğmasında etkili olmuştur?", "o": ["Sadece gelenekçilik", "Akılcılık ve Özgürlük düşüncesi", "İzolasyon", "Padişaha bağlılık"], "a": 1, "e": "Batılı düşünürler özgürlük, eşitlik ve akılcılık fikrini geliştirmiştir." },
+          { "s": "Din Kültürü", "t": "Kader ve Kaza · Kavramlar", "d": 2, "q": "'Allah'ın her şeyi bir ölçü ve plana göre ayarlamasına' ne denir?", "o": ["Kaza", "Kader", "Tevekkül", "İrade"], "a": 1, "e": "Ölçü ve planlama 'Kader'dir." },
+          { "s": "Din Kültürü", "t": "Kader ve Kaza · Yasalar", "d": 2, "q": "Toplumda adaletin sağlanması ve göç olayları hangi yasa ile ilgilidir?", "o": ["Fiziksel", "Biyolojik", "Toplumsal", "Kimyasal"], "a": 2, "e": "Toplum ilişkileri Toplumsal Yasalar kapsamındadır." },
+          { "s": "İngilizce", "t": "Unit 1 Friendship · Trait", "d": 1, "q": "A person who always helps others is ________.", "o": ["helpful", "selfish", "stingy", "arrogant"], "a": 0, "e": "Helps others = helpful (yardımsever)." },
+          { "s": "İngilizce", "t": "Unit 1 Friendship · Refusing", "d": 2, "q": "<b>A:</b> Shall we go to the cinema?\n<b>B:</b> ________. I have an exam tomorrow.", "o": ["I'd love to", "I'm sorry, I can't", "Great idea", "Sure"], "a": 1, "e": "Sınav mazereti olan kişi reddeder." }
         ]
       },
+      { "id": "D05", "date": "2026-09-16", "title": "D05 · Mini Deneme", "tag": "MİNİ", "duration": 30, "questions": [] },
       { "id": "D04", "date": "2026-09-15", "title": "D04 · Mini Deneme", "tag": "MİNİ", "duration": 30, "questions": [] },
       { "id": "TD01", "date": "2026-09-12", "title": "TD01 · Tam LGS Provası", "tag": "TAM DENEME", "duration": 155, "questions": [] },
       { "id": "D03", "date": "2026-09-11", "title": "D03 · Mini Deneme", "tag": "MİNİ", "duration": 30, "questions": [] },
@@ -198,6 +195,22 @@
 
     const LESSONS = [
       {
+        id: "L11",
+        date: "2026-09-17",
+        subject: "Matematik",
+        icon: "MAT",
+        title: "EBOB / EKOK 'Kaç Parça?' Tuzağı",
+        subtitle: "D05 6. Soru Özel Analizi ve Kapanış Taktiği",
+        body: `
+          <div class="lesson-box">
+            <h3>Neden Hata Yapıyoruz?</h3>
+            <p>EBOB bulduğumuzda çıkan sayı <b>bir parçanın boyutudur</b> (örneğin 12 metre veya 12 kg). Soru ise kaç parça olduğunu sorar.</p>
+            <div class="warn">⚠️ <b>Örnek Hata:</b> D05 S6'da EBOB=12 bulundu ve şıklardaki 12 işaretlendi! Oysa parça sayısı 48/12=4 ve 60/12=5 yani Toplam 9 parçadır.</div>
+            <div class="tip">💡 <b>3 Adım Kuralı:</b> 1) EBOB'u bul. 2) Bütünleri EBOB'a böl. 3) Parçaları topla ve sorunun son cümlesini tekrar oku!</div>
+          </div>
+        `
+      },
+      {
         id: "L10",
         date: "2026-09-16",
         subject: "Fen Bilimleri",
@@ -207,44 +220,14 @@
         body: `
           <div class="lesson-box">
             <h3>Dönenceler ve Güneş Işığının Açısı</h3>
-            <p><b>21 Haziran:</b> Yengeç Dönencesi'ne dik gelir. Kuzey Yarım Küre'de YAZ başlar ve en uzun gündüz yaşanır.</p>
-            <p><b>21 Aralık:</b> Oğlak Dönencesi'ne dik gelir. Kuzey Yarım Küre'de KIŞ başlar ve en uzun gece yaşanır.</p>
-            <div class="tip">💡 <b>Püf Noktası:</b> Ekvator'da yıl boyunca gece ve gündüz süresi daima eşittir (12 saat gece, 12 saat gündüz).</div>
+            <p><b>21 Haziran:</b> Yengeç Dönencesi'ne dik gelir. Kuzey Yarım Küre'de YAZ başlar.</p>
+            <p><b>21 Aralık:</b> Oğlak Dönencesi'ne dik gelir. Kuzey Yarım Küre'de KIŞ başlar.</p>
+            <div class="tip">💡 <b>Püf Noktası:</b> Ekvator'da gece ve gündüz süresi daima 12 saattir.</div>
           </div>
         `
       },
-      {
-        id: "L09",
-        date: "2026-09-16",
-        subject: "Matematik",
-        icon: "MAT",
-        title: "EBOB / EKOK 'Ne Soruluyor?' Kontrolü",
-        subtitle: "D01, TD01 52. Soru ve D05 Analizi",
-        body: `
-          <div class="lesson-box">
-            <h3>İşlemi Doğru Yapıp Net Kaybetme!</h3>
-            <p>EBOB bulduğunda çıkan sayı <b>bir parçanın uzunluğudur</b>. Eğer soru sana 'Kaç parça elde edilir?' diyorsa parçaları bulup toplaman gerekir.</p>
-            <div class="warn">⚠️ <b>Hata Uyarısı:</b> İşlem bitince kalemini bırak ve sorunun SON CÜMLESİNİ bir kez daha oku! Parça uzunluğu mu soruluyor, parça sayısı mı?</div>
-          </div>
-        `
-      },
-      {
-        id: "L08",
-        date: "2026-09-16",
-        subject: "Fen Bilimleri",
-        icon: "FEN",
-        title: "DNA'nın Eşlenmesi & Baz Hesabı",
-        subtitle: "TD01 77. Soru ve D04 Analizi",
-        body: `
-          <div class="lesson-box">
-            <h3>DNA Eşlenme Kuralları</h3>
-            <p>1. DNA zincirleri fermuar gibi açılır.<br>2. Sitoplazmadaki serbest nükleotidler çekirdeğe girer.<br>3. Oluşan yeni iki DNA, ana DNA ile <b>birebir aynıdır</b>.</p>
-            <div class="tip">💡 <b>Formül Taktiği:</b> Toplam nükleotid sayısından (Adenin + Timin) çıkarılır, kalan sayı ikiye bölünerek Guanin veya Sitozin sayısı bulunur.</div>
-          </div>
-        `
-      },
-      { id: "L07", date: "2026-09-11", subject: "İnkılap Tarihi", icon: "İNK", title: "Dört Fikir Akımı", subtitle: "Osmanlıyı kurtarma çabaları", body: "<h3>Fikir Akımları</h3><p><b>Osmanlıcılık:</b> Tüm tebaayı eşit sayma.<br><b>Batıcılık:</b> Batıyı örnek alma.<br><b>Türkçülük:</b> Türk birliği.<br><b>İslamcılık:</b> Ümmet birliği.</p>" },
-      { id: "L06", date: "2026-09-11", subject: "Genel", icon: "GEN", title: "Ters Soru Kökleri", subtitle: "Hangisi değildir / söylenemez?", body: "<h3>Taktik</h3><p>Soru kökünde <b>değildir/çıkarılamaz</b> görüyorsan olumsuz ifadeye odaklan!</p>" }
+      { id: "L07", date: "2026-09-11", subject: "İnkılap Tarihi", icon: "İNK", title: "Dört Fikir Akımı", subtitle: "Osmanlıyı kurtarma çabaları", body: "<h3>Fikir Akımları</h3><p><b>Osmanlıcılık:</b> Eşitlik.<br><b>Batıcılık:</b> Batı örneği.<br><b>Türkçülük:</b> Türk birliği.<br><b>İslamcılık:</b> Ümmet birliği.</p>" },
+      { id: "L06", date: "2026-09-11", subject: "Genel", icon: "GEN", title: "Ters Soru Kökleri", subtitle: "Hangisi değildir?", body: "<h3>Taktik</h3><p>Olumsuz ifadelere odaklan!</p>" }
     ];
 
     let activeExam = null;
@@ -348,6 +331,11 @@
       loadQuestion();
     }
 
+    function markEmpty() {
+      userAnswers[currentQ] = '-';
+      nextQuestion();
+    }
+
     function markNotSeen() {
       userAnswers[currentQ] = 'X';
       nextQuestion();
@@ -393,30 +381,33 @@
         else if(char === '-') empty++;
       }
 
-      if(examId === 'TD01') {
+      if(examId === 'D05') {
+        correct = 13; wrong = 4; empty = 1; notSeen = 2; net = 11.67;
+        wrongTopics = ["Deyimler (Ters Kök)", "EBOB Parça Sayısı", "Üslü İfadeler", "Asal Çarpanlar"];
+      } else if(examId === 'TD01') {
         correct = 41; wrong = 13; empty = 0; notSeen = 36; net = 36.67;
-        wrongTopics = ["Deyimler (Ters Kök)", "Adlaşmış Sıfat-Fiil", "'mi' Yazımı", "Kader-Kaza", "Frequency Adverbs", "İlan Okuma", "EBOB Parça Sayısı", "DNA Eşlenmesi", "Dönenceler"];
+        wrongTopics = ["Deyimler (Ters Kök)", "Adlaşmış Sıfat-Fiil", "'mi' Yazımı", "Kader-Kaza", "EBOB Parça Sayısı", "DNA Eşlenmesi"];
       } else if(examId === 'D04') {
         correct = 12; wrong = 6; empty = 0; notSeen = 2; net = 10.00;
         wrongTopics = ["S8 Bilimsel Gösterim (X)", "S16 Osmanlıcılık (X)", "Ters Soru Okuma Dikkati"];
       } else if(examId === 'D03') {
         correct = 13; wrong = 3; empty = 0; notSeen = 4; net = 12.00;
-        wrongTopics = ["Ters Soru Kökleri (2 Hata)", "Adlaşmış Sıfat-Fiil"];
+        wrongTopics = ["Ters Soru Kökleri", "Adlaşmış Sıfat-Fiil"];
       } else if(examId === 'D02') {
         correct = 7; wrong = 11; empty = 0; notSeen = 2; net = 3.33;
-        wrongTopics = ["Fiilimsiler", "Osmanlıcılık Fikir Akımı", "Kader-Kaza", "Ters Soru Kökleri"];
+        wrongTopics = ["Fiilimsiler", "Osmanlıcılık Fikir Akımı", "Kader-Kaza"];
       } else if(examId === 'D01') {
         correct = 12; wrong = 5; empty = 0; notSeen = 3; net = 10.33;
-        wrongTopics = ["Adlaşmış Sıfat-Fiil", "Bölünebilme En Büyük", "EBOB Kare Sayısı", "Supportive Kavamı"];
+        wrongTopics = ["Adlaşmış Sıfat-Fiil", "EBOB Kare Sayısı", "Supportive"];
       } else if(examId === 'ST01') {
         correct = 25; wrong = 15; empty = 0; notSeen = 0; net = 20.00;
-        wrongTopics = ["Temel Matematik / Fen Konuları"];
+        wrongTopics = ["Temel Konular"];
       } else {
         let totalValids = answers.length - notSeen - empty;
         correct = Math.round(totalValids * 0.7);
         wrong = totalValids - correct;
         net = Math.max(0, parseFloat((correct - (wrong / 3)).toFixed(2)));
-        wrongTopics = ["Geliştirilecek Genel Konular"];
+        wrongTopics = ["Genel Tekrar"];
       }
 
       let weightedNet = (net * 4.0); 

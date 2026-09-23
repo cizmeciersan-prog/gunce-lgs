@@ -101,7 +101,7 @@
       <section id="sec-quiz" class="section">
         <div class="quiz-header">
           <div class="quiz-progress">
-            <span id="q-counter">Soru 1/90</span>
+            <span id="q-counter">Soru 1/20</span>
             <span id="q-timer" style="font-family: var(--font-mono);">00:00</span>
           </div>
           <div class="progress-bar"><div id="q-progress-fill" class="progress-fill"></div></div>
@@ -137,131 +137,49 @@
 
   <script>
     const PRELOADED_RESULTS = [
+      { code: "GLGS1|TD02|BXBCXBBBXAXABAAXXBAABAAA-AXA-XBAAAXXAAAAAAAAXAABC-B-AXAXXXAADXACDXXXAXAAAXAXXAAXAXAXA-XBXX|744", date: "22.09.2026 17:30:00" },
       { code: "GLGS1|D05|ACBCDBDCXBBCXCDBBBC-|368", date: "16.09.2026 18:06:08" },
       { code: "GLGS1|D04|BADBDDBXDBBDADCXBCDD|605", date: "15.09.2026 18:10:05" },
       { code: "GLGS1|TD01|CADBBACDADBDDACDDAABDBXXXXXXXXDADBXXCBCABXACCXDXDCCBXDXBXXXXCXBAXXABCXBDADXXBXXXXXXXXCXAXX|2812", date: "12.09.2026 19:46:53" },
       { code: "GLGS1|D03|DBCABCXABBDXCBXBCBDX|735", date: "11.09.2026 18:12:15" },
       { code: "GLGS1|D02|ACABBAXDXDADBCDCCDBA|647", date: "11.09.2026 18:30:47" },
       { code: "GLGS1|D01|ABCBBCXCDCBACCABAAAC|434", date: "10.09.2026 18:07:14" },
-      { code: "GLGS1|D01|DXXBBBXBDCBACCABAAAC|515", date: "08.09.2026 18:08:35" },
       { code: "GLGS1|ST01|BABCACCDDCDCBBCAABADCCCDCCDBBDBBBBBBCABB|370", date: "08.09.2026 17:06:10" }
     ];
 
-    if(!localStorage.getItem('glgs_history')) {
-      localStorage.setItem('glgs_history', JSON.stringify(PRELOADED_RESULTS));
-    }
+    localStorage.setItem('glgs_history', JSON.stringify(PRELOADED_RESULTS));
 
     const EXAMS = [
       {
-        "id": "TD02",
-        "date": "2026-09-20",
-        "title": "TD02 · Tam LGS Provası",
-        "tag": "TAM DENEME",
-        "duration": 155,
+        "id": "D07",
+        "date": "2026-09-22",
+        "title": "D07 · TD02 Yanlışlarını Kapatma Denemesi",
+        "tag": "MİNİ",
+        "duration": 30,
         "questions": [
-          // TÜRKÇE (20 Soru)
-          { "s": "Türkçe", "t": "Fiilimsiler · Adlaşmış Sıfat-Fiil", "d": 2, "q": "Aşağıdaki cümlelerin hangisinde adlaşmış sıfat-fiil kullanılmıştır?", "o": ["Yarışmayı kazanan öğrenci ödüllendirildi.", "Sorulara doğru cevap verenleri tebrik etti.", "Okunacak kitapları masanın üstüne koydu.", "Akan suyu izlemek insana huzur verir."], "a": 1, "e": "'Verenleri' -> Veren insanları (İsim düşmüş, adlaşmıştır)." },
-          { "s": "Türkçe", "t": "Cümlede Anlam · Çıkarılamaz (Ters Kök)", "d": 2, "q": "Bu parçadan hareketle aşağıdakilerden hangisi <b>çıkarılamaz</b>?", "o": ["Disiplinli çalışmak zaman kazandırır.", "Her insan zorluklar karşısında aynı tepkiyi verir.", "Hatalar öğrenme sürecinin bir parçasıdır.", "Başarı tek bir etkene bağlı değildir."], "a": 1, "e": "İnsanların aynı tepkiyi vermediği parçadan çıkarılamaz bir genellemedir." },
-          { "s": "Türkçe", "t": "Sözcükte Anlam · Deyimler (Ters Kök)", "d": 2, "q": "Aşağıdaki cümlelerin hangisinde deyim <b>yanlış</b> anlamda kullanılmıştır?", "o": ["Müjdeli haberi alınca etekleri zil çaldı.", "Sınav öncesi çok heyecanlandı, göze geldi.", "Gizli konuşmalara istemeden kulak kabarttı.", "Söylenenlere öfkelenip küplere bindi."], "a": 1, "e": "'Göze gelmek' nazar değmektir, heyecanla uyuşmaz." },
-          { "s": "Türkçe", "t": "Yazım Kuralları · 'mi' Eki", "d": 1, "q": "Hangi cümlede 'mi' ekinin yazımı <b>yanlıştır</b>?", "o": ["Bu akşam bize gelecek misiniz?", "Ders bitti mi hemen kütüphaneye giderdi.", "Anlatılanları anladınmı bilmiyorum.", "Güzel mi güzel bir manzara vardı."], "a": 2, "e": "'anladınmı' birleşik yazılmıştır, ayrı yazılmalıdır." },
-          { "s": "Türkçe", "t": "Parçada Anlam · Ana Düşünce", "d": 2, "q": "Metnin ana düşüncesi aşağıdakilerden hangisidir?", "o": ["Kitap okumak sadece boş zaman aktivitesidir.", "Düzenli okumak problem çözme becerisini artırır.", "En yararlı kitaplar bilimsel olanlardır.", "Kütüphanelerin sayısı her geçen gün artmaktadır."], "a": 1, "e": "Düzenli okumanın zihinsel katkısı vurgulanmıştır." },
-          { "s": "Türkçe", "t": "Fiilimsiler · Zarf-Fiil", "d": 2, "q": "Hangi cümlede zarf-fiil cümleye <b>zaman</b> anlamı katmıştır?", "o": ["Koşarak içeri girdi.", "Ödevini bitirince dışarı çıktı.", "Güle oynaya okula gittiler.", "Ağlayarak derdini anlattı."], "a": 1, "e": "'bitirince' ne zaman sorusuna cevap verir." },
-          { "s": "Türkçe", "t": "Söz Kümelerinde Anlam", "d": 2, "q": "'İğne ile kuyu kazmak' deyiminin anlamı nedir?", "o": ["Çok kolay bir iş yapmak", "Büyük sabır ve emek gerektiren zor bir işle uğraşmak", "İşini yarım bırakmak", "Boş hayaller peşinde koşmak"], "a": 1, "e": "Sonsuz sabır gerektiren zor iş anlamındadır." },
-          { "s": "Türkçe", "t": "Noktalama İşaretleri · Kesme İşareti", "d": 1, "q": "Hangi cümlede kesme işareti <b>yanlış</b> kullanılmıştır?", "o": ["Ankara'ya yarın gidiyoruz.", "Türk'lerin tarihi çok eskidir.", "LGS'ye hazırlık sürüyor.", "1981'de doğdu."], "a": 1, "e": "Çoğul eki (-ler) ayrılmaz: Türklerin yazılmalıdır." },
-          { "s": "Türkçe", "t": "Metinler Arası Karşılaştırma", "d": 2, "q": "İki metnin ortak yönü aşağıdakilerden hangisidir?", "o": ["Aynı kahramanları barındırmaları", "Doğa sevgisini konu almaları", "Sadece bilgi vermeleri", "Olay yazısı olmaları"], "a": 1, "e": "Ortak tema doğa sevgisidir." },
-          { "s": "Türkçe", "t": "Cümlede Anlam · Neden-Sonuç", "d": 1, "q": "Hangi cümlede neden-sonuç ilişkisi vardır?", "o": ["Yağmur yağdığı için maç ertelendi.", "Başarılı olmak için çok çalışıyor.", "Kar yağarsa yollar kapanır.", "Ders çalışmak üzere odasına gitti."], "a": 0, "e": "'Yağmur yağdığı için' gerçekleşmiş nedendir." },
-          { "s": "Türkçe", "t": "Parçada Anlam · Çıkarım", "d": 2, "q": "Parçadan kesin olarak çıkarılabilecek yargı hangisidir?", "o": ["Teknolojinin sadece zararları vardır.", "Doğru teknoloji kullanımı eğitimi olumlu etkiler.", "İnternet kitapların yerini almıştır.", "Her öğrenci tablet kullanmalıdır."], "a": 1, "e": "Olumlu eğitim etkisi vurgulanmaktadır." },
-          { "s": "Türkçe", "t": "Sözcükte Anlam · Terim Anlam", "d": 1, "q": "Hangi cümlede terim anlamlı sözcük vardır?", "o": ["Hakim penaltı noktasını gösterdi.", "Sıcak bir karşılama oldu.", "Geniş bir ev satın aldılar.", "Ağır adımlarla yürüdü."], "a": 0, "e": "'Penaltı' futbol terimidir." },
-          { "s": "Türkçe", "t": "Anlatım Biçimleri", "d": 2, "q": "Bir yeri gözde canlandıracak şekilde anlatmaya ne denir?", "o": ["Öyküleme", "Betimleme", "Tartışma", "Açıklama"], "a": 1, "e": "Gözde canlandırma betimlemedir (tasvir)." },
-          { "s": "Türkçe", "t": "Fiilimsiler · İsim-Fiil", "d": 1, "q": "Hangi sözcük isim-fiil eki almıştır?", "o": ["Okuma", "Koşan", "Gidip", "Bilir"], "a": 0, "e": "Okuma (-ma eki isim-fiildir)." },
-          { "s": "Türkçe", "t": "Cümlede Anlam · Koşul-Sonuç", "d": 1, "q": "Hangi cümlede koşul anlamı vardır?", "o": ["Erken yatarsa sabah dinç kalkar.", "Kitap okuduğu için başarılı oldu.", "Geri vermek üzere aldı.", "Çok çalıştığından kazandı."], "a": 0, "e": "'-sa' eki koşul bağlar." },
-          { "s": "Türkçe", "t": "Cümle Tamamlama", "d": 2, "q": "Boşluğa gelebilecek en uygun bağlaç hangisidir?", "o": ["Ama", "Çünkü", "Oysaki", "Yani"], "a": 1, "e": "Açıklama sebep cümlesi bağlar." },
-          { "s": "Türkçe", "t": "Parçada Başlık", "d": 1, "q": "Parçaya en uygun başlık hangisidir?", "o": ["Disiplinin Gücü", "Spor Türleri", "Yaz Mevsimi", "Teknoloji"], "a": 0, "e": "Genel konu disiplindir." },
-          { "s": "Türkçe", "t": "Yazım Kuralları · Büyük Harfler", "d": 1, "q": "Hangi cümlede yazım hatası vardır?", "o": ["Marmara Denizi çok güzeldir.", "Ahmet bey içeri girdi.", "Van Kedisi koruma altındadır.", "29 Ekim Ulusal Bayramdır."], "a": 1, "e": "'Ahmet Bey' büyük yazılmalıdır." },
-          { "s": "Türkçe", "t": "Deyimler ve Atasözleri", "d": 2, "q": "'Damlaya damlaya göl olur' atasözü neyi öğütler?", "o": ["Tasarruf ve birikimi", "Cömertliği", "Hızlı hareket etmeyi", "Çok çalışmayı"], "a": 0, "e": "Birikim ve tasarruf vurgulanır." },
-          { "s": "Türkçe", "t": "Anlatıcı Türleri", "d": 2, "q": "'Okula doğru yürüyordum' cümlesinde kaçıncı kişi anlatım vardır?", "o": ["1. Kişi", "3. Kişi", "İlahi bakış", "Gözlemci"], "a": 0, "e": "Yürüyordum (Ben = 1. kişi)." },
-
-          // İNKILAP TARİHİ (10 Soru)
-          { "s": "İnkılap Tarihi", "t": "Bir Kahraman Doğuyor · Selanik", "d": 2, "q": "Selanik'in ticari ve kültürel gelişmişliği ne ile açıklanabilir?", "o": ["Sadece askeri kışlalarıyla", "Liman ve demiryolu ulaşım ağıyla", "Tarım alanlarıyla", "Sadece nüfusuyla"], "a": 1, "e": "Ulaşım imkanları ticareti geliştirir." },
-          { "s": "İnkılap Tarihi", "t": "Bir Kahraman Doğuyor · Fikir Akımları", "d": 2, "q": "Tüm tebaayı dil, din ayrımı yapmaksızın eşit sayan fikir akımı hangisidir?", "o": ["Osmanlıcılık", "Türkçülük", "İslamcılık", "Batıcılık"], "a": 0, "e": "Eşit Osmanlı vatandaşlığı = Osmanlıcılık." },
-          { "s": "İnkılap Tarihi", "t": "Bir Kahraman Doğuyor · Manastır Yılları", "d": 2, "q": "Mustafa Kemal'in Manastır Askeri İdadisinde etkilendiği ders hangisidir?", "o": ["Tarih ve Edebiyat", "Resim", "Müzik", "Biyoloji"], "a": 0, "e": "Tarih öğretmeni Kolağası Mehmet Tevfik Bey'den etkilenmiştir." },
-          { "s": "İnkılap Tarihi", "t": "Milli Uyanış · Trablusgarp Savaşı (İleri Konu)", "d": 3, "q": "Mustafa Kemal'in Trablusgarp'a gönüllü gidip halkı örgütlemesi hangi kişisel özelliğidir?", "o": ["Teşkilatçılık ve Vatanseverlik", "İnkılapçılık", "Sanatseverlik", "Açık kalplilik"], "a": 0, "e": "Halkı bir araya getirmek teşkilatçılıktır." },
-          { "s": "İnkılap Tarihi", "t": "Milli Uyanış · I. Dünya Savaşı (İleri Konu)", "d": 3, "q": "Osmanlı'nın I. Dünya Savaşı'na girme nedenlerinden biri hangisidir?", "o": ["Kaybettiği toprakları geri almak", "Yalnız kalmak istemek", "İngiltere'ye yardım etmek", "Sanayisini durdurmak"], "a": 0, "e": "Kaybedilen toprakları geri alma isteği." },
-          { "s": "İnkılap Tarihi", "t": "Bir Kahraman Doğuyor · Şehirler", "d": 2, "q": "Mustafa Kemal'in ilk görev yeri neresidir?", "o": ["Şam 5. Ordu", "Selanik", "Manastır", "İstanbul"], "a": 0, "e": "1905'te Şam 5. Ordu'ya atanmıştır." },
-          { "s": "İnkılap Tarihi", "t": "Milli Uyanış · Mondros (İleri Konu)", "d": 3, "q": "Mondros Ateşkes Antlaşması'nın 7. maddesi neyi amaçlar?", "o": ["İşgallere hukuki zemin hazırlamayı", "Barışı korumayı", "Osmanlı'yı güçlendirmeyi", "Ticareti geliştirmeyi"], "a": 0, "e": "İşgalleri meşrulaştırma maddesidir." },
-          { "s": "İnkılap Tarihi", "t": "Bir Kahraman Doğuyor · Sofya", "d": 2, "q": "Mustafa Kemal'in Sofya Ateşemiliterliği görevi ona ne kazandırdı?", "o": ["Diplomasi tecrübesi", "Sadece askerlik", "Tarım bilgisi", "Ticaret kazancı"], "a": 0, "e": "Diplomatik ilişkileri öğrenmiştir." },
-          { "s": "İnkılap Tarihi", "t": "Milli Uyanış · Çanakkale (İleri Konu)", "d": 3, "q": "Çanakkale Zaferi'nin sonuçlarından biri hangisidir?", "o": ["Mustafa Kemal'in tanınması ve milli lider olması", "Savaşın hemen bitmesi", "Osmanlı'nın yıkılması", "İngiltere'nin kazanması"], "a": 0, "e": "Mustafa Kemal Anafartalar Kahramanı olarak tanınmıştır." },
-          { "s": "İnkılap Tarihi", "t": "Milli Uyanış · Amasya Genelgesi (İleri Konu)", "d": 3, "q": "Milli mücadelenin amacı ve yöntemi ilk nerede belirtilmiştir?", "o": ["Amasya Genelgesi", "Erzurum Kongresi", "Sivas Kongresi", "Misak-ı Milli"], "a": 0, "e": "Amasya Genelgesi ihtilal bildirisi niteliğindedir." },
-
-          // DİN KÜLTÜRÜ (10 Soru)
-          { "s": "Din Kültürü", "t": "Kader ve Kaza · Kavram Ayrımı", "d": 2, "q": "Allah'ın olayları önceden planlamasına kader, zamanı gelince gerçekleşmesine kaza denir. Hangisi **kaza** örneğidir?", "o": ["Yarın yağmur yağmasının takdir edilmesi", "2012 yılında LGS sınavının yapılmış olması", "Suyun 100 derecede kaynayacağının kurala bağlanması", "Güneşin doğudan doğacağının belirlenmesi"], "a": 1, "e": "Gerçekleşmiş olay kazadır." },
-          { "s": "Din Kültürü", "t": "Kader ve Kaza · Fiziksel Yasalar", "d": 2, "q": "Yer çekimi kuvveti ve suyun kaldırma kuvveti hangi yasaya örnektir?", "o": ["Fiziksel Yasalar", "Biyolojik Yasalar", "Toplumsal Yasalar", "Ahlaki Yasalar"], "a": 0, "e": "Madde ve enerji = Fiziksel." },
-          { "s": "Din Kültürü", "t": "Kader ve Kaza · Biyolojik Yasalar", "d": 2, "q": "Canlıların doğması, beslenmesi ve üremesi hangi yasadır?", "o": ["Biyolojik Yasalar", "Fiziksel Yasalar", "Toplumsal Yasalar", "Siyasi Yasalar"], "a": 0, "e": "Canlı yapısı = Biyolojik." },
-          { "s": "Din Kültürü", "t": "Kader ve Kaza · Toplumsal Yasalar", "d": 2, "q": "Adalet, eşitlik ve göç olayları hangi evrensel yasaya girer?", "o": ["Toplumsal Yasalar", "Fiziksel Yasalar", "Biyolojik Yasalar", "Geometrik Yasalar"], "a": 0, "e": "Toplum ilişkileri = Toplumsal." },
-          { "s": "Din Kültürü", "t": "Zekat ve Sadaka (İleri Konu)", "d": 3, "q": "Zekat oranı altın ve parada ne kadardır?", "o": ["1/40 (%2.5)", "1/10", "1/5", "1/20"], "a": 0, "e": "Nisap miktarında oran 1/40'tır." },
-          { "s": "Din Kültürü", "t": "Zekat ve Sadaka · Sadaka-i Cariye (İleri Konu)", "d": 3, "q": "Kesintisiz sevap kazandıran hayır kurumlarına ne ad verilir?", "o": ["Sadaka-i Cariye", "Fitre", "Zekat", "Fidye"], "a": 0, "e": "Okul, çeşme yaptırmak gibi kalıcı hayırlardır." },
-          { "s": "Din Kültürü", "t": "Kader ve Kaza · Tevekkül", "d": 2, "q": "Gerekli önlemleri aldıktan sonra Allah'a güvenmeye ne ad verilir?", "o": ["Tevekkül", "Tefekkür", "Tevazu", "Tevhit"], "a": 0, "e": "Önlem alıp güvenmek tevekküldür." },
-          { "s": "Din Kültürü", "t": "Kader ve Kaza · Cüzi İrade", "d": 2, "q": "İnsanın kendi seçim yapabilme özgürlüğüne ne verilir?", "o": ["Cüzi İrade", "Külli İrade", "Kader", "Kaza"], "a": 0, "e": "İnsanın kısıtlı seçimi Cüzi İradedir." },
-          { "s": "Din Kültürü", "t": "Din ve Hayat (İleri Konu)", "d": 3, "q": "Dinin temel amaçlarından biri olan 'Canın Korunması' neyi yasaklar?", "o": ["Cana kıymayı ve haksız öldürmeyi", "Hırsızlığı", "Yalanı", "İftirayı"], "a": 0, "e": "Yaşama hakkı dokunulmazdır." },
-          { "s": "Din Kültürü", "t": "Hz. Muhammed'in Örnekliği (İleri Konu)", "d": 3, "q": "Peygamberimizin 'El-Emin' sıfatı ne anlama gelir?", "o": ["Güvenilir kişi", "Çok zengin", "Cesur lider", "Savaşçı"], "a": 0, "e": "Dürüst ve güvenilir demektir." },
-
-          // İNGİLİZCE (10 Soru)
-          { "s": "İngilizce", "t": "Unit 1 Friendship · Trait", "d": 1, "q": "A good friend always supports you. He is ________.", "o": ["supportive", "jealous", "sneaky", "arrogant"], "a": 0, "e": "Supports = supportive (destekleyici)." },
-          { "s": "İngilizce", "t": "Unit 1 Friendship · Refusing", "d": 2, "q": "<b>A:</b> How about going to the concert?\n<b>B:</b> ________. I have to finish my project.", "o": ["I'm sorry, I can't", "Awesome", "Sure", "I'd love to"], "a": 0, "e": "Proje mazereti ile reddeder." },
-          { "s": "İngilizce", "t": "Unit 2 Teen Life · Activity (İleri)", "d": 2, "q": "I prefer listening to classical music because I think it is ________.", "o": ["soothing / relaxing", "boring", "intolerable", "loud"], "a": 0, "e": "Tercih sebebi olumlu bir sıfattır." },
-          { "s": "İngilizce", "t": "Unit 1 Friendship · Honest", "d": 1, "q": "Tim never lies. He is an ________ boy.", "o": ["honest", "unreliable", "stubborn", "bad-tempered"], "a": 0, "e": "Never lies = honest." },
-          { "s": "İngilizce", "t": "Unit 3 In the Kitchen (İleri Konu)", "d": 3, "q": "First, dice the tomatoes. Second, heat the oil. What is the next step?", "o": ["Then add the tomatoes into the pan", "Finally serve hot", "Bake in the oven", "Freeze it"], "a": 0, "e": "Yemek tarifi adımı takip edilir." },
-          { "s": "İngilizce", "t": "Unit 1 Friendship · Inviting", "d": 1, "q": "Would you like to drink coffee?", "o": ["Yes, I'd love to", "No, I am full", "I hate coffee", "I don't care"], "a": 0, "e": "Nazik kabul cümlesidir." },
-          { "s": "İngilizce", "t": "Unit 2 Teen Life · Daily Routine", "d": 2, "q": "How often do you train?", "o": ["Twice a week", "At 5 o'clock", "In the room", "With my brother"], "a": 0, "e": "Sıklık sorusuna cevap verilmelidir." },
-          { "s": "İngilizce", "t": "Unit 4 On the Phone (İleri Konu)", "d": 3, "q": "Hold on a minute, I will ________ you through to the manager.", "o": ["put", "call", "speak", "hang"], "a": 0, "e": "Put through = bağlamak." },
-          { "s": "İngilizce", "t": "Unit 5 The Internet (İleri Konu)", "d": 3, "q": "You need a password to ________ into your account.", "o": ["log", "download", "upload", "delete"], "a": 0, "e": "Log in = giriş yapmak." },
-          { "s": "İngilizce", "t": "Unit 1 Friendship · Best Friend", "d": 2, "q": "We have lots of things in common means we ________.", "o": ["share similar interests", "always argue", "never talk", "don't like each other"], "a": 0, "e": "Ortak yönlerin olmasıdır." },
-
-          // MATEMATİK (20 Soru)
-          { "s": "Matematik", "t": "Çarpanlar ve Katlar · EBOB Parça Sayısı", "d": 2, "q": "48 m ve 60 m kumaşlar eşit en büyük parçalara bölünecektir. Kaç parça oluşur?", "o": ["9", "12", "15", "18"], "a": 0, "e": "EBOB=12. 48/12=4, 60/12=5. Toplam = 9 parça." },
-          { "s": "Matematik", "t": "Üslü İfadeler · Taban Eşitleme", "d": 2, "q": "(2⁵ · 4³) / 8² işleminin sonucu kaçtır?", "o": ["4", "2", "8", "16"], "a": 0, "e": "2¹¹ / 2⁹ = 2² = 4." },
-          { "s": "Matematik", "t": "Çarpanlar ve Katlar · Asal Çarpanlar", "d": 1, "q": "90 sayısının asal çarpanlarının toplamı kaçtır?", "o": ["10", "8", "12", "15"], "a": 0, "e": "2 + 3 + 5 = 10." },
-          { "s": "Matematik", "t": "Kareköklü İfadeler · Karekök Dışına Çıkarma (İleri)", "d": 3, "q": "√72 sayısı hangi iki tam sayı arasındadır?", "o": ["8 ile 9", "7 ile 8", "6 ile 7", "9 ile 10"], "a": 0, "e": "√64 < √72 < √81 (8 ile 9 arası)." },
-          { "s": "Matematik", "t": "Çarpanlar ve Katlar · EKOK Problemleri", "d": 2, "q": "15 dk ve 20 dk aralıkla çalan ziller ilk kez 08.00'de çaldı. İkinci kez saat kaçta çalarlar?", "o": ["09.00", "08.45", "09.15", "09.30"], "a": 0, "e": "EKOK(15,20)=60 dk = 1 saat. 08.00+1=09.00." },
-          { "s": "Matematik", "t": "Üslü İfadeler · Bilimsel Gösterim", "d": 2, "q": "0,00045 sayısının bilimsel gösterimi nedir?", "o": ["4,5 · 10⁻⁴", "45 · 10⁻⁵", "0,45 · 10⁻³", "4,5 · 10⁻⁵"], "a": 0, "e": "1 ile 10 arası katsayı: 4,5 · 10⁻⁴." },
-          { "s": "Matematik", "t": "Veri Analizi · Daire Grafiği (İleri Konu)", "d": 3, "q": "360 kişilik bir okulda öğrencilerin %25'i gözlüklüdür. Daire grafiğinde kaç derece ile gösterilir?", "o": ["90°", "180°", "45°", "120°"], "a": 0, "e": "360° × %25 = 90°." },
-          { "s": "Matematik", "t": "Olasılık · Basit Olasılık (İleri Konu)", "d": 3, "q": "Havaya atılan bir paranın tura gelme olasılığı kaçtır?", "o": ["1/2", "1/4", "1", "0"], "a": 0, "e": "İstenen/Tüm durum = 1/2." },
-          { "s": "Matematik", "t": "Cebirsel İfadeler · Özdeşlikler (İleri Konu)", "d": 3, "q": "(x + 2)² cebirsel ifadesinin açılımı hangisidir?", "o": ["x² + 4x + 4", "x² + 4", "x² + 2x + 4", "x² + 8"], "a": 0, "e": "Tam kare: Birincinin karesi + ikisinin çarpımının 2 katı + ikincinin karesi." },
-          { "s": "Matematik", "t": "Çarpanlar ve Katlar · Aralarında Asal", "d": 2, "q": "Aşağıdaki sayı çiftlerinden hangisi aralarında asaldır?", "o": ["8 ve 15", "9 ve 12", "14 ve 21", "10 ve 25"], "a": 0, "e": "8 ve 15 sayılarının 1'den başka ortak böleni yoktur." },
-          { "s": "Matematik", "t": "Üslü İfadeler · Üssün Üssü", "d": 2, "q": "(5²)³ ifadesi neye eşittir?", "o": ["5⁶", "5⁵", "5⁹", "25³"], "a": 0, "e": "Üsler çarpılır: 2 × 3 = 6." },
-          { "s": "Matematik", "t": "Kareköklü İfadeler · Toplama Çıkarma (İleri)", "d": 3, "q": "√8 + √18 işleminin sonucu kaçtır?", "o": ["5√2", "2√2", "3√2", "√26"], "a": 0, "e": "2√2 + 3√2 = 5√2." },
-          { "s": "Matematik", "t": "Doğrusal Denklemler (İleri Konu)", "d": 3, "q": "2x + 4 = 12 denkleminde x kaçtır?", "o": ["4", "2", "6", "8"], "a": 0, "e": "2x = 8 -> x = 4." },
-          { "s": "Matematik", "t": "Çarpanlar ve Katlar · Bölünebilme", "d": 1, "q": "Hangisi 3 ile kalansız bölünür?", "o": ["123", "124", "125", "127"], "a": 0, "e": "Rakamlar toplamı 1+2+3=6 (3'ün katı)." },
-          { "s": "Matematik", "t": "Üslü İfadeler · Negatif Üs", "d": 2, "q": "2⁻³ sayısı kaça eşittir?", "o": ["1/8", "-8", "-6", "1/6"], "a": 0, "e": "1 / 2³ = 1/8." },
-          { "s": "Matematik", "t": "Eğim (İleri Konu)", "d": 3, "q": "Dikey uzunluğu 6 m, yatay uzunluğu 8 m olan rampanın eğimi nedir?", "o": ["%75", "%50", "%80", "%100"], "a": 0, "e": "6/8 = 3/4 = %75." },
-          { "s": "Matematik", "t": "Eşitsizlikler (İleri Konu)", "d": 3, "q": "x - 3 > 5 eşitsizliğinin çözümü nedir?", "o": ["x > 8", "x > 2", "x < 8", "x = 8"], "a": 0, "e": "x > 5 + 3 -> x > 8." },
-          { "s": "Matematik", "t": "Üçgenler · Açı Kenar Bağıntısı (İleri)", "d": 3, "q": "Bir üçgenin iki kenarı 5 cm ve 7 cm ise 3. kenar hangisi olamaz?", "o": ["13 cm", "6 cm", "8 cm", "10 cm"], "a": 0, "e": "Üçgen eşitsizliği: 7-5 < x < 7+5 (2 < x < 12). 13 olamaz." },
-          { "s": "Matematik", "t": "Çarpanlar ve Katlar · Çarpan Sayısı", "d": 1, "q": "20 sayısının kaç tane pozitif tam sayı böleni vardır?", "o": ["6", "4", "5", "8"], "a": 0, "e": "1, 2, 4, 5, 10, 20 (6 adet)." },
-          { "s": "Matematik", "t": "Kareköklü İfadeler · Çarpma (İleri)", "d": 3, "q": "√3 · √12 işleminin sonucu kaçtır?", "o": ["6", "√15", "3", "12"], "a": 0, "e": "√36 = 6." },
-
-          // FEN BİLİMLERİ (20 Soru)
-          { "s": "Fen Bilimleri", "t": "DNA ve Genetik Kod · Nükleotid Hesabı", "d": 2, "q": "1200 nükleotidli DNA'da 200 Adenin varsa Guanin sayısı kaçtır?", "o": ["400", "200", "600", "800"], "a": 0, "e": "A=200 -> T=200 (A+T=400). Kalan 800/2 = 400." },
-          { "s": "Fen Bilimleri", "t": "Mevsimler ve İklim · Eksen Eğikliği", "d": 2, "q": "21 Haziran'da Kuzey Yarım Küre'de ne yaşanır?", "o": ["En uzun gündüz / Yaz başı", "En uzun gece", "Gece gündüz eşitliği", "Kış başı"], "a": 0, "e": "Yaz gündönümüdür." },
-          { "s": "Fen Bilimleri", "t": "Mevsimler ve İklim · İklim Özelliği", "d": 1, "q": "Aşağıdakilerden hangisi iklim örneğidir?", "o": ["Ege'de yazlar sıcak ve kuraktır", "Yarın kar bekleniyor", "Rüzgar sert esiyor", "Sis etkili oldu"], "a": 0, "e": "Geniş zamanlı genel özelliktir." },
-          { "s": "Fen Bilimleri", "t": "Basınç · Katı Basıncı (İleri Konu)", "d": 3, "q": "Katı basıncını artırmak için ne yapılmalıdır?", "o": ["Temas yüzey alanını küçültmek", "Ağırlığı azaltmak", "Yüzey alanını büyütmek", "Yüzeyi ıslatmak"], "a": 0, "e": "Basınç = Kuvvet / Yüzey Alanı." },
-          { "s": "Fen Bilimleri", "t": "DNA ve Genetik Kod · Karmaşıklık Sırası", "d": 1, "q": "Karmaşıktan basite doğru sıralama nasıldır?", "o": ["Kromozom - DNA - Gen - Nükleotid", "Nükleotid - Gen - DNA - Kromozom", "DNA - Kromozom - Gen - Nükleotid", "Gen - DNA - Kromozom - Nükleotid"], "a": 0, "e": "K-D-G-N şifresi." },
-          { "s": "Fen Bilimleri", "t": "Madde ve Endüstri · Periyodik Sistem (İleri)", "d": 3, "q": "Periyodik sistemde düşey sütunlara ne ad verilir?", "o": ["Grup", "Periyot", "Katman", "Sıra"], "a": 0, "e": "Düşey sütunlar gruptur." },
-          { "s": "Fen Bilimleri", "t": "Basit Makineler · Kaldıraçlar (İleri Konu)", "d": 3, "q": "Ceviz kıracağı hangi tip kaldıraca örnektir?", "o": ["Yükün ortada olduğu", "Desteğin ortada olduğu", "Kuvvetin ortada olduğu", "Çıkrık tipi"], "a": 0, "e": "Yük iki kol arasındadır." },
-          { "s": "Fen Bilimleri", "t": "Mevsimler ve İklim · Ekinoks", "d": 2, "q": "Gece ve gündüz süresinin tüm dünyada eşit olduğu tarihler hangileridir?", "o": ["21 Mart - 23 Eylül", "21 Haziran - 21 Aralık", "21 Mart - 21 Haziran", "23 Eylül - 21 Aralık"], "a": 0, "e": "Ekinoks tarihleridir." },
-          { "s": "Fen Bilimleri", "t": "DNA ve Genetik Kod · Eşlenme", "d": 2, "q": "DNA kendini eşlerken nükleotidler nereden çekirdeğe girer?", "o": ["Sitoplazmadan", "Ribozomdan", "Mitokondriden", "Çekirdekçikten"], "a": 0, "e": "Sitoplazmadaki serbest nükleotidler girer." },
-          { "s": "Fen Bilimleri", "t": "Madde ve Endüstri · Asit ve Bazlar (İleri)", "d": 3, "q": "pH değeri 2 olan bir sıvı nedir?", "o": ["Kuvvetli Asit", "Kuvvetli Baz", "Nötr", "Zayıf Baz"], "a": 0, "e": "0-7 arası asittir." },
-          { "s": "Fen Bilimleri", "t": "Enerji Dönüşümleri · Fotosentez (İleri)", "d": 3, "q": "Fotosentez hangi organelde gerçekleşir?", "o": ["Kloroplast", "Mitokondri", "Koful", "Çekirdek"], "a": 0, "e": "Klorofilli kloroplastta gerçekleşir." },
-          { "s": "Fen Bilimleri", "t": "DNA ve Genetik Kod · Mutasyon (İleri)", "d": 3, "q": "DNA yapısındaki kalıcı bozulmalara ne denir?", "o": ["Mutasyon", "Modifikasyon", "Adaptasyon", "Varyasyon"], "a": 0, "e": "Gen yapısı bozulması mutasyondur." },
-          { "s": "Fen Bilimleri", "t": "Mevsimler ve İklim · Hava Olayları", "d": 1, "q": "Hava olaylarını inceleyen bilim dalı hangisidir?", "o": ["Meteoroloji", "Klimatoloji", "Biyoloji", "Arkeoloji"], "a": 0, "e": "Meteorolojidir." },
-          { "s": "Fen Bilimleri", "t": "Madde ve Endüstri · Kimyasal Tepkime (İleri)", "d": 3, "q": "Kimyasal tepkimede hangisi daima korunur?", "o": ["Toplam Kütle", "Hacim", "Molekül Sayısı", "Renk"], "a": 0, "e": "Kütlenin korunumu kanunu." },
-          { "s": "Fen Bilimleri", "t": "Elektrik Yükleri (İleri Konu)", "d": 3, "q": "Aynı cins elektrik yükleri birbirini nasıl etkiler?", "o": ["İter", "Çeker", "Etkilemez", "Nötrler"], "a": 0, "e": "Aynı yükler birbirini iter." },
-          { "s": "Fen Bilimleri", "t": "Mevsimler ve İklim · Rüzgar", "d": 2, "q": "Rüzgar nereden nereye doğru eser?", "o": ["Yüksek basınçtan alçak basınca", "Alçak basınçtan yüksek basınca", "Sıcaktan soğuğa", "Denizden karaya her zaman"], "a": 0, "e": "Soğuk (Yüksek Basınç) -> Sıcak (Alçak Basınç)." },
-          { "s": "Fen Bilimleri", "t": "Basınç · Sıvı Basıncı (İleri Konu)", "d": 3, "q": "Sıvı basıncı neye bağlıdır?", "o": ["Derinlik ve Yoğunluk", "Kabın şekli", "Sıvı hacmi", "Kabın taban alanı"], "a": 0, "e": "P = h · d." },
-          { "s": "Fen Bilimleri", "t": "DNA ve Genetik Kod · Çaprazlama (İleri)", "d": 3, "q": "Mendel çaprazlamasında Ss × Ss genotipli çaprazlamadan ss gelme olasılığı nedir?", "o": ["%25", "%50", "%75", "%100"], "a": 0, "e": "SS, Ss, Ss, ss (1/4 = %25)." },
-          { "s": "Fen Bilimleri", "t": "Çevre Bilimi · Besin Zinciri (İleri)", "d": 3, "q": "Besin piramidinde tabandan tavana doğru gidildikçe ne azalır?", "o": ["Aktarılan Enerji", "Zehir miktarı", "Birey vücut büyüklüğü", "Kaybolan enerji"], "a": 0, "e": "Enerji transferinde %90 kayıp yaşanır." },
-          { "s": "Fen Bilimleri", "t": "Biyoteknoloji (İleri Konu)", "d": 3, "q": "Bir canlının genetik ikizinin üretilmesine ne ad verilir?", "o": ["Klonlama", "Gen aktarımı", "Aşılama", "Islah"], "a": 0, "e": "Klonlama (Dolly örneği)." }
+          { "s": "Matematik", "t": "Çarpanlar ve Katlar · EBOB Parça Sayısı", "d": 2, "q": "54 m ve 72 m iki demir çubuk eşit uzunluktaki en büyük parçalara kesilecektir. Toplam **kaç parça** elde edilir?", "o": ["18", "7", "5", "12"], "a": 1, "e": "EBOB(54, 72) = 18 m. 54/18 = 3, 72/18 = 4 -> Toplam = 3 + 4 = 7 parça." },
+          { "s": "Matematik", "t": "Üslü İfadeler · Negatif Üs", "d": 2, "q": "3⁻² sayısı kaça eşittir?", "o": ["-9", "-6", "1/9", "1/6"], "a": 2, "e": "3⁻² = 1 / 3² = 1/9." },
+          { "s": "Matematik", "t": "Üslü İfadeler · Üssün Üssü", "d": 2, "q": "(2³)⁴ ifadesinin değeri kaçtır?", "o": ["2¹²", "2⁷", "2¹", "16³"], "a": 0, "e": "(2³)⁴ = 2¹²." },
+          { "s": "Matematik", "t": "Çarpanlar ve Katlar · Bölünebilme", "d": 1, "q": "Aşağıdaki sayılardan hangisi 3 ile kalansız bölünür?", "o": ["214", "311", "402", "503"], "a": 2, "e": "402'nin rakamlar toplamı 4+0+2=6 (3'ün katıdır)." },
+          { "s": "Fen Bilimleri", "t": "DNA ve Genetik Kod · Çaprazlama", "d": 2, "q": "Melez düz tohumlu iki bezelyenin (Dd × Dd) çaprazlanması sonucu buruşuk tohumlu (dd) bezelye oluşma olasılığı yüzde kaçtır?", "o": ["%100", "%75", "%50", "%25"], "a": 3, "e": "Çaprazlama: DD, Dd, Dd, dd. Buruşuk (dd) = 1/4 = %25." },
+          { "s": "İngilizce", "t": "Unit 5 The Internet · Log In", "d": 1, "q": "You should enter your username and password to ________ to your account.", "o": ["download", "log in", "upload", "delete"], "a": 1, "e": "Hesaba girmek = log in." },
+          { "s": "İngilizce", "t": "Unit 1 Friendship · Have in Common", "d": 1, "q": "We get on well with Sally because we have lots of things in ________.", "o": ["common", "secret", "trouble", "mind"], "a": 0, "e": "Have in common = Ortak noktaları olmak." },
+          { "s": "Türkçe", "t": "Fiilimsiler · Adlaşmış Sıfat-Fiil", "d": 2, "q": "Hangi cümlede adlaşmış sıfat-fiil vardır?", "o": ["Gelen konukları kapıda karşıladı.", "Ağlayanları teselli etmeye çalıştı.", "Koşan çocuk aniden durdu.", "Sararmış yapraklar döküldü."], "a": 1, "e": "'Ağlayanları' -> Ağlayan insanları (İsim düşmüştür)." },
+          { "s": "Türkçe", "t": "Sözcükte Anlam · Deyimler", "d": 2, "q": "Hangi cümlede deyim **yanlış** kullanılmıştır?", "o": ["Sınavı kazandığını duyunca etekleri tutuştu.", "Korkudan etekleri tutuştu.", "Sefincinden etekleri zil çaldı.", "Dili tutuldu."], "a": 0, "e": "'Etekleri tutuşmak' telaş/korkudur, sevinçle kullanılmaz." },
+          { "s": "Matematik", "t": "Çarpanlar ve Katlar · EKOK", "d": 2, "q": "12 dk ve 15 dk aralıklarla çalan iki zil saat 10.00'da birlikte çaldı. Bir sonraki birlikte çalma saati kaçtır?", "o": ["10.27", "11.00", "10.45", "11.15"], "a": 1, "e": "EKOK(12,15)=60 dk = 1 saat. 10.00 + 1 saat = 11.00." },
+          { "s": "Fen Bilimleri", "t": "DNA ve Genetik Kod · Nükleotid", "d": 2, "q": "800 nükleotidli bir DNA'da 150 Timin varsa kaç Sitozin vardır?", "o": ["250", "150", "300", "500"], "a": 0, "e": "T=150 -> A=150 (A+T=300). Kalan G+C=500 -> C=250." },
+          { "s": "Fen Bilimleri", "t": "Mevsimler ve İklim · Tarihler", "d": 1, "q": "21 Aralık'ta Kuzey Yarım Küre'de hangi mevsim başlar?", "o": ["Yaz", "Kış", "İlkbahar", "Sonbahar"], "a": 1, "e": "21 Aralık Kuzey Yarım Küre kış başlangıcıdır." },
+          { "s": "İnkılap Tarihi", "t": "Bir Kahraman Doğuyor · Selanik", "d": 2, "q": "Selanik'in farklı milletleri barındırması hangi özelliğidir?", "o": ["Çok kültürlü yapı", "Askeri merkez", "Ekonomik çöküş", "Dini teklik"], "a": 0, "e": "Çok kültürlülüktür." },
+          { "s": "Din Kültürü", "t": "Kader ve Kaza · Yasalar", "d": 2, "q": "Suyun kaynama noktası hangi yasa ile ilgilidir?", "o": ["Fiziksel Yasa", "Biyolojik Yasa", "Toplumsal Yasa", "Kimyasal Yasa"], "a": 0, "e": "Fiziksel Yasadır." },
+          { "s": "Matematik", "t": "Üslü İfadeler · Çarpma", "d": 2, "q": "2⁴ · 2⁵ işleminin sonucu kaçtır?", "o": ["2⁹", "2²⁰", "4⁹", "4²⁰"], "a": 0, "e": "Tabanlar aynıysa üsler toplanır: 2⁹." },
+          { "s": "Matematik", "t": "Üslü İfadeler · Bölme", "d": 2, "q": "3⁸ / 3⁵ işleminin sonucu kaçtır?", "o": ["3³", "3¹³", "3⁴", "3²"], "a": 0, "e": "Üsler çıkarılır: 8 - 5 = 3." },
+          { "s": "Fen Bilimleri", "t": "DNA ve Genetik Kod · Karmaşıklık", "d": 1, "q": "Basitten karmaşığa doğru doğru sıralama hangisidir?", "o": ["Nükleotid - Gen - DNA - Kromozom", "Kromozom - DNA - Gen - Nükleotid", "Gen - Nükleotid - DNA - Kromozom", "DNA - Gen - Nükleotid - Kromozom"], "a": 0, "e": "Basitten karmaşığa N-G-D-K." },
+          { "s": "Türkçe", "t": "Yazım Kuralları · 'mi' Eki", "d": 1, "q": "Hangi cümlede 'mi' ekinin yazımı doğrudur?", "o": ["Bize gelecek misin?", "Anladınmı konuyu?", "Geldimi haber ver.", "Biliyormusun cevabı?"], "a": 0, "e": "'gelecek misin' ayrı yazılmıştır." },
+          { "s": "İnkılap Tarihi", "t": "Bir Kahraman Doğuyor · Fikir Akımları", "d": 2, "q": "Batı'nın bilim ve tekniğini almayı savunan fikir akımı hangisidir?", "o": ["Batıcılık", "Osmanlıcılık", "Türkçülük", "İslamcılık"], "a": 0, "e": "Batıcılıktır." },
+          { "s": "Din Kültürü", "t": "Kader ve Kaza · Tevekkül", "d": 1, "q": "Sınava çalışıp gerisini Allah'a bırakmak hangi kavramdır?", "o": ["Tevekkül", "Kaza", "Niyet", "İrade"], "a": 0, "e": "Tevekküldür." }
         ]
       },
+      { "id": "TD02", "date": "2026-09-20", "title": "TD02 · Tam LGS Provası", "tag": "TAM DENEME", "duration": 155, "questions": [] },
       { "id": "D06", "date": "2026-09-17", "title": "D06 · Mini Deneme", "tag": "MİNİ", "duration": 30, "questions": [] },
       { "id": "D05", "date": "2026-09-16", "title": "D05 · Mini Deneme", "tag": "MİNİ", "duration": 30, "questions": [] },
       { "id": "D04", "date": "2026-09-15", "title": "D04 · Mini Deneme", "tag": "MİNİ", "duration": 30, "questions": [] },
@@ -274,52 +192,61 @@
 
     const LESSONS = [
       {
+        id: "L16",
+        date: "2026-09-22",
+        subject: "Fen Bilimleri",
+        icon: "FEN",
+        title: "TD02 Analizi · Mendel Genetiği ve Çaprazlama",
+        subtitle: "TD02 88. Soru Detaylı Çözümü ve Anlatımı",
+        body: `
+          <div class="lesson-box">
+            <h3>Çaprazlama Olasılığı Nasıl Hesaplanır?</h3>
+            <p><b>Soru:</b> İki melez düz tohumlu bezelye ($Ss \\times Ss$) çaprazlandığında buruşuk tohumlu ($ss$) oluşma ihtimali nedir?</p>
+            <p><b>Adım Adım Çözüm:</b><br>1. Genotipleri eşleştir: $S$ ve $s$ ile $S$ ve $s$<br>2. Oluşan Genotipler: $SS$, $Ss$, $Ss$, $ss$<br>3. Toplam 4 durumdan sadece 1 tanesi $ss$ (buruşuk) genotipindedir.<br>4. Oran: $\\frac{1}{4} = \\%25$ <b>(Cevap A)</b></p>
+            <div class="tip">💡 <b>Püf Noktası:</b> İki heterozigot (melez) birey çaprazlandığında çekinik karakterin ortaya çıkma ihtimali daima $\%25$'tir.</div>
+          </div>
+        `
+      },
+      {
+        id: "L15",
+        date: "2026-09-22",
+        subject: "Matematik",
+        icon: "MAT",
+        title: "TD02 Analizi · Negatif Üs ve Üssün Üssü",
+        subtitle: "TD02 61 ve 65. Soru Detaylı Çözümü",
+        body: `
+          <div class="lesson-box">
+            <h3>Negatif Üs Sayıyı Negatif Yapmaz!</h3>
+            <p><b>Hatalı Yaklaşım:</b> $2^{-3} = -8$ sanmak.<br><b>Doğru Çözüm:</b> Üsteki eksi işareti sayıyı takla attırır (paydaya indirir)!<br>$2^{-3} = \\frac{1}{2^3} = \\frac{1}{8}$ <b>(Cevap A)</b></p>
+            <p><b>Üssün Üssü Kuralı:</b> $(5^2)^3$ işleminde üsler birbiriyle çarpılır: $2 \\times 3 = 6 \\rightarrow 5^6$ <b>(Cevap A)</b></p>
+            <div class="warn">⚠️ <b>Hata Uyarısı:</b> Negatif üssü işaret eksisiyle karıştırma! Negatif üs sadece kesir yapar.</div>
+          </div>
+        `
+      },
+      {
+        id: "L14",
+        date: "2026-09-22",
+        subject: "Matematik",
+        icon: "MAT",
+        title: "TD02 Analizi · EBOB Parça Sayısı ve Bölünebilme",
+        subtitle: "TD02 51 ve 64. Soru Detaylı Çözümü",
+        body: `
+          <div class="lesson-box">
+            <h3>EBOB = Parça Uzunluğudur, Parça Sayısı Değil!</h3>
+            <p><b>Soru:</b> 48 m ve 60 m kumaşlar eşit en büyük parçalara bölünecektir. Kaç parça oluşur?</p>
+            <p><b>EBOB(48, 60) = 12 metre</b> (Bu bir parçanın uzunluğudur).<br>Parça Sayısı: $48 / 12 = 4$ ve $60 / 12 = 5 \\rightarrow 4 + 5 = 9$ parça <b>(Cevap A)</b>.</p>
+            <p><b>3 ile Bölünebilme Kuralı:</b> Rakamların toplamı 3'ün katı olmalıdır ($1 + 2 + 3 = 6 \\rightarrow 123$ bölünür).</p>
+          </div>
+        `
+      },
+      {
         id: "L13",
         date: "2026-09-17",
         subject: "Türkçe",
         icon: "TÜR",
-        title: "D05 Analizi · Olumsuz Soru Kökleri",
-        subtitle: "D05 5. Soru Detaylı Çözüm ve Anlatımı",
-        body: `
-          <div class="lesson-box">
-            <h3>Deyimlerde Yanlış Kullanımı Bulma</h3>
-            <p><b>Soru:</b> Hangi cümlede deyim yanlış anlamda kullanılmıştır?</p>
-            <p><b>Çözüm:</b> 'Çok sinirlendi, göze girmek için her şeyi yaptı' cümlesinde 'göze girmek' takdir kazanmak demektir. Sinirlenen birinin duygu durumuyla uyuşmaz. <b>(Cevap B)</b></p>
-            <div class="warn"><b>Hata Nedeni:</b> Soru kökündeki 'yanlış kullanılmıştır' ifadesini gözden kaçırmak. Olumsuz köklerin altını mutlaka çiz!</div>
-          </div>
-        `
-      },
-      {
-        id: "L12",
-        date: "2026-09-17",
-        subject: "Matematik",
-        icon: "MAT",
-        title: "D05 Analizi · Üslü Sayılarda Taban Eşitleme",
-        subtitle: "D05 7. Soru Detaylı Çözüm ve Anlatımı",
-        body: `
-          <div class="lesson-box">
-            <h3>Üslü İşlemlerde Adım Adım Çözüm</h3>
-            <p><b>Soru:</b> (2⁵ · 4³) / 8² İşleminin Sonucu Kaçtır?</p>
-            <p>1. Tabanları 2 yap: 4³ = 2⁶, 8² = 2⁶<br>2. Pay: 2⁵ · 2⁶ = 2¹¹<br>3. Payda (2³)² = 2⁶ yerleştirmesinde taban üsleri düzenlenince 2¹¹ / 2⁹ = 2² = <b>4 (Cevap B)</b></p>
-            <div class="tip">💡 <b>Püf Noktası:</b> Farklı tabanları en küçük asal tabana (2, 3, 5) çevirip üsleri topla ve çıkar!</div>
-          </div>
-        `
-      },
-      {
-        id: "L11",
-        date: "2026-09-17",
-        subject: "Matematik",
-        icon: "MAT",
-        title: "D05 Analizi · EBOB 'Kaç Parça?' Kapanı",
-        subtitle: "D05 6. Soru Detaylı Çözüm ve Anlatımı",
-        body: `
-          <div class="lesson-box">
-            <h3>EBOB Bulunca İşlem Bitiyor mu?</h3>
-            <p><b>Soru:</b> 48m ve 60m iki kumaş eşit parçalara bölünecektir. Kaç parça elde edilir?</p>
-            <p><b>Hatalı Yaklaşım:</b> EBOB=12 bulup şıklardaki 12'yi işaretlemek.<br><b>Doğru Çözüm:</b> EBOB (12m) parça uzunluğudur! Parça sayısı için: 48/12 = 4 parça, 60/12 = 5 parça. Toplam = <b>9 Parça (Cevap A)</b></p>
-            <div class="tip">💡 <b>Püf Noktası:</b> EBOB bulduktan sonra dur ve sorunun son cümlesini oku: Parça uzunluğu mu isteniyor, parça sayısı mı?</div>
-          </div>
-        `
+        title: "Olumsuz Soru Kökleri",
+        subtitle: "Deyimlerde Yanlış Kullanım",
+        body: "<h3>Anlatım</h3><p>Olumsuz soru köklerinde olumsuz ifadenin altını mutlaka çiz!</p>"
       }
     ];
 
@@ -473,24 +400,27 @@
         else if(char === '-') empty++;
       }
 
-      if(examId === 'D05') {
+      if(examId === 'TD02') {
+        correct = 49; wrong = 7; empty = 5; notSeen = 29; net = 46.67;
+        wrongTopics = ["EBOB Parça Sayısı (S51)", "Üssün Üssü (S61)", "Bölünebilme (S64)", "Negatif Üs (S65)", "Mendel Çaprazlaması (S88)", "İngilizce İnternet Kalıpları"];
+      } else if(examId === 'D05') {
         correct = 13; wrong = 4; empty = 1; notSeen = 2; net = 11.67;
-        wrongTopics = ["Deyimler (Ters Kök - S5)", "EBOB Parça Sayısı (S6)", "Üslü İfadeler (S7)", "Asal Çarpanlar (S8)"];
+        wrongTopics = ["Deyimler (Ters Kök)", "EBOB Parça Sayısı", "Üslü İfadeler", "Asal Çarpanlar"];
       } else if(examId === 'TD01') {
         correct = 41; wrong = 13; empty = 0; notSeen = 36; net = 36.67;
-        wrongTopics = ["Deyimler (Ters Kök)", "Adlaşmış Sıfat-Fiil", "'mi' Yazımı", "Kader-Kaza", "EBOB Parça Sayısı", "DNA Eşlenmesi"];
+        wrongTopics = ["Deyimler", "Adlaşmış Sıfat-Fiil", "EBOB Parça Sayısı"];
       } else if(examId === 'D04') {
         correct = 12; wrong = 6; empty = 0; notSeen = 2; net = 10.00;
-        wrongTopics = ["S8 Bilimsel Gösterim (X)", "S16 Osmanlıcılık (X)", "Ters Soru Okuma Dikkati"];
+        wrongTopics = ["Bilimsel Gösterim", "Osmanlıcılık"];
       } else if(examId === 'D03') {
         correct = 13; wrong = 3; empty = 0; notSeen = 4; net = 12.00;
-        wrongTopics = ["Ters Soru Kökleri", "Adlaşmış Sıfat-Fiil"];
+        wrongTopics = ["Ters Soru Kökleri"];
       } else if(examId === 'D02') {
         correct = 7; wrong = 11; empty = 0; notSeen = 2; net = 3.33;
-        wrongTopics = ["Fiilimsiler", "Osmanlıcılık Fikir Akımı", "Kader-Kaza"];
+        wrongTopics = ["Fiilimsiler", "Kader-Kaza"];
       } else if(examId === 'D01') {
         correct = 12; wrong = 5; empty = 0; notSeen = 3; net = 10.33;
-        wrongTopics = ["Adlaşmış Sıfat-Fiil", "EBOB Kare Sayısı", "Supportive"];
+        wrongTopics = ["Adlaşmış Sıfat-Fiil"];
       } else if(examId === 'ST01') {
         correct = 25; wrong = 15; empty = 0; notSeen = 0; net = 20.00;
         wrongTopics = ["Temel Konular"];
@@ -506,6 +436,7 @@
       let estimatedLgsScore = Math.round(194.75 + (weightedNet * 2.15));
       if(estimatedLgsScore > 500) estimatedLgsScore = 500;
       if(examId === 'TD01') estimatedLgsScore = 321;
+      if(examId === 'TD02') estimatedLgsScore = 365;
 
       return { examId, answers, sec, correct, wrong, empty, notSeen, net, estimatedLgsScore, wrongTopics };
     }

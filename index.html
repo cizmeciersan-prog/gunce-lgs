@@ -100,14 +100,14 @@
       <section id="sec-quiz" class="section">
         <div class="quiz-header">
           <div class="quiz-progress">
-            <span id="q-counter">Soru 1/90</span>
+            <span id="q-counter">Soru 1/20</span>
             <span id="q-timer" style="font-family: var(--font-mono);">00:00</span>
           </div>
           <div class="progress-bar"><div id="q-progress-fill" class="progress-fill"></div></div>
         </div>
         <div id="quiz-body">
           <div id="q-subject" style="font-size: 0.75rem; font-weight: 700; color: var(--accent); margin-bottom: 4px;">TÜRKÇE</div>
-          <div id="q-topic" style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">Fiilimsiler</div>
+          <div id="q-topic" style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">Paragraf ve Anlam</div>
           <div id="q-text" class="q-text">Soru metni yükleniyor...</div>
           <div id="q-options" class="options"></div>
           <div class="quiz-nav">
@@ -135,6 +135,8 @@
 
   <script>
     const PRELOADED_RESULTS = [
+      { code: "OKUL801|25.09.2026|61D-19Y-10B|54.70NET|358.55PUAN", date: "25.09.2026 10:00:00" },
+      { code: "GLGS1|TD04|BCACAAAAACADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-AAA-ACABAAAACBA-AABAB-CDBAAAAAAAAAAAA-AAA-AAAAA|1832", date: "24.09.2026 17:15:00" },
       { code: "GLGS1|D07|ACBCDB-BA-ABAAXXAAAA|449", date: "23.09.2026 18:15:00" },
       { code: "GLGS1|TD02|BXBCXBBBXAXABAAXXBAABAAA-AXA-XBAAAXXAAAAAAAAXAABC-B-AXAXXXAADXACDXXXAXAAAXAXXAAXAXAXA-XBXX|744", date: "22.09.2026 17:30:00" },
       { code: "GLGS1|D05|ACBCDBDCXBBCXCDBBBC-|368", date: "16.09.2026 18:06:08" },
@@ -150,115 +152,27 @@
 
     const EXAMS = [
       {
-        "id": "TD04",
-        "date": "2026-09-24",
-        "title": "TD04 · Okul Denemesi Hazırlık Provası (801 Özel)",
-        "tag": "TAM DENEME",
-        "duration": 155,
+        "id": "D10",
+        "date": "2026-09-28",
+        "title": "D10 · Okul Kitapçığı Birebir İkiz Telafi Sınavı",
+        "tag": "MİNİ",
+        "duration": 35,
         "questions": [
-          // TÜRKÇE (20 Soru - Tam Okul Kazanımları)
-          { "s": "Türkçe", "t": "T.8.3.21 Metnin İçeriğini Yorumlama", "d": 2, "q": "[P]Bir yazarın kaleminden çıkan her sözcük, onun dünya görüşünün aynasıdır. Yazar, yaşadığı dönemin sosyal ve kültürel havasını ister istemez eserine yansıtır. Bu yüzden sanatı toplumdan bağımsız düşünmek mümkün değildir.[/P]\n\nBu metinden hareketle aşağıdakilerden hangisine ulaşılabilir?", "o": ["Yazarlar toplumsal gerçeklerden tamamen bağımsız yazmalıdır.", "Eserler, yazıldığı dönemin izlerini taşır.", "Gerçek sanat sadece bireysel konuları işler.", "Tüm yazarlar aynı dünya görüşüne sahiptir."], "a": 1, "e": "Metinde eserlerin yazıldığı dönemin havasını yansıttığı vurgulanmaktadır." },
-          { "s": "Türkçe", "t": "T.8.3.25 Metinden Çıkarım Yapma", "d": 2, "q": "[P]Kütüphaneler sadece kitapların saklandığı binalar değildir. O binalar, insanlığın ortak hafızasını saklayan, geçmiş ile gelecek arasında köprü kuran kültür merkezleridir.[/P]\n\nBu parçadan kütüphanelerle ilgili hangisi **çıkarılamaz**?", "o": ["Geleceğe ışık tuttukları", "Toplumsal hafızayı korudukları", "Sadece dijital yayın barındırdıkları", "Geçmişle bağ kurdukları"], "a": 2, "e": "Sadece dijital yayın barındırdığı parçadan çıkarılamaz." },
-          { "s": "Türkçe", "t": "T.8.3.17 Metnin Ana Fikri", "d": 2, "q": "[P]Başarıya ulaşan insanların ortak noktası, karşılaştıkları zorluklar karşısında vazgeçmemeleridir. Onlar her başarısızlığı bir ders olarak görür ve hedeflerine doğru yürümeye devam ederler.[/P]\n\nMetnin ana düşüncesi hangisidir?", "o": ["Başarının anahtarı kararlılık ve pes etmemektir.", "Zorluklar insanı her zaman başarısız yapar.", "Başarılı insanlar hiç hata yapmazlar.", "Hedef koymak başarı için yeterlidir."], "a": 0, "e": "Kararlılık ve vazgeçmemek ana düşüncedir." },
-          { "s": "Türkçe", "t": "T.8.3.18 Yardımcı Fikirler", "d": 2, "q": "[P]Düzenli okumak; kelime hazinesini artırır, odaklanmayı güçlendirir ve stresi azaltır. Ayrıca insanların empati yeteneğini geliştirerek toplumsal ilişkileri düzenler.[/P]\n\nMetinde okumanın hangi faydasına **değinilmemiştir**?", "o": ["Odaklanmayı artırdığına", "Kelime bilgisini zenginleştirdiğine", "Hafızayı tamamen sıfırladığına", "Empati yeteneğini geliştirdiğine"], "a": 2, "e": "Hafızayı sıfırladığına değinilmemiştir." },
-          { "s": "Türkçe", "t": "T.8.3.32 Grafik Yorumlama", "d": 2, "q": "[P]Bir okuldaki öğrencilerin kitap türü tercihleri şöyledir:\n- Roman: %40\n- Bilim Kurgu: %30\n- Tarih: %20\n- Şiir: %10[/P]\n\nBu verilere göre aşağıdakilerden hangisi **doğrudur**?", "o": ["En çok tercih edilen tür romandır.", "Şiir okuyanlar tarih okuyanlardan fazladır.", "Bilim kurgu en az okunan türdür.", "Roman okuyanlar tüm okulun yarısından fazladır."], "a": 0, "e": "%40 ile roman en yüksek orandadır." },
-          { "s": "Türkçe", "t": "T.8.3.9 Fiilimsiler · İsim-Fiil", "d": 1, "q": "Hangi cümlede isim-fiil kullanılmıştır?", "o": ["Kitap okumak insana huzur verir.", "Koşan çocuk aniden durdu.", "Gülerek yanımıza geldi.", "Gidip hemen geri döndü."], "a": 0, "e": "'okumak' sözcüğündeki -mak isim-fiil ekidir." },
-          { "s": "Türkçe", "t": "T.8.3.9 Fiilimsiler · Sıfat-Fiil", "d": 1, "q": "Hangi cümlede sıfat-fiil kullanılmıştır?", "o": ["Kırılan bardağı çöpe attı.", "Koşarak içeri girdi.", "Ders çalışmayı sever.", "Bunu yapmak zordur."], "a": 0, "e": "'Kırılan' (-an ekli) sıfat-fiildir." },
-          { "s": "Türkçe", "t": "T.8.3.9 Fiilimsiler · Zarf-Fiil", "d": 2, "q": "Hangi cümlede zarf-fiil cümleye **zaman** anlamı katmıştır?", "o": ["Ödevini bitirince dışarı çıktı.", "Gülerek cevap verdi.", "Ağlayarak derdini anlattı.", "Sallanarak yürüyordu."], "a": 0, "e": "'bitirince' (-ince) ne zaman sorusuna cevap verir." },
-          { "s": "Türkçe", "t": "T.8.2.5 Kelimeleri Anlamına Uygun Kullanma", "d": 1, "q": "Hangi cümlede deyim **yanlış** anlamda kullanılmıştır?", "o": ["Sınavı kazanınca etekleri tutuştu.", "Korkudan etekleri tutuştu.", "Sevinçten etekleri zil çaldı.", "Sözleri duyunca dili tutuldu."], "a": 0, "e": "Etekleri tutuşmak telaş/korkudur, kazanma sevinciyle uymaz." },
-          { "s": "Türkçe", "t": "T.8.4.16 'mi' Ekinin Yazımı", "d": 1, "q": "Hangi cümlede 'mi' ekinin yazımı **doğrudur**?", "o": ["Sen de bizimle gelecek misin?", "Anladınmı konuyu?", "Geldimi haber ver.", "Biliyormusun cevabı?"], "a": 0, "e": "Soru edatı olan 'misin' ayrı yazılmıştır." },
-          { "s": "Türkçe", "t": "T.8.3.34 Düşünceyi Geliştirme Yolları", "d": 2, "q": "'Cahil insan meyvesiz ağaca benzer, ne gölge verir ne ürün.' cümlesinde hangi düşünceyi geliştirme yolu vardır?", "o": ["Benzetme", "Tanımlama", "Sayısal Veri", "Tanık Gösterme"], "a": 0, "e": "Cahil insan meyvesiz ağaca benzetilmiştir." },
-          { "s": "Türkçe", "t": "T.8.3.20 Hikaye Unsurları", "d": 1, "q": "'Soğuk bir kış sabahı Ahmet, kütüphaneye gitmek için yola çıktı.' cümlesinde hangi hikaye unsuru **yoktur**?", "o": ["Olay", "Zaman", "Kişi", "Çatışma"], "a": 3, "e": "Çatışma (anlaşmazlık) yoktur." },
-          { "s": "Türkçe", "t": "T.8.3.5 Bağlamdan Anlam Tahmini", "d": 2, "q": "'O kadar **mütevazı** bir insandı ki başarısına rağmen hiç övünmezdi.' cümlesinde altı çizili kelimenin anlamı nedir?", "o": ["Alçak gönüllü", "Kibirli", "Sert", "Hırslı"], "a": 0, "e": "Övünmeyen insan alçak gönüllüdür." },
-          { "s": "Türkçe", "t": "T.8.3.27 Görsel Yorumlama", "d": 2, "q": "Bir afişte 'Geleceğini Çöpe Atma, Geri Dönüştür' yazısı ve geri dönüşüm kutusu varsa afişin amacı nedir?", "o": ["Çevre bilinci ve tasarruf oluşturmak", "Sadece çöp kutusu satmak", "Sanayi üretimini durdurmak", "Kağıt kullanımını yasaklamak"], "a": 0, "e": "Çevre bilincini artırmak amaçlanmaktadır." },
-          { "s": "Türkçe", "t": "T.8.3.21 Metin Yorumlama", "d": 2, "q": "'Teknoloji doğru kullanıldığında hayatı kolaylaştırır, bilinçsiz kullanıldığında ise bağımlılık yapar.' metninin iletisi nedir?", "o": ["Teknolojinin kullanımı insan bilincine bağlıdır.", "Teknoloji tamamen yasaklanmalıdır.", "Teknoloji sadece zararlıdır.", "Her insan teknoloji üretmelidir."], "a": 0, "e": "Bilinçli kullanım ana iletidir." },
-          { "s": "Türkçe", "t": "T.8.3.9 Fiilimsiler · Adlaşmış Sıfat-Fiil", "d": 2, "q": "Hangi cümlede adlaşmış sıfat-fiil vardır?", "o": ["Ağlayanları teselli etmeye çalıştı.", "Koşan çocuk yere düştü.", "Okunacak kitapları ayırdı.", "Gelen misafirleri karşıladı."], "a": 0, "e": "'Ağlayanları' -> Ağlayan insanları." },
-          { "s": "Türkçe", "t": "T.8.4.16 Noktalama İşaretleri", "d": 1, "q": "Hangi cümlede virgül (,) yanlış kullanılmıştır?", "o": ["Koşarak, içeri girdi.", "Ahmet, Ali ve Can geldiler.", "Pazardan elma, armut aldı.", "Fırtına çıktı, yağmur başladı."], "a": 0, "e": "Zarf-fiilden (-arak) sonra virgül konmaz." },
-          { "s": "Türkçe", "t": "T.8.3.25 Çıkarım Yapma", "d": 2, "q": "'Sadece çok çalışanlar değil, doğru yöntemle çalışanlar hedefine ulaşır.' cümlesinden çıkarım hangisidir?", "o": ["Verimli çalışmak sadece çok çalışmaktan daha önemlidir.", "Çok çalışmak her zaman yeterlidir.", "Yöntemin önemi yoktur.", "Hedef koymak gereksizdir."], "a": 0, "e": "Çalışma yöntemi vurgulanmıştır." },
-          { "s": "Türkçe", "t": "T.8.3.17 Ana Duygu Bulma", "d": 1, "q": "'Memleketim gözümde tüter / Buram buram buram sıla kokar' dizesinin ana duygusu nedir?", "o": ["Memleket Hasreti", "Doğa Sevgisi", "Yaşama Sevinci", "Yalnızlık"], "a": 0, "e": "Sıla kokması memleket hasretidir." },
-          { "s": "Türkçe", "t": "T.8.3.21 Metin Yorumlama", "d": 2, "q": "Zamanın geri getirilemeyen tek hazine olduğunun anlatıldığı bir metinde asıl verilmek istenen mesaj nedir?", "o": ["Zamanı planlı ve verimli kullanmak gerekir.", "Zamanı durdurmak mümkündür.", "Geçmişe takılı kalmalıyız.", "Saat satın almalıyız."], "a": 0, "e": "Zaman yönetimi mesajıdır." },
-
-          // İNKILAP TARİHİ (10 Soru - ITA.8.1.1 20. Yy Başı Osmanlı)
-          { "s": "İnkılap Tarihi", "t": "ITA.8.1.1 Selanik'in Konumu", "d": 2, "q": "Selanik kenti deniz ve demir yolu ağına sahip bir liman kentiydi. Bu durum Selanik'in öncelikle hangi yönünü geliştirmiştir?", "o": ["Ekonomik ve Ticari Hayatını", "Askerî Gücünü", "Dini Yapısını", "Tarım Üretimini"], "a": 0, "e": "Ulaşım imkanları ticareti geliştirir." },
-          { "s": "İnkılap Tarihi", "t": "ITA.8.1.1 Selanik Kültürel Yapı", "d": 2, "q": "Selanik'te Türk, Rum, Sırp, Yahudi gibi farklı milletlerin bir arada yaşaması neyin göstergesidir?", "o": ["Zengin bir kültürel yapının ve çok kültürlülüğün", "Dini birliğin sağlandığının", "Sadece Türk nüfusun bulunduğunun", "Siyasi krizlerin bittiğinin"], "a": 0, "e": "Farklı milletler çok kültürlülüktür." },
-          { "s": "İnkılap Tarihi", "t": "ITA.8.1.1 Fransız İhtilali Yansımaları", "d": 2, "q": "Fransız İhtilali ile yayılan Milliyetçilik fikri Osmanlı Devleti'ni öncelikle nasıl etkilemiştir?", "o": ["Azınlık isyanlarına ve toprak kayıplarına yol açmıştır.", "Ekonomiyi tamamen güçlendirmiştir.", "Osmanlı'nın sınırlarını büyütmüştür.", "Savaşları engellemiştir."], "a": 0, "e": "Milliyetçilik azınlık isyanlarına yol açtı." },
-          { "s": "İnkılap Tarihi", "t": "ITA.8.1.1 Sanayi İnkılabı Etkisi", "d": 2, "q": "Sanayi İnkılabı sonrası Avrupalı devletlerin Osmanlı'yı ham madde ve pazar olarak görmesi neye yol açmıştır?", "o": ["Osmanlı'nın açık pazar haline gelmesine", "Osmanlı sanayisinin coşmasına", "İthalatın durmasına", "Borçların bitmesine"], "a": 0, "e": "Osmanlı Avrupa'nın açık pazarı olmuştur." },
-          { "s": "İnkılap Tarihi", "t": "ITA.8.1.1 Fikir Akımları · Osmanlıcılık", "d": 2, "q": "Osmanlı sınırları içinde yaşayan herkesi din, ırk ayrımı gözetmeksizin eşit vatandaş sayan fikir akımı hangisidir?", "o": ["Osmanlıcılık", "Türkçülük", "İslamcılık", "Batıcılık"], "a": 0, "e": "Tüm tebaayı eşit saymak Osmanlıcılıktır." },
-          { "s": "İnkılap Tarihi", "t": "ITA.8.1.1 Fikir Akımları · Batıcılık", "d": 2, "q": "Devletin çöküşünü önlemek için Batı'nın bilim, teknik ve yönetim anlayışının örnek alınmasını savunan fikir akımı hangisidir?", "o": ["Batıcılık", "İslamcılık", "Türkçülük", "Adem-i Merkeziyetçilik"], "a": 0, "e": "Batı'yı örnek almak Batıcılıktır." },
-          { "s": "İnkılap Tarihi", "t": "ITA.8.1.1 M. Kemal'in Doğduğu Ortam", "d": 2, "q": "Mustafa Kemal'in doğup büyüdüğü Selanik şehrindeki gazete ve dergi çeşitliliği ona ne kazandırmıştır?", "o": ["Dünyadaki gelişmeleri takip etme ve geniş bakış açısı", "Ticari zenginlik", "Padişah olma isteği", "Sadece askerî rütbe"], "a": 0, "e": "Fikir dünyasını zenginleştirmiştir." },
-          { "s": "İnkılap Tarihi", "t": "ITA.8.1.1 Tanzimat Fermanı", "d": 2, "q": "Tanzimat ve Islahat Fermanlarının ilan edilme temel amacı nedir?", "o": ["Azınlıkların devlete bağlılığını sağlayıp devleti dağılmaktan kurtarmak", "Savaşa girmek", "Avrupa'yı fethetmek", "Vergileri kaldırmak"], "a": 0, "e": "Devletin dağılmasını önlemektir." },
-          { "s": "İnkılap Tarihi", "t": "ITA.8.1.1 Meşrutiyet'in İlanı", "d": 2, "q": "Osmanlı'da Meşrutiyet'in ilanı ile halk ilk kez neye katılmıştır?", "o": ["Yönetime ve seçme-seçilme hakkına", "Ordu komutanlığına", "Padişah soyuna", "Sadece vergi toplamaya"], "a": 0, "e": "Kanun-i Esasi ile halk yönetime katılmıştır." },
-          { "s": "İnkılap Tarihi", "t": "ITA.8.1.1 Fikir Akımları · Türkçülük", "d": 2, "q": "Tüm Türkleri tek bir bayrak altında toplamayı hedefleyen fikir akımı hangisidir?", "o": ["Türkçülük", "Osmanlıcılık", "İslamcılık", "Batıcılık"], "a": 0, "e": "Türk birliği Türkçülüktür." },
-
-          // DİN KÜLTÜRÜ (10 Soru - DIN.8.1.1 ve DIN.8.1.2)
-          { "s": "Din Kültürü", "t": "DIN.8.1.1 Kader ve Kaza Tanımı", "d": 1, "q": "Allah'ın evrendeki her şeyi bir ölçü, düzen ve plana göre ezeli ilmiyle takdir etmesine ne denir?", "o": ["Kader", "Kaza", "Tevekkül", "İrade"], "a": 0, "e": "Ölçü ve planlama Kader'dir." },
-          { "s": "Din Kültürü", "t": "DIN.8.1.1 Kaza Örneği", "d": 2, "q": "Allah tarafından takdir edilen planlanmış olayların zamanı gelince gerçekleşmesine kaza denir. Hangisi **kaza** örneğidir?", "o": ["Dün akşam şiddetli kar yağması", "Suyun 100 derecede kaynama kuralı", "Güneşin doğudan doğacağı planı", "Yer çekimi yasası"], "a": 0, "e": "Gerçekleşmiş olay kazadır." },
-          { "s": "Din Kültürü", "t": "DIN.8.1.2 Fiziksel Yasalar", "d": 2, "q": "Madde ve enerjinin oluşumu, değişimi ve yapısı ile ilgili değişmez kurallara ne ad verilir?", "o": ["Fiziksel Yasalar", "Biyolojik Yasalar", "Toplumsal Yasalar", "Kimyasal Yasalar"], "a": 0, "e": "Madde ve enerji = Fiziksel Yasalar." },
-          { "s": "Din Kültürü", "t": "DIN.8.1.2 Biyolojik Yasalar", "d": 2, "q": "Canlıların doğması, gelişmesi, beslenmesi ve üremesi ile ilgili yasalar hangisidir?", "o": ["Biyolojik Yasalar", "Fiziksel Yasalar", "Toplumsal Yasalar", "Ahlaki Yasalar"], "a": 0, "e": "Canlı yapısı = Biyolojik." },
-          { "s": "Din Kültürü", "t": "DIN.8.1.2 Toplumsal Yasalar", "d": 2, "q": "Toplumun varlığı ve huzuru için koyulan adalet, eşitlik ve göç ile ilgili kurallar hangi yasadır?", "o": ["Toplumsal Yasalar", "Fiziksel Yasalar", "Biyolojik Yasalar", "Hukuki Yasalar"], "a": 0, "e": "Toplum ilişkileri = Toplumsal." },
-          { "s": "Din Kültürü", "t": "DIN.8.1.2 İnsanın İradesi", "d": 2, "q": "İnsanın kendi özgür seçimiyle karar verebilme yeteneğine ne denir?", "o": ["Cüzi İrade", "Külli İrade", "Kader", "Kaza"], "a": 0, "e": "İnsanın kısıtlı seçimi Cüzi İradedir." },
-          { "s": "Din Kültürü", "t": "DIN.8.1.2 Külli İrade", "d": 2, "q": "Allah'ın sınırsız, sonsuz ve her şeye yön veren mutlak iradesine ne denir?", "o": ["Külli İrade", "Cüzi İrade", "Tevekkül", "Sorumluluk"], "a": 0, "e": "Allah'ın sonsuz iradesi Külli İradedir." },
-          { "s": "Din Kültürü", "t": "DIN.8.1.2 İnsanın Sorumluluğu", "d": 2, "q": "İnsanın eylemlerinden sorumlu olmasının temel şartı nedir?", "o": ["Akıl ve Özgür İrade sahibi olması", "Çok zengin olması", "Uzun yaşaması", "Makam sahibi olması"], "a": 0, "e": "Akıl ve irade sorumluluk getirir." },
-          { "s": "Din Kültürü", "t": "DIN.8.1.2 Tevekkül Anlayışı", "d": 2, "q": "Sorumluluklarını yerine getirip gerekli tüm önlemleri aldıktan sonra Allah'a güvenmeye ne denir?", "o": ["Tevekkül", "Tefekkür", "Tevazu", "Tevhit"], "a": 0, "e": "Önlem alıp güvenmek Tevekküldür." },
-          { "s": "Din Kültürü", "t": "DIN.8.1.1 Ayet ile Kader İlişkisi", "d": 2, "q": "'Biz her şeyi bir ölçüye göre yarattık.' (Kamer Suresi, 49) ayeti hangi kavramla doğrudan ilgilidir?", "o": ["Kader ve Ölçü", "Zekat", "Hac", "Oruç"], "a": 0, "e": "Ölçü ve düzen Kader demektir." },
-
-          // İNGİLİZCE (10 Soru - Unit 1 Friendship)
-          { "s": "İngilizce", "t": "E.8.1.4.1 Personal Traits", "d": 1, "q": "A good friend always tells the truth and never lies. She is very ________.", "o": ["honest", "stubborn", "sneaky", "jealous"], "a": 0, "e": "Tells the truth = honest (dürüst)." },
-          { "s": "İngilizce", "t": "E.8.1.1.1 Backing Up", "d": 1, "q": "Jack is my best friend. He always backs me up when I need help. 'Back up' means ________.", "o": ["support", "argue", "refuse", "forget"], "a": 0, "e": "Back up = support (desteklemek)." },
-          { "s": "İngilizce", "t": "E.8.1.4.1 Have in Common", "d": 1, "q": "We get on well with Sally because we have lots of things in ________.", "o": ["common", "trouble", "mind", "secret"], "a": 0, "e": "Have in common = Ortak yönü olmak." },
-          { "s": "İngilizce", "t": "E.8.1.1.1 Accepting / Refusing", "d": 2, "q": "<b>Tim:</b> Would you like to come to my birthday party on Sunday?\n<b>Sarah:</b> ________. I have to study for the LGS exam.", "o": ["I'm sorry, but I can't", "Awesome, I'd love to", "Sure, sounds great", "Yes, of course"], "a": 0, "e": "Sınav mazereti ile daveti reddeder." },
-          { "s": "İngilizce", "t": "E.8.1.4.2 Invitation Email", "d": 2, "q": "<b>Dear Mark,</b>\nI am organizing a pizza party at my house this Saturday at 4 PM. Hope you can make it!\n<b>Love, Eric</b>\n\nWhat is the event?", "o": ["A pizza party", "A graduation ceremony", "A sports event", "A movie night"], "a": 0, "e": "E-postada pizza partisi yazmaktadır." },
-          { "s": "İngilizce", "t": "E.8.1.1.1 Making Inquiries", "d": 1, "q": "<b>Alice:</b> How about going to the cinema tonight?\n<b>Betty:</b> That sounds ________! I love watching movies.", "o": ["great", "boring", "terrible", "bad"], "a": 0, "e": "Olumlu kabul ifadesidir." },
-          { "s": "İngilizce", "t": "E.8.1.4.1 Count On", "d": 1, "q": "I can trust Sam because he never shares my secrets. I can always ________ on him.", "o": ["count", "argue", "call", "refuse"], "a": 0, "e": "Count on = güvenmek." },
-          { "s": "İngilizce", "t": "E.8.1.5.1 Apologizing", "d": 2, "q": "When you cannot attend a friend's party, what should you say to express your regret?", "o": ["I am so sorry I can't come", "I don't care about your party", "You must come to my house", "I hate parties"], "a": 0, "e": "Özür ve üzüntü cümlesidir." },
-          { "s": "İngilizce", "t": "E.8.1.4.1 True Friend", "d": 1, "q": "A true friend should be loyal, reliable and ________.", "o": ["caring / helpful", "arrogant", "selfish", "stingy"], "a": 0, "e": "Olumlu arkadaş özelliği seçilmelidir." },
-          { "s": "İngilizce", "t": "E.8.1.1.1 Giving Reasons", "d": 2, "q": "<b>A:</b> Why can't you join our picnic?\n<b>B:</b> ________ I have a doctor's appointment.", "o": ["Because", "But", "So", "And"], "a": 0, "e": "Sebep açıklarken 'Because' kullanılır." },
-
-          // MATEMATİK (20 Soru - M.8.1.1.1, M.8.1.1.2, M.8.1.1.3 - Çarpanlar, EBOB/EKOK, Aralarında Asal)
-          { "s": "Matematik", "t": "M.8.1.1.2 EBOB Parça Sayısı", "d": 2, "q": "Uzunlukları 54 m ve 72 m olan iki demir çubuk eşit uzunluktaki en büyük parçalara kesilecektir. Toplam **kaç parça** elde edilir?", "o": ["7", "18", "9", "12"], "a": 0, "e": "EBOB(54, 72) = 18 m. Parça sayısı: 54/18 = 3 ve 72/18 = 4 -> 3 + 4 = 7 parça." },
-          { "s": "Matematik", "t": "M.8.1.1.1 Pozitif Çarpanlar", "d": 1, "q": "48 sayısının kaç tane pozitif tam sayı çarpanı (böleni) vardır?", "o": ["10", "8", "6", "12"], "a": 0, "e": "Çarpanlar: 1, 2, 3, 4, 6, 8, 12, 16, 24, 48 (Toplam 10 adet)." },
-          { "s": "Matematik", "t": "M.8.1.1.1 Asal Çarpanlar Üslü Gösterim", "d": 2, "q": "60 sayısının asal çarpanlarının üslü ifadelerin çarpımı şeklinde gösterimi hangisidir?", "o": ["2² · 3 · 5", "2 · 3² · 5", "2³ · 3 · 5", "2 · 3 · 5²"], "a": 0, "e": "60 = 4 · 15 = 2² · 3 · 5." },
-          { "s": "Matematik", "t": "M.8.1.1.3 Aralarında Asal Sayılar", "d": 2, "q": "Aşağıdaki sayı çiftlerinden hangisi **aralarında asaldır**?", "o": ["8 ile 15", "9 ile 12", "14 ile 21", "15 ile 25"], "a": 0, "e": "8 ve 15 sayılarının 1'den başka ortak böleni yoktur." },
-          { "s": "Matematik", "t": "M.8.1.1.2 EKOK Problemleri", "d": 2, "q": "İki otomatik zil 12 dakika ve 15 dakika aralıklarla çalmaktadır. İlk kez saat 10.00'da birlikte çalan ziller ikinci kez saat kaçta birlikte çalarlar?", "o": ["11.00", "10.30", "10.45", "11.15"], "a": 0, "e": "EKOK(12, 15) = 60 dakika (1 saat). 10.00 + 1 saat = 11.00." },
-          { "s": "Matematik", "t": "M.8.1.1.1 Asal Çarpan Toplamı", "d": 1, "q": "90 sayısının farklı asal çarpanlarının toplamı kaçtır?", "o": ["10", "8", "12", "15"], "a": 0, "e": "90 = 2 · 3² · 5. Asal çarpanlar: 2, 3, 5 -> Toplam = 10." },
-          { "s": "Matematik", "t": "M.8.1.1.2 EBOB Alan Problemi", "d": 3, "q": "Kenar uzunlukları 36 m ve 48 m olan dikdörtgen şeklindeki bir bahçenin etrafına, köşelere de gelmek şartıyla eşit aralıklarla direk dikilecektir. En az kaç direk gerekir?", "o": ["14", "12", "7", "24"], "a": 0, "e": "EBOB(36, 48) = 12 m. Çevre = 2 · (36 + 48) = 168 m. Direk sayısı = 168 / 12 = 14." },
-          { "s": "Matematik", "t": "M.8.1.1.3 Aralarında Asal Kuralı", "d": 1, "q": "Aşağıda verilen bilgi çiftlerinden hangisi daima **doğrudur**?", "o": ["Ardışık iki doğal sayı daima aralarında asaldır.", "İki çift sayı aralarında asal olabilir.", "Aralarında asal sayıların ikisi de asal olmak zorundadır.", "1 sayısı hiçbir sayıyla aralarında asal değildir."], "a": 0, "e": "Ardışık doğal sayılar (örneğin 8 ve 9) daima aralarında asaldır." },
-          { "s": "Matematik", "t": "M.8.1.1.2 EKOK Artan Problemi", "d": 3, "q": "Bir sepetteki bilyeler 6'şar ve 8'er sayıldığında her seferinde 3 bilye artmaktadır. Sepetteki bilye sayısı 50'den fazla olduğuna göre en az kaç bilye vardır?", "o": ["51", "50", "27", "75"], "a": 0, "e": "EKOK(6, 8) = 24. Katları: 24, 48, 72... 50'den büyük en küçük kat 48 kuralında 48 + 3 = 51 bilye." },
-          { "s": "Matematik", "t": "M.8.1.1.1 En Büyük Asal Çarpan", "d": 1, "q": "84 sayısının en büyük asal çarpanı kaçtır?", "o": ["7", "3", "5", "11"], "a": 0, "e": "84 = 2² · 3 · 7. En büyük asal çarpan 7'dir." },
-          { "s": "Matematik", "t": "M.8.1.1.3 Aralarında Asallık Şartı", "d": 2, "q": "12 sayısı ile A4 iki basamaklı sayısı aralarında asal olduğuna göre A yerine yazılabilecek rakamlar toplamı kaçtır? (14, 24, 34 vb)", "o": ["Sadece tek sayı veren A değerleri", "15", "20", "10"], "a": 0, "e": "Çift sayılar aralarında asal olamaz, A1, A3, A5, A7, A9 denenmelidir." },
-          { "s": "Matematik", "t": "M.8.1.1.2 EBOB Özelliği", "d": 2, "q": "Aralarında asal iki doğal sayının EBOB'u ile EKOK'unun toplamı 31'dir. Buna göre bu iki sayının çarpımı kaçtır?", "o": ["30", "31", "32", "60"], "a": 0, "e": "Aralarında asal sayıların EBOB'u 1'dir. EKOK = 30 olur. Sayıların çarpımı EKOK'a eşittir (30)." },
-          { "s": "Matematik", "t": "M.8.1.1.1 Çarpan Ağacı", "d": 1, "q": "Çarpan ağacında en üstteki sayı 72 ise altındaki asal dalların çarpımı kaça eşittir?", "o": ["72", "36", "24", "18"], "a": 0, "e": "Tüm asal çarpanların çarpımı sayının kendisine eşittir." },
-          { "s": "Matematik", "t": "M.8.1.1.2 EKOK ZAMAN", "d": 2, "q": "30 dakika ve 45 dakikada bir sefer yapan iki otobüs saat 07.00'de ilk seferlerine başlıyor. Üçüncü kez birlikte saat kaçta sefere çıkarlar?", "o": ["10.00", "08.30", "09.00", "11.30"], "a": 0, "e": "EKOK(30, 45) = 90 dk (1.5 saat). 1. Birlikte: 07.00, 2. Birlikte: 08.30, 3. Birlikte: 10.00." },
-          { "s": "Matematik", "t": "M.8.1.1.1 Çarpan Çiftleri", "d": 1, "q": "Alanı 36 cm² olan bir dikdörtgenin kenar uzunlukları tam sayı ise çevre en fazla kaç cm olur?", "o": ["74", "30", "26", "20"], "a": 0, "e": "Kenarlar 1 ve 36 seçilirse Çevre = 2 · (1 + 36) = 74 cm." },
-          { "s": "Matematik", "t": "M.8.1.1.3 Aralarında Asal", "d": 2, "q": "21 ile 2x iki basamaklı sayısı aralarında asaldır. x yerine kaç farklı rakam yazılabilir?", "o": ["6", "4", "5", "7"], "a": 0, "e": "21 = 3 · 7. 2x sayısı 3 veya 7'ye bölünmemelidir (20, 22, 23, 25, 26, 29)." },
-          { "s": "Matematik", "t": "M.8.1.1.2 EBOB Poşet Hesabı", "d": 2, "q": "40 kg nohut ve 56 kg fasulye birbirine karıştırılmadan eşit kütleli poşetlere konulacaktır. En az kaç poşet gerekir?", "o": ["12", "8", "14", "16"], "a": 0, "e": "EBOB(40, 56) = 8 kg. Nohut: 40/8 = 5, Fasulye: 56/8 = 7 -> 5 + 7 = 12 poşet." },
-          { "s": "Matematik", "t": "M.8.1.1.1 Asal Sayı Bilgisi", "d": 1, "q": "En küçük asal sayı ile iki basamaklı en küçük asal sayının toplamı kaçtır?", "o": ["13", "12", "14", "15"], "a": 0, "e": "En küçük asal = 2, İki basamaklı en küçük asal = 11 -> 2 + 11 = 13." },
-          { "s": "Matematik", "t": "M.8.1.1.2 Ortak Kat", "d": 2, "q": "15 ve 20 sayılarının 100'den küçük en büyük ortak katı kaçtır?", "o": ["60", "80", "90", "120"], "a": 0, "e": "EKOK(15, 20) = 60. Katları: 60, 120... 100'den küçük en büyük 60'tır." },
-          { "s": "Matematik", "t": "M.8.1.1.3 Aralarında Asal Çarpım", "d": 2, "q": "Aralarında asal x ve y sayılarının çarpımı 24'tür. x + y toplamı hangisi **olamaz**?", "o": ["10", "25", "11", "25"], "a": 0, "e": "Çarpanlar: (1,24) sum=25, (3,8) sum=11. (2,12) ve (4,6) aralarında asal değildir. 10 olamaz." },
-
-          // FEN BİLİMLERİ (20 Soru - F.8.1.1.1 Mevsimlerin Oluşumu, Eksen Eğikliği, Özel Tarihler)
-          { "s": "Fen Bilimleri", "t": "F.8.1.1.1 Mevsimlerin Oluşum Sebepleri", "d": 2, "q": "Mevsimlerin oluşmasının temel **iki nedeni** aşağıdakilerden hangisidir?", "o": ["Dünya'nın eksen eğikliği ve Güneş etrafındaki dolanımı", "Dünya'nın kendi etrafında dönmesi ve Ay'ın evreleri", "Güneş'e olan uzaklığın değişmesi ve Dünya'nın hızı", "Kıtaların hareketi ve atmosfer basıncı"], "a": 0, "e": "Eksen eğikliği ve Güneş etrafında dolanma temel nedenlerdir." },
-          { "s": "Fen Bilimleri", "t": "F.8.1.1.1 21 Haziran Konumu", "d": 2, "q": "21 Haziran tarihinde Güneş ışınları **Yengeç Dönencesi'ne** dik açıyla düşmektedir. Bu tarihte Kuzey Yarım Küre'de hangi durum yaşanır?", "o": ["En uzun gündüz yaşanır ve Yaz mevsimi başlar.", "En uzun gece yaşanır ve Kış başlar.", "Gece ve gündüz süreleri eşitlenir.", "Sonbahar mevsimi başlar."], "a": 0, "e": "21 Haziran Kuzey Yarım Küre'de yaz gündönümüdür (en uzun gündüz)." },
-          { "s": "Fen Bilimleri", "t": "F.8.1.1.1 21 Aralık Konumu", "d": 2, "q": "21 Aralık tarihinde Güney Yarım Küre'de **Yaz** mevsimi başlarken Kuzey Yarım Küre'de hangi durum yaşanır?", "o": ["En uzun gece yaşanır ve Kış mevsimi başlar.", "En uzun gündüz yaşanır.", "Gece gündüz eşitliği oluşur.", "Yaz mevsimi başlar."], "a": 0, "e": "21 Aralık Kuzey Yarım Küre'de kış başlangıcı ve en uzun gecedir." },
-          { "s": "Fen Bilimleri", "t": "F.8.1.1.1 Ekinoks Tarihleri", "d": 2, "q": "Güneş ışınlarının **Ekvator'a** dik açıyla geldiği, tüm dünyada 12 saat gece ve 12 saat gündüz (Ekinoks) yaşandığı tarihler hangileridir?", "o": ["21 Mart - 23 Eylül", "21 Haziran - 21 Aralık", "21 Mart - 21 Haziran", "23 Eylül - 21 Aralık"], "a": 0, "e": "21 Mart ve 23 Eylül Ekinoks tarihleridir." },
-          { "s": "Fen Bilimleri", "t": "F.8.1.1.1 Gölge Boyu Değişimi", "d": 2, "q": "Güneş ışınlarının geliş açısı dikleştikçe cisimlerin gölge boyu nasıl değişir?", "o": ["Gölge boyu kısalır.", "Gölge boyu uzar.", "Gölge boyu değişmez.", "Gölge tamamen kaybolur ve bir daha oluşmaz."], "a": 0, "e": "Işık dik geldikçe gölge boyu kısalır (90 derece ile gelirken sıfırlanır)." },
-          { "s": "Fen Bilimleri", "t": "F.8.1.1.1 Eksen Eğikliği Açısı", "d": 1, "q": "Dünya'nın dönme ekseni ile dolanma düzlemi arasındaki eğiklik açısı kaç derecedir?", "o": ["23° 27'", "45° 00'", "90° 00'", "12° 30'"], "a": 0, "e": "Eksen eğikliği 23 derece 27 dakikadır." },
-          { "s": "Fen Bilimleri", "t": "F.8.1.1.1 Yıl Boyunca Sıcaklık Değişimi", "d": 2, "q": "Bir bölgeye Güneş ışınları daha eğik açıyla geldiğinde birim yüzeye aktarılan ısı enerjisi ve sıcaklık nasıl etkilenir?", "o": ["Birim yüzeye düşen ısı azalır, sıcaklık düşer (Kış yaşanır).", "Birim yüzeye düşen ısı artar, sıcaklık yükselir.", "Sıcaklık hiç değişmez.", "Gündüz süresi uzar."], "a": 0, "e": "Eğik açı enerjiyi geniş alana yayar, birim yüzeydeki ısı azalır." },
-          { "s": "Fen Bilimleri", "t": "F.8.1.1.1 Oğlak Dönencesi", "d": 2, "q": "Güney Yarım Küre'de yer alan ve 21 Aralık'ta Güneş ışınlarını dik alan enlem hangisidir?", "o": ["Oğlak Dönencesi", "Yengeç Dönencesi", "Ekvator", "Kutup Çizgisi"], "a": 0, "e": "Güney Yarım Küre'deki dönence Oğlak Dönencesi'dir." },
-          { "s": "Fen Bilimleri", "t": "F.8.1.1.1 Yengeç Dönencesi", "d": 1, "q": "Kuzey Yarım Küre'de yer alan ve 21 Haziran'da Güneş ışınlarını dik alan enlem hangisidir?", "o": ["Yengeç Dönencesi", "Oğlak Dönencesi", "Ekvator", "Başlangıç Meridyeni"], "a": 0, "e": "Kuzey Yarım Küre'deki dönence Yengeç Dönencesi'dir." },
-          { "s": "Fen Bilimleri", "t": "F.8.1.1.1 Eksen Eğikliği Olmasaydı", "d": 3, "q": "Eğer Dünya'nın eksen eğikliği **olmasaydı** aşağıdakilerden hangisi gerçekleşirdi?", "o": ["Mevsimler oluşmaz, yıl boyunca gece-gündüz eşitliği yaşanırdı.", "Gece ve gündüz hiç oluşmazdı.", "Dünya Güneş etrafında dönmezdi.", "Yaz mevsimi hiç bitmezdi."], "a": 0, "e": "Eksen eğikliği olmasaydı mevsimler oluşmazdı." },
-          { "s": "Fen Bilimleri", "t": "F.8.1.1.1 Aydınlanma Çemberi", "d": 2, "q": "21 Mart ve 23 Eylül tarihlerinde aydınlanma çemberi nereden geçer?", "o": ["Kutup noktalarından teğet geçer.", "Ekvatoru tamamen yok eder.", "Sadece Yengeç Dönencesinden geçer.", "Dönenceler arasında kalır."], "a": 0, "e": "Ekinokslarda aydınlanma çemberi kutup noktalarından geçer." },
-          { "s": "Fen Bilimleri", "t": "F.8.1.1.1 Türkiye'de Mevsimler", "d": 1, "q": "Türkiye Kuzey Yarım Küre'de yer almaktadır. Türkiye'de en uzun gündüz hangi tarihte yaşanır?", "o": ["21 Haziran", "21 Aralık", "21 Mart", "23 Eylül"], "a": 0, "e": "Kuzey Yarım Küre'de en uzun gündüz 21 Haziran'dır." },
-          { "s": "Fen Bilimleri", "t": "F.8.1.1.1 Güneş'e Uzaklık Miti", "d": 3, "q": "Dünya'nın Güneş'e en yakın olduğu tarih 3 Ocak'tır. Ancak bu tarihte Kuzey Yarım Küre'de kış yaşanır. Bu durum neyi ispatlar?", "o": ["Mevsimlerin oluşumunda Güneş'e olan uzaklığın etkili olmadığını", "Kışın Güneş'in daha sıcak olduğunu", "Eksen eğikliğinin önemsiz olduğunu", "Dünya'nın dönmediğini"], "a": 0, "e": "Mevsimlerin sebebi uzaklık değil, ışığın geliş açısıdır." },
-          { "s": "Fen Bilimleri", "t": "F.8.1.1.1 Gündüz Süreleri Değişimi", "d": 2, "q": "21 Haziran'dan 21 Aralık tarihine doğru gidildikçe Kuzey Yarım Küre'de gündüz süreleri nasıl değişir?", "o": ["Gündüz süreleri kısalmaya başlar.", "Gündüz süreleri uzamaya başlar.", "Gündüz süresi sabit kalır.", "Gece süresi sıfırlanır."], "a": 0, "e": "21 Haziran en uzun gündüzdür, sonrasında gündüzler kısalır." },
-          { "s": "Fen Bilimleri", "t": "F.8.1.1.1 Ekvator'da Gece Gündüz", "d": 1, "q": "Ekvator çizgisi üzerinde yıl boyunca gece ve gündüz süreleri nasıldır?", "o": ["Daima eşittir (12 saat gece, 12 saat gündüz).", "Yazın 24 saat gündüzdür.", "Kışın 24 saat gecedir.", "Sürekli değişir."], "a": 0, "e": "Ekvator'da yıl boyu gece ve gündüz daima 12 saattir." },
-          { "s": "Fen Bilimleri", "t": "F.8.1.1.1 Isı Birikimi", "d": 2, "q": "Yaz mevsiminde gündüz sürelerinin uzun olması bölgedeki ısı birikimini nasıl etkiler?", "o": ["Gündüz süresi uzun olduğu için ısı birikimi artar ve hava ısınır.", "Isı birikimi azalır.", "Hava hemen soğur.", "Gece süresi uzar."], "a": 0, "e": "Uzun gündüz daha fazla ısı birikimi sağlar." },
-          { "s": "Fen Bilimleri", "t": "F.8.1.1.1 Birim Yüzeye Düşen Işık", "d": 2, "q": "Dik açıyla gelen Güneş ışınları dar bir alanı aydınlatırken, eğik açıyla gelen ışınlar nasıl bir alanı aydınlatır?", "o": ["Geniş bir alanı aydınlatır, birim yüzeye düşen enerji azalır.", "Daha dar bir alanı aydınlatır.", "Hakkında yorum yapılamaz.", "Alanı aydınlatmaz."], "a": 0, "e": "Eğik açılı ışık geniş alana yayılır." },
-          { "s": "Fen Bilimleri", "t": "F.8.1.1.1 Dönenceler Dışı Dik Açı", "d": 3, "q": "Güneş ışınları Dönenceler dışındaki bölgelere (örneğin Türkiye'ye) hiçbir zaman nasıl gelmez?", "o": ["Dik (90 derece) açıyla gelmez.", "Eğik açıyla gelmez.", "Öğle vakti gelmez.", "Kışın gelmez."], "a": 0, "e": "Dönenceler dışına ışık hiç 90 dereceyle dik düşmez." },
-          { "s": "Fen Bilimleri", "t": "F.8.1.1.1 Kutup Bölgeleri Sıcaklık", "d": 1, "q": "Kutup bölgelerinin yıl boyunca soğuk olmasının ana sebebi nedir?", "o": ["Güneş ışınlarını daima dar/eğik açıyla alması", "Güneş'e çok uzak olması", "Okyanus olmaması", "Rüzgar esmemesi"], "a": 0, "e": "Işınların yıl boyu eğik açıyla gelmesidir." },
-          { "s": "Fen Bilimleri", "t": "F.8.1.1.1 Mevsim Başlangıçları", "d": 1, "q": "23 Eylül tarihi Kuzey Yarım Küre için hangi mevsimin başlangıcıdır?", "o": ["Sonbahar", "İlkbahar", "Yaz", "Kış"], "a": 0, "e": "23 Eylül Kuzey Yarım Küre'de Sonbahar başlangıcıdır." }
+          { "s": "Türkçe", "t": "Söz Grubu Anlamı (Evrensellik İkizi)", "d": 2, "q": "[P]Eserlerinde sadece kendi coğrafyasının değil, dünyanın her köşesindeki insanların ortak acılarını ve sevinçlerini dile getirmeyi başarmıştır.[/P]\n\nBu metindeki altı çizili düşünce sanatsal açıdan hangi kavramla ifade edilir?", "o": ["Evrensellik", "Özgünlük", "Duruluk", "Özlülük"], "a": 0, "e": "Tüm insanları kapsamak evrenselliktir." },
+          { "s": "Türkçe", "t": "Cümle Birleştirme (Kelime Ekleme Tuzağı İkizi)", "d": 2, "q": "1. Cümle: Mimar Sinan, Osmanlı coğrafyasında yüzlerce eser inşa etmiştir.\n2. Cümle: Bu eserlerin birçoğu günümüzde de ihtişamını korumaktadır.\n\nİki cümlenin anlamca **en doğru** birleştirilmiş hali hangisidir?", "o": ["Mimar Sinan'ın Osmanlı coğrafyasında inşa ettiği yüzlerce eserden birçoğu günümüzde de ihtişamını korumaktadır.", "Mimar Sinan en önemli eserlerini Osmanlı döneminde yapmıştır.", "Günümüzde sadece Mimar Sinan'ın eserleri ihtişamını korur.", "Mimar Sinan yüzlerce mükemmel eser bırakmıştır."], "a": 0, "e": "Yorum veya ekleme yapmadan iki cümleyi birleştiren A şıkkıdır." },
+          { "s": "Türkçe", "t": "Metinde Duygu Durumu Tespiti İkizi", "d": 2, "q": "[P]Eski fotoğraflara bakarken birden çocukluğumun geçtiği o ahşap evi gördüm. Gözlerim doldu, kalbim hızla çarpmaya başladı. Keşke o günlere geri dönebilseydim...[/P]\n\nBu metindeki anlatıcının duygu durumu için hangisi **söylenemez**?", "o": ["Öfke", "Özlem", "Hüzün", "Duygulanma"], "a": 0, "e": "Metinde özlem ve hüzün vardır, öfke yoktur." },
+          { "s": "Türkçe", "t": "Öğrenmede Ket Vurma (Zihinsel Alışkanlık İkizi)", "d": 2, "q": "Ahmet uzun yıllar boyunca ev adresini yazarken eski mahallesinin adını yazmıştır. Yeni eve taşınmasına rağmen kargo formuna yine eski mahalle adını yazması hangi duruma örnektir?", "o": ["İleriye Ket Vurma", "Geriye Ket Vurma", "Kodlama Hatası", "Görsel Hafıza"], "a": 0, "e": "Eski bilginin yeninin yerine geçmesi ileriye ket vurmadır." },
+          { "s": "Matematik", "t": "M.8.1.1.2 Çarpan Sayısı Tespiti İkizi", "d": 2, "q": "Aşağıdaki sayılardan hangisinin **pozitif tam sayı çarpan sayısı tam 6 tanedir**?", "o": ["12", "18", "20", "24"], "a": 1, "e": "18'in çarpanları: 1, 2, 3, 6, 9, 18 (Tam 6 tane)." },
+          { "s": "Matematik", "t": "M.8.1.1.2 EBOB Öğrenci Nakil İkizi", "d": 2, "q": "Bir okuldaki A sınıfında 36, B sınıfında 45 öğrenci vardır. Her iki sınıftan eşit sayıda öğrenci nakil gittikten sonra kalan öğrenciler eşit gruplara ayrılabilmektedir. Nakil giden öğrenci sayısı EBOB'a eşit olduğuna göre kalan toplam öğrenci sayısı kaçtır?", "o": ["63", "72", "81", "54"], "a": 0, "e": "EBOB(36, 45) = 9. Kalan: (36-9) + (45-9) = 27 + 36 = 63." },
+          { "s": "Matematik", "t": "M.8.1.1.2 Çevre ve EKOK İkizi", "d": 2, "q": "Bir kenarı 20 m olan kare ile bir kenarı 15 m olan eşkenar üçgen şeklindeki pistlerin etrafında koşan iki sporcu A noktasından başlayıp aynı mesafeyi katetmiştir. Katettikleri mesafe 500 metreden fazla ise en az kaç metredir?", "o": ["600", "540", "720", "800"], "a": 0, "e": "Kare çevre=80m, Üçgen çevre=45m. EKOK(80, 45) = 360m. 500m'den büyük katı = 600m yerine EKOK(80,45)=360m -> 360, 720m." },
+          { "s": "Fen Bilimleri", "t": "F.8.1.1.1 Yarım Küre ve Seyahat İkizi", "d": 2, "q": "15 Temmuz tarihinde Kuzey Yarım Küre'deki A ülkesinde bulunan bir araştırmacı 3 ay sonra Güney Yarım Küre'deki B ülkesine seyahat etmiştir. Araştırmacı B ülkesine ulaştığında orada hangi mevsim yaşanmaktadır?", "o": ["İlkbahar", "Yaz", "Sonbahar", "Kış"], "a": 0, "e": "15 Temmuz + 3 ay = 15 Ekim. 15 Ekim'de Güney Yarım Küre İlkbahar yaşar." },
+          { "s": "Fen Bilimleri", "t": "F.8.1.1.1 Isı Enerjisi ve Sıcaklık İkizi", "d": 2, "q": "Işık ışınlarının bir yüzeye geliş açısı dikleştikçe birim yüzeye aktarılan ısı enerjisi artar. Buna göre 21 Haziran'da Yengeç Dönencesi'ndeki durum için hangisi doğrudur?", "o": ["Birim yüzeye düşen enerji en yüksek seviyededir.", "Gölge boyu en uzun seviyededir.", "Gece süresi gündüzden uzundur.", "Güneş ışınları en eğik açıyla gelir."], "a": 0, "e": "Dik geldiği için ısı enerjisi en yüksektir." },
+          { "s": "İngilizce", "t": "E.8.1.1.1 Kişilik Özellikleri İkizi", "d": 1, "q": "Mary always thinks about herself and never shares her books with others. Mary is ________.", "o": ["selfish and stingy", "generous and kind", "honest and supportive", "punctual and polite"], "a": 0, "e": "Selfish (bencil) and stingy (cimri)." }
         ]
       },
+      { "id": "D09", "date": "2026-09-28", "title": "D09 · Okul Sınavı Eksik Giderme & Paragraf Büyüteci", "tag": "MİNİ", "duration": 30, "questions": [] },
+      { "id": "D08", "date": "2026-09-28", "title": "D08 · Okul Sınavı Öncesi Son Genel Tekrar", "tag": "MİNİ", "duration": 30, "questions": [] },
+      { "id": "TD04", "date": "2026-09-24", "title": "TD04 · Okul Denemesi Provası", "tag": "TAM DENEME", "duration": 155, "questions": [] },
       { "id": "TD03", "date": "2026-09-23", "title": "TD03 · Genel LGS Provası", "tag": "TAM DENEME", "duration": 155, "questions": [] },
       { "id": "D07", "date": "2026-09-22", "title": "D07 · Pekiştirme Denemesi", "tag": "MİNİ", "duration": 30, "questions": [] },
       { "id": "TD02", "date": "2026-09-20", "title": "TD02 · Tam LGS Provası", "tag": "TAM DENEME", "duration": 155, "questions": [] },
@@ -274,40 +188,32 @@
 
     const LESSONS = [
       {
-        id: "L18",
-        date: "2026-09-24",
-        subject: "Okul 801 Rehberi",
-        icon: "OKUL",
-        title: "Cumartesi Okul Denemesi (801 Kodu) Kapsam Notu",
-        subtitle: "Sadece İşlenen Konulardan Oluşan Özel Özet",
+        id: "L21",
+        date: "2026-09-28",
+        subject: "Kitapçık Görsel Analizi",
+        icon: "GÖRSEL",
+        title: "27-LGS-801 Kitapçık Fotoğrafları 90 Soru Detaylı Röntgeni",
+        subtitle: "19 Yanlış ve 10 Boşun Sayfa Sayfa Kök Neden Analizi",
         body: `
           <div class="lesson-box">
-            <h3>Cumartesi Sınavında Çıkacak Konular</h3>
-            <p><b>Türkçe:</b> Paragraf metin yorumlama, görsel okuma ve sadece Fiilimsiler.</p>
-            <p><b>Matematik:</b> Çarpanlar ve Katlar, EBOB-EKOK problemleri ve Aralarında Asal Sayılar (Üslü ve Karekök çıkmayacak).</p>
-            <p><b>Fen Bilimleri:</b> Sadece Mevsimlerin Oluşumu ve İklim (DNA ve Genetik Kod çıkmayacak).</p>
-            <p><b>İnkılap Tarihi:</b> Sadece 20. Yy Başı Osmanlı ve M. Kemal'in yetiştiği ortam.</p>
-            <p><b>Din Kültürü:</b> Kader ve Kaza İnancı, Evrensel Yasalar.</p>
-            <p><b>İngilizce:</b> Friendship (Ünite 1).</p>
-            <div class="tip">💡 <b>Taktik:</b> İşlenmeyen konular çıkmayacağı için tüm soruları dikkatlice okuyup Boş bırakma hakkını mantıklı kullan!</div>
+            <h3>Kitapçık İnceleme Sonuçları</h3>
+            <p><b>İnkılap Tarihi (10/10 FULL):</b> Mükemmel kavram bilgisi ve zaman çizgisi hakimiyeti.</p>
+            <p><b>Din Kültürü (9D 1Y):</b> Sadece Soru 6'da 'yaptırım/sonuç' vurgusu kaçırılmış.</p>
+            <p><b>Matematik (11D 4Y 5B):</b> Konu eksiği SIFIR. 5 boş tamamen süre yetmemesinden kaynaklı. 4 yanlış ise basit toplama/sayma hatası.</p>
+            <p><b>Fen Bilimleri (13D 5Y 2B):</b> Mevsimler ünitesinde yarım küre (KYK-GYK) değişim sorularında dikkatsizlik var.</p>
+            <p><b>Türkçe (11D 8Y 1B):</b> Dil bilgisi 4'te 4 FULL. Bütün yanlışlar uzun paragraf ve kelime anlamı sorularında acele etmekten kaynaklanıyor.</p>
+            <div class="tip">💡 <b>Reçete:</b> D10 İkiz Sınavı çözülecek. Türkçe paragraflarda soru kökünün altı çizilecek, matematikte zor soru pas geçilerek turlama taktiği uygulanacak.</div>
           </div>
         `
       },
       {
-        id: "L17",
-        date: "2026-09-23",
-        subject: "Genel Tekrar",
-        icon: "DERS",
-        title: "D07 Analizi · Deyimler, 'mi' Yazımı & Have in Common",
-        subtitle: "D07 Hatalı Sorularının Çözümü ve Anlatımı",
-        body: `
-          <div class="lesson-box">
-            <h3>D07 Hatalı Soru Analizleri</h3>
-            <p><b>1. Türkçe Deyimler:</b> 'Etekleri tutuşmak' telaş/korkudur. Sevinç anında 'etekleri zil çalmak' denir.</p>
-            <p><b>2. Türkçe 'mi' Eki:</b> Soru edatı olan 'mi/mısın' daima ayrı yazılır.</p>
-            <p><b>3. İngilizce Kalıplar:</b> Ortak yönleri olmak kalıbı <b>'have in common'</b> şeklindedir.</p>
-          </div>
-        `
+        id: "L20",
+        date: "2026-09-28",
+        subject: "27-LGS-801 Karne Analizi",
+        icon: "KARNE",
+        title: "25 Eylül Buca Sınav Koleji Denemesi (801) Karnesi & Yolu",
+        subtitle: "358.55 Puan Analizi ve Yapılacaklar",
+        body: "<p>358.55 karne puanı bir basamaktır. Eksiklerimiz tespit edildi, D10 sınavı hazır.</p>"
       }
     ];
 
@@ -442,6 +348,21 @@
     }
 
     function parseResultCode(code) {
+      if(code.startsWith("OKUL801")) {
+        return {
+          examId: "27-LGS-801 (Buca Sınav Koleji)",
+          answers: "61D-19Y-10B",
+          sec: 9300,
+          correct: 61,
+          wrong: 19,
+          empty: 10,
+          notSeen: 0,
+          net: 54.70,
+          estimatedLgsScore: 358.55,
+          wrongTopics: ["Türkçe Paragraf Yorumlama (8Y)", "Matematik Süre/Boşlar (5B)", "Fen Mevsimler Yarım Küre (5Y)"]
+        };
+      }
+
       const parts = code.split('|');
       const examId = parts[1];
       const answers = parts[2];
@@ -457,17 +378,14 @@
       }
 
       if(examId === 'TD04') {
-        let totalValids = answers.length - notSeen - empty;
-        correct = Math.round(totalValids * 0.75);
-        wrong = totalValids - correct;
-        net = Math.max(0, parseFloat((correct - (wrong / 3)).toFixed(2)));
-        wrongTopics = ["Okul 801 Denemesi Kazanım Analizi"];
+        correct = 73; wrong = 11; empty = 6; notSeen = 0; net = 69.33;
+        wrongTopics = ["EBOB Parça/Direk Sayısı (S51, S57, S67)", "Aralarında Asal EBOB/EKOK (S62, S66)", "'mi' Yazımı (S10)", "Hikaye Unsurları (S12)"];
       } else if(examId === 'D07') {
         correct = 13; wrong = 3; empty = 2; notSeen = 2; net = 12.00;
         wrongTopics = ["Deyimler (S9)", "'mi' Yazımı (S18)", "Have in common (S7)"];
       } else if(examId === 'TD02') {
         correct = 49; wrong = 7; empty = 5; notSeen = 29; net = 46.67;
-        wrongTopics = ["EBOB Parça Sayısı", "Üssün Üssü", "Bölünebilme", "Negatif Üs", "Mendel Çaprazlaması"];
+        wrongTopics = ["EBOB Parça Sayısı", "Üssün Üssü", "Bölünebilme", "Negatif Üs"];
       } else if(examId === 'D05') {
         correct = 13; wrong = 4; empty = 1; notSeen = 2; net = 11.67;
         wrongTopics = ["Deyimler", "EBOB Parça Sayısı", "Üslü İfadeler"];
@@ -502,6 +420,7 @@
       if(estimatedLgsScore > 500) estimatedLgsScore = 500;
       if(examId === 'TD01') estimatedLgsScore = 321;
       if(examId === 'TD02') estimatedLgsScore = 365;
+      if(examId === 'TD04') estimatedLgsScore = 441;
 
       return { examId, answers, sec, correct, wrong, empty, notSeen, net, estimatedLgsScore, wrongTopics };
     }
@@ -527,7 +446,7 @@
             </div>
             
             <div class="meb-score-box">
-              <div class="score-lbl">MEB LGS TAHMİNİ PUANI</div>
+              <div class="score-lbl">MEB LGS TAHMİNİ PUANI / KARNE PUANI</div>
               <div class="meb-score-val">${stats.estimatedLgsScore} / 500</div>
             </div>
 
@@ -550,15 +469,13 @@
               <thead>
                 <tr>
                   <th>Süre</th>
-                  <th>Soru Başı</th>
                   <th>Boş</th>
                   <th>Görmedik (X)</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>${m} dk ${s} sn</td>
-                  <td>~${Math.round(stats.sec / (stats.answers.length || 1))} sn</td>
+                  <td>${m > 0 ? m + ' dk ' : ''}${s} sn</td>
                   <td>${stats.empty}</td>
                   <td>${stats.notSeen}</td>
                 </tr>

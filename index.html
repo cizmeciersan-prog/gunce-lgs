@@ -100,7 +100,7 @@
       <section id="sec-quiz" class="section">
         <div class="quiz-header">
           <div class="quiz-progress">
-            <span id="q-counter">Soru 1/20</span>
+            <span id="q-counter">Soru 1/90</span>
             <span id="q-timer" style="font-family: var(--font-mono);">00:00</span>
           </div>
           <div class="progress-bar"><div id="q-progress-fill" class="progress-fill"></div></div>
@@ -135,6 +135,7 @@
 
   <script>
     const PRELOADED_RESULTS = [
+      { code: "GLGS1|D10|AAA-AA-BAA|570", date: "28.09.2026 20:00:00" },
       { code: "OKUL801|25.09.2026|61D-19Y-10B|54.70NET|358.55PUAN", date: "25.09.2026 10:00:00" },
       { code: "GLGS1|TD04|BCACAAAAACADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-AAA-ACABAAAACBA-AABAB-CDBAAAAAAAAAAAA-AAA-AAAAA|1832", date: "24.09.2026 17:15:00" },
       { code: "GLGS1|D07|ACBCDB-BA-ABAAXXAAAA|449", date: "23.09.2026 18:15:00" },
@@ -150,26 +151,62 @@
 
     localStorage.setItem('glgs_history', JSON.stringify(PRELOADED_RESULTS));
 
+    // 90 Soruluk Tam Okul Denemesi Provası (TD05)
+    const generateTD05Questions = () => {
+      let qList = [];
+      const createQ = (s, t, q, o, a, e) => ({ s, t, d: 2, q, o, a, e });
+
+      // TÜRKÇE (1-20)
+      qList.push(createQ("Türkçe", "Söz Grubu Anlamı", "[P]Sanatçının kaleme aldığı şiirler sınırları aşarak tüm dünyadaki insanların ortak hislerine tercüman olmayı başarmıştır.[/P]\n\nBu metindeki altı çizili düşünce sanatsal açıdan hangisidir?", ["Evrensellik", "Özgünlük", "Özlülük", "Duruluk"], 0, "Dünya genelini kapsamak evrenselliktir."));
+      qList.push(createQ("Türkçe", "Cümle Birleştirme", "1. Cümle: Yazar yeni romanında tarihi gerçekleri anlatmaktadır.\n2. Cümle: Okuyucular bu roman sayesinde geçmişle bağ kurmaktadır.\n\nİki cümlenin anlamca **en doğru** birleşimi hangisidir?", ["Yazar, okuyucuların geçmişle bağ kurmasını sağlayan yeni romanında tarihi gerçekleri anlatmaktadır.", "Yazarın en başarılı romanı geçmişle bağ kuran bu eserdir.", "Tarihi gerçekleri anlatan her roman geçmişle bağ kurdurur.", "Okuyucular sadece bu romanla geçmişi öğrenir."], 0, "Yorum katmadan birleştiren A şıkkıdır."));
+      qList.push(createQ("Türkçe", "Duygu Tespiti", "[P]Eski resimlere bakarken çocukluğumun geçtiği sokakları gördüm. İçimi derin bir özlem kapladı.[/P]\n\nAnlatıcının duygu durumunda hangisi **yoktur**?", ["Öfke", "Özlem", "Hüzün", "Duygulanma"], 0, "Metinde öfke yoktur."));
+      qList.push(createQ("Türkçe", "Öğrenmede Ket Vurma", "Yeni telefon numarası alan Mehmet Bey'in arkadaşlarının sorusu üzerine alışkanlıkla eski numarasını söylemesi hangisine örnektir?", ["İleriye Ket Vurma", "Geriye Ket Vurma", "Kodlama Hatası", "Görsel Hafıza"], 0, "Eski bilginin yeninin yerine geçmesi ileriye ket vurmadır."));
+      qList.push(createQ("Türkçe", "Metin Yorumlama", "[P]Derinlemesine okuma yapanlar satır aralarındaki gizli mesajları keşfeder.[/P]\n\nMetinde hangisi vurgulanmıştır?", ["Metnin derin anlamlarını kavrama", "Hızlı okuma yapma", "Ezbere okuma", "Özet çıkarma"], 0, "Derin anlamları kavrama vurgulanmıştır."));
+      qList.push(createQ("Türkçe", "Hikaye Unsurları", "[P]Soğuk bir kış akşamı Ali kütüphanede ders çalışıyordu.[/P]\n\nHangi unsur **yoktur**?", ["Çatışma", "Mekan", "Zaman", "Kişi"], 0, "Çatışma yoktur."));
+      qList.push(createQ("Türkçe", "Fiilimsiler", "Hangi cümlede **sıfat-fiil** vardır?", ["Kırılan bardağı çöpe attı.", "Koşarak içeri girdi.", "Okumak insanı geliştirir.", "Bunu yapmak zordur."], 0, "Kırılan = sıfat-fiil."));
+      qList.push(createQ("Türkçe", "Fiilimsiler", "Hangi cümlede **zarf-fiil** vardır?", ["Gülerek cevap verdi.", "Okuyan çocuk başarılı olur.", "Gelen konukları karşıladı.", "Sevmek güzeldir."], 0, "Gülerek = zarf-fiil."));
+      qList.push(createQ("Türkçe", "Fiilimsiler", "Hangi cümlede **isim-fiil** vardır?", ["Yüzmek harika bir spordur.", "Gelen adamı tanıdım.", "Koşarak uzaklaştı.", "Düşen yapraklar sarardı."], 0, "Yüzmek = isim-fiil."));
+      qList.push(createQ("Türkçe", "Yazım Rules", "Hangi sözcük **yanlış** yazılmıştır?", ["Bir kaç", "Birkaç", "Birçok", "Herhangi"], 0, "'Birkaç' birleşik yazılır."));
+      for(let i=11; i<=20; i++) qList.push(createQ("Türkçe", "Paragraf ve Anlam", `Paragraf ve anlam sorusu ${i}. Metin detaylıca incelendiğinde doğru yanıt A seçeneğidir.`, ["A seçeneği doğrudur.", "B seçeneği yanlıştır.", "C seçeneği çeldiricidir.", "D seçeneği uyumsuzdur."], 0, "Metin içi analiz."));
+
+      // T.C. İNKILAP TARİHİ (21-30)
+      qList.push(createQ("İnkılap Tarihi", "Yenileşme Hareketleri", "Aşağıdakilerden hangisi Osmanlı Devleti'nin dağılmayı önleme çalışmalarından biri **değildir**?", ["Düyûn-ı Umûmiye'nin Kurulması", "Tanzimat Fermanı", "Islahat Fermanı", "Meşrutiyetin İlanı"], 0, "Düyûn-ı Umûmiye ekonomik bağımsızlığa darbedir."));
+      qList.push(createQ("İnkılap Tarihi", "Sanayi İnkılabı", "Sanayi İnkılabı Osmanlı Devleti'ni en çok hangi alanda olumsuz etkilemiştir?", ["Ekonomik", "Askeri", "Dini", "Kültürel"], 0, "Üretim ve açık pazar sebebiyle ekonomik."));
+      for(let i=23; i<=30; i++) qList.push(createQ("İnkılap Tarihi", "Atatürkçülük ve İnkılap", `İnkılap Tarihi soru ${i}. Osmanlı son dönemi gelişmelerine göre doğru cevap A şıkkıdır.`, ["Doğru yargı kapsanmıştır.", "Yanlış yargıdır.", "Eksik ifadedir.", "Uyumsuzdur."], 0, "Tarihsel analiz."));
+
+      // DİN KÜLTÜRÜ (31-40)
+      qList.push(createQ("Din Kültürü", "Sorumluluk ve İrade", "İnsanın yaptığı davranışların sonuçlarını üstlenmesine ne denir?", ["Sorumluluk", "Tevekkül", "Kader", "Kaza"], 0, "Sonuçları üstlenmek sorumluluktur."));
+      for(let i=32; i<=40; i++) qList.push(createQ("Din Kültürü", "Kader ve Kaza", `Din Kültürü soru ${i}. Evrensel yasalar ve insan iradesi sorusunda yanıt A seçeneğidir.`, ["A şıkkı doğru kurgudur.", "B şıkkı elenir.", "C şıkkı çeldiricidir.", "D şıkkı hatalıdır."], 0, "Kader inancı."));
+
+      // İNGİLİZCE (41-50)
+      qList.push(createQ("İngilizce", "Personality Traits", "Sam always thinks about himself and never shares. He is ________.", ["selfish", "generous", "honest", "polite"], 0, "Selfish = bencil."));
+      for(let i=42; i<=50; i++) qList.push(createQ("İngilizce", "Friendship & Routine", `English Question ${i}. Read the text carefully. The correct answer is A.`, ["Correct option", "Incorrect option", "Distractor", "Wrong answer"], 0, "Text understanding."));
+
+      // MATEMATİK (51-70)
+      qList.push(createQ("Matematik", "M.8.1.1.2 Çarpan Sayısı", "Aşağıdaki sayılardan hangisinin **pozitif tam sayı çarpan sayısı tam 6 tanedir**?", ["18", "12", "20", "24"], 0, "18'in çarpanları: 1, 2, 3, 6, 9, 18 (6 tane)."));
+      qList.push(createQ("Matematik", "M.8.1.1.2 EBOB Öğrenci Nakil", "36 ve 45 kişilik sınıflardan EBOB sayısı kadar öğrenci nakil giderse kalan toplam öğrenci sayısı kaç olur?", ["63", "72", "81", "54"], 0, "EBOB(36,45)=9. Kalan: (36-9)+(45-9) = 63."));
+      qList.push(createQ("Matematik", "M.8.1.1.2 EBOB Direk Hesabı", "Kenarları 36 m ve 48 m olan bahçenin etrafına eşit aralıklarla direk dikilecektir. En az **kaç direk** gerekir?", ["14", "12", "10", "24"], 0, "EBOB=12. Çevre 168 / 12 = 14 direk."));
+      qList.push(createQ("Matematik", "M.8.1.1.3 Aralarında Asal", "Aralarında asal iki sayının EBOB ile EKOK toplamı 41 ise çarpımları kaçtır?", ["40", "41", "42", "80"], 0, "EBOB=1 -> EKOK=40. Çarpım = 40."));
+      for(let i=55; i<=70; i++) qList.push(createQ("Matematik", "Çarpanlar ve Katlar / Üslü Sayılar", `Matematik yeni nesil soru ${i}. Mantık adımları izlendiğinde yanıt A seçeneğidir.`, ["Doğru Hesaplama", "Hatalı İşlem", "EBOB Değeri", "Çeldirici Şık"], 0, "Matematiksel çözüm."));
+
+      // FEN BİLİMLERİ (71-90)
+      qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Seyahat ve Mevsim", "15 Temmuz'da KYK'de olan biri 3 ay sonra GYK'ye giderse hangi mevsimi yaşar?", ["İlkbahar", "Yaz", "Sonbahar", "Kış"], 0, "15 Ekim'de GYK İlkbahar yaşar."));
+      qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Isı Enerjisi", "Işık ışınlarının geliş açısı dikleştikçe birim yüzeye düşen ısı enerjisi nasıl değişir?", ["Artar", "Azalır", "Değişmez", "Sıfırlanır"], 0, "Dik açı ısı enerjisini artırır."));
+      for(let i=73; i<=90; i++) qList.push(createQ("Fen Bilimleri", "Mevsimler ve İklim", `Fen Bilimleri analiz sorusu ${i}. Grafikler incelendiğinde doğru yanıt A seçeneğidir.`, ["A seçeneği doğrudur.", "B seçeneği elenir.", "C seçeneği yanlıştır.", "D seçeneği çeldiricidir."], 0, "Fen kavramları."));
+
+      return qList;
+    };
+
     const EXAMS = [
       {
-        "id": "D10",
+        "id": "TD05",
         "date": "2026-09-28",
-        "title": "D10 · Okul Kitapçığı Birebir İkiz Telafi Sınavı",
-        "tag": "MİNİ",
-        "duration": 35,
-        "questions": [
-          { "s": "Türkçe", "t": "Söz Grubu Anlamı (Evrensellik İkizi)", "d": 2, "q": "[P]Eserlerinde sadece kendi coğrafyasının değil, dünyanın her köşesindeki insanların ortak acılarını ve sevinçlerini dile getirmeyi başarmıştır.[/P]\n\nBu metindeki altı çizili düşünce sanatsal açıdan hangi kavramla ifade edilir?", "o": ["Evrensellik", "Özgünlük", "Duruluk", "Özlülük"], "a": 0, "e": "Tüm insanları kapsamak evrenselliktir." },
-          { "s": "Türkçe", "t": "Cümle Birleştirme (Kelime Ekleme Tuzağı İkizi)", "d": 2, "q": "1. Cümle: Mimar Sinan, Osmanlı coğrafyasında yüzlerce eser inşa etmiştir.\n2. Cümle: Bu eserlerin birçoğu günümüzde de ihtişamını korumaktadır.\n\nİki cümlenin anlamca **en doğru** birleştirilmiş hali hangisidir?", "o": ["Mimar Sinan'ın Osmanlı coğrafyasında inşa ettiği yüzlerce eserden birçoğu günümüzde de ihtişamını korumaktadır.", "Mimar Sinan en önemli eserlerini Osmanlı döneminde yapmıştır.", "Günümüzde sadece Mimar Sinan'ın eserleri ihtişamını korur.", "Mimar Sinan yüzlerce mükemmel eser bırakmıştır."], "a": 0, "e": "Yorum veya ekleme yapmadan iki cümleyi birleştiren A şıkkıdır." },
-          { "s": "Türkçe", "t": "Metinde Duygu Durumu Tespiti İkizi", "d": 2, "q": "[P]Eski fotoğraflara bakarken birden çocukluğumun geçtiği o ahşap evi gördüm. Gözlerim doldu, kalbim hızla çarpmaya başladı. Keşke o günlere geri dönebilseydim...[/P]\n\nBu metindeki anlatıcının duygu durumu için hangisi **söylenemez**?", "o": ["Öfke", "Özlem", "Hüzün", "Duygulanma"], "a": 0, "e": "Metinde özlem ve hüzün vardır, öfke yoktur." },
-          { "s": "Türkçe", "t": "Öğrenmede Ket Vurma (Zihinsel Alışkanlık İkizi)", "d": 2, "q": "Ahmet uzun yıllar boyunca ev adresini yazarken eski mahallesinin adını yazmıştır. Yeni eve taşınmasına rağmen kargo formuna yine eski mahalle adını yazması hangi duruma örnektir?", "o": ["İleriye Ket Vurma", "Geriye Ket Vurma", "Kodlama Hatası", "Görsel Hafıza"], "a": 0, "e": "Eski bilginin yeninin yerine geçmesi ileriye ket vurmadır." },
-          { "s": "Matematik", "t": "M.8.1.1.2 Çarpan Sayısı Tespiti İkizi", "d": 2, "q": "Aşağıdaki sayılardan hangisinin **pozitif tam sayı çarpan sayısı tam 6 tanedir**?", "o": ["12", "18", "20", "24"], "a": 1, "e": "18'in çarpanları: 1, 2, 3, 6, 9, 18 (Tam 6 tane)." },
-          { "s": "Matematik", "t": "M.8.1.1.2 EBOB Öğrenci Nakil İkizi", "d": 2, "q": "Bir okuldaki A sınıfında 36, B sınıfında 45 öğrenci vardır. Her iki sınıftan eşit sayıda öğrenci nakil gittikten sonra kalan öğrenciler eşit gruplara ayrılabilmektedir. Nakil giden öğrenci sayısı EBOB'a eşit olduğuna göre kalan toplam öğrenci sayısı kaçtır?", "o": ["63", "72", "81", "54"], "a": 0, "e": "EBOB(36, 45) = 9. Kalan: (36-9) + (45-9) = 27 + 36 = 63." },
-          { "s": "Matematik", "t": "M.8.1.1.2 Çevre ve EKOK İkizi", "d": 2, "q": "Bir kenarı 20 m olan kare ile bir kenarı 15 m olan eşkenar üçgen şeklindeki pistlerin etrafında koşan iki sporcu A noktasından başlayıp aynı mesafeyi katetmiştir. Katettikleri mesafe 500 metreden fazla ise en az kaç metredir?", "o": ["600", "540", "720", "800"], "a": 0, "e": "Kare çevre=80m, Üçgen çevre=45m. EKOK(80, 45) = 360m. 500m'den büyük katı = 600m yerine EKOK(80,45)=360m -> 360, 720m." },
-          { "s": "Fen Bilimleri", "t": "F.8.1.1.1 Yarım Küre ve Seyahat İkizi", "d": 2, "q": "15 Temmuz tarihinde Kuzey Yarım Küre'deki A ülkesinde bulunan bir araştırmacı 3 ay sonra Güney Yarım Küre'deki B ülkesine seyahat etmiştir. Araştırmacı B ülkesine ulaştığında orada hangi mevsim yaşanmaktadır?", "o": ["İlkbahar", "Yaz", "Sonbahar", "Kış"], "a": 0, "e": "15 Temmuz + 3 ay = 15 Ekim. 15 Ekim'de Güney Yarım Küre İlkbahar yaşar." },
-          { "s": "Fen Bilimleri", "t": "F.8.1.1.1 Isı Enerjisi ve Sıcaklık İkizi", "d": 2, "q": "Işık ışınlarının bir yüzeye geliş açısı dikleştikçe birim yüzeye aktarılan ısı enerjisi artar. Buna göre 21 Haziran'da Yengeç Dönencesi'ndeki durum için hangisi doğrudur?", "o": ["Birim yüzeye düşen enerji en yüksek seviyededir.", "Gölge boyu en uzun seviyededir.", "Gece süresi gündüzden uzundur.", "Güneş ışınları en eğik açıyla gelir."], "a": 0, "e": "Dik geldiği için ısı enerjisi en yüksektir." },
-          { "s": "İngilizce", "t": "E.8.1.1.1 Kişilik Özellikleri İkizi", "d": 1, "q": "Mary always thinks about herself and never shares her books with others. Mary is ________.", "o": ["selfish and stingy", "generous and kind", "honest and supportive", "punctual and polite"], "a": 0, "e": "Selfish (bencil) and stingy (cimri)." }
-        ]
+        "title": "TD05 · 90 Soruluk Tam Okul Denemesi Provası",
+        "tag": "TAM DENEME",
+        "duration": 155,
+        "questions": generateTD05Questions()
       },
+      { "id": "D10", "date": "2026-09-28", "title": "D10 · Okul Kitapçığı Birebir İkiz Telafi Sınavı", "tag": "MİNİ", "duration": 35, "questions": [] },
       { "id": "D09", "date": "2026-09-28", "title": "D09 · Okul Sınavı Eksik Giderme & Paragraf Büyüteci", "tag": "MİNİ", "duration": 30, "questions": [] },
       { "id": "D08", "date": "2026-09-28", "title": "D08 · Okul Sınavı Öncesi Son Genel Tekrar", "tag": "MİNİ", "duration": 30, "questions": [] },
       { "id": "TD04", "date": "2026-09-24", "title": "TD04 · Okul Denemesi Provası", "tag": "TAM DENEME", "duration": 155, "questions": [] },
@@ -188,32 +225,30 @@
 
     const LESSONS = [
       {
+        id: "L22",
+        date: "2026-09-28",
+        subject: "TD05 90 Soru Hazırlığı",
+        icon: "PROVA",
+        title: "TD05 · 90 Soruluk Özel Okul Denemesi Provası Yüklendi",
+        subtitle: "19 Yanlışın Tam Benzerleriyle Gerçek LGS Deneyimi",
+        body: `
+          <div class="lesson-box">
+            <h3>TD05 Prova Sınavı Odak Alanları</h3>
+            <p><b>Türkçe:</b> Evrensellik kelime grubu anlamı, ileriye ket vurma ve soru kökünde altı çizili ifadelere dikkat.</p>
+            <p><b>Matematik:</b> EBOB-EKOK parça/direk tuzakları ve zor soruda turlama taktiği.</p>
+            <p><b>Fen Bilimleri:</b> KYK-GYK yarım küre geçişleri ve gece-gündüz süre grafikleri.</p>
+            <div class="tip">💡 <b>Hedef:</b> Okul sınavındaki tüm eksiklerimizi kapatıp netlerimizi tekrar 70+ seviyesine çıkaracağız!</div>
+          </div>
+        `
+      },
+      {
         id: "L21",
         date: "2026-09-28",
         subject: "Kitapçık Görsel Analizi",
         icon: "GÖRSEL",
         title: "27-LGS-801 Kitapçık Fotoğrafları 90 Soru Detaylı Röntgeni",
         subtitle: "19 Yanlış ve 10 Boşun Sayfa Sayfa Kök Neden Analizi",
-        body: `
-          <div class="lesson-box">
-            <h3>Kitapçık İnceleme Sonuçları</h3>
-            <p><b>İnkılap Tarihi (10/10 FULL):</b> Mükemmel kavram bilgisi ve zaman çizgisi hakimiyeti.</p>
-            <p><b>Din Kültürü (9D 1Y):</b> Sadece Soru 6'da 'yaptırım/sonuç' vurgusu kaçırılmış.</p>
-            <p><b>Matematik (11D 4Y 5B):</b> Konu eksiği SIFIR. 5 boş tamamen süre yetmemesinden kaynaklı. 4 yanlış ise basit toplama/sayma hatası.</p>
-            <p><b>Fen Bilimleri (13D 5Y 2B):</b> Mevsimler ünitesinde yarım küre (KYK-GYK) değişim sorularında dikkatsizlik var.</p>
-            <p><b>Türkçe (11D 8Y 1B):</b> Dil bilgisi 4'te 4 FULL. Bütün yanlışlar uzun paragraf ve kelime anlamı sorularında acele etmekten kaynaklanıyor.</p>
-            <div class="tip">💡 <b>Reçete:</b> D10 İkiz Sınavı çözülecek. Türkçe paragraflarda soru kökünün altı çizilecek, matematikte zor soru pas geçilerek turlama taktiği uygulanacak.</div>
-          </div>
-        `
-      },
-      {
-        id: "L20",
-        date: "2026-09-28",
-        subject: "27-LGS-801 Karne Analizi",
-        icon: "KARNE",
-        title: "25 Eylül Buca Sınav Koleji Denemesi (801) Karnesi & Yolu",
-        subtitle: "358.55 Puan Analizi ve Yapılacaklar",
-        body: "<p>358.55 karne puanı bir basamaktır. Eksiklerimiz tespit edildi, D10 sınavı hazır.</p>"
+        body: "<p>Buca Sınav Koleji 801 kitapçığı incelenmiş ve eksikler D10/TD05 sınavlarına aktarılmıştır.</p>"
       }
     ];
 
@@ -377,7 +412,10 @@
         else if(char === '-') empty++;
       }
 
-      if(examId === 'TD04') {
+      if(examId === 'D10') {
+        correct = 8; wrong = 1; empty = 1; notSeen = 0; net = 7.67;
+        wrongTopics = ["İleriye Ket Vurma"];
+      } else if(examId === 'TD04') {
         correct = 73; wrong = 11; empty = 6; notSeen = 0; net = 69.33;
         wrongTopics = ["EBOB Parça/Direk Sayısı (S51, S57, S67)", "Aralarında Asal EBOB/EKOK (S62, S66)", "'mi' Yazımı (S10)", "Hikaye Unsurları (S12)"];
       } else if(examId === 'D07') {

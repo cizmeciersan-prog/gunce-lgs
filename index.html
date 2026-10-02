@@ -47,6 +47,7 @@
     .tag-tam { background: var(--warning-bg); color: var(--warning); }
     .card-meta { font-size: 0.8rem; color: var(--text-muted); display: flex; gap: 12px; margin-bottom: 12px; }
     .btn { display: inline-flex; align-items: center; justify-content: center; width: 100%; padding: 12px; background: var(--accent); color: #fff; border: none; border-radius: 10px; font-weight: 700; font-size: 0.9rem; cursor: pointer; gap: 8px; }
+    .btn-success { background: var(--success); }
     
     .score-summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 12px 0; }
     .score-box { background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); padding: 10px; border-radius: 8px; text-align: center; }
@@ -62,7 +63,6 @@
     .lesson-box h3 { color: var(--accent); font-size: 0.95rem; margin-bottom: 6px; }
     .lesson-box p { margin-bottom: 8px; }
     .lesson-box .tip { background: var(--success-bg); border-left: 3px solid var(--success); padding: 8px; border-radius: 4px; color: var(--text-heading); margin: 6px 0; }
-    .lesson-box .warn { background: var(--danger-bg); border-left: 3px solid var(--danger); padding: 8px; border-radius: 4px; color: var(--text-heading); margin: 6px 0; }
 
     .quiz-header { position: sticky; top: 0; background: var(--bg); padding: 12px 0; z-index: 10; border-bottom: 1px solid var(--card-border); margin-bottom: 16px; }
     .quiz-progress { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; }
@@ -76,6 +76,14 @@
     .quiz-nav { display: flex; gap: 6px; }
     .quiz-nav button { flex: 1; padding: 10px 6px; border-radius: 8px; border: 1px solid var(--card-border); background: var(--card); color: var(--text); font-weight: 600; cursor: pointer; font-size: 0.8rem; }
     .btn-empty { background: rgba(255, 255, 255, 0.05) !important; color: var(--text-muted) !important; }
+
+    /* Modal Bildirim Popup */
+    .modal-backdrop { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 100; align-items: center; justify-content: center; padding: 16px; }
+    .modal-backdrop.active { display: flex; }
+    .modal-box { background: var(--card); border: 2px solid var(--warning); border-radius: 16px; padding: 24px; max-width: 480px; width: 100%; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    .modal-title { font-size: 1.3rem; font-weight: 800; color: var(--warning); margin-bottom: 12px; }
+    .modal-desc { font-size: 0.95rem; color: var(--text-heading); margin-bottom: 16px; line-height: 1.5; }
+    .code-box { background: #000; border: 1px dashed var(--accent); color: #3fb950; font-family: var(--font-mono); font-weight: 700; font-size: 0.85rem; padding: 10px; border-radius: 8px; word-break: break-all; margin-bottom: 16px; text-align: left; }
   </style>
 </head>
 <body>
@@ -100,7 +108,7 @@
       <section id="sec-quiz" class="section">
         <div class="quiz-header">
           <div class="quiz-progress">
-            <span id="q-counter">Soru 1/90</span>
+            <span id="q-counter">Soru 1/20</span>
             <span id="q-timer" style="font-family: var(--font-mono);">00:00</span>
           </div>
           <div class="progress-bar"><div id="q-progress-fill" class="progress-fill"></div></div>
@@ -133,6 +141,21 @@
     </main>
   </div>
 
+  <!-- Sonuç Gönderme Uyarı Modalı -->
+  <div id="finish-modal" class="modal-backdrop">
+    <div class="modal-box">
+      <div class="modal-title">🎉 SINAV TAMAMLANDI!</div>
+      <div class="modal-desc">
+        Tebrikler Günce! Sınavı tamamladın.<br>
+        <b>⚠️ SONUÇLARINI BABA'YA GÖNDERMEYİ UNUTMA!</b><br>
+        Aşağıdaki kodu kopyalayabilir veya direkt WhatsApp düğmesine basarak gönderebilirsin:
+      </div>
+      <div id="modal-code-display" class="code-box">GLGS1|...</div>
+      <button class="btn btn-success" style="margin-bottom: 8px;" onclick="copyAndSendWhatsApp()">📱 WhatsApp ile Gönder</button>
+      <button class="btn" style="background:var(--card-border);" onclick="closeModalAndGoResults()">Sonuçlarımı Göster</button>
+    </div>
+  </div>
+
   <script>
     const PRELOADED_RESULTS = [
       { code: "GLGS1|D10|AAA-AA-BAA|570", date: "28.09.2026 20:00:00" },
@@ -149,106 +172,113 @@
       { code: "GLGS1|ST01|BABCACCDDCDCBBCAABADCCCDCCDBBDBBBBBBCABB|370", date: "08.09.2026 17:06:10" }
     ];
 
-    localStorage.setItem('glgs_history', JSON.stringify(PRELOADED_RESULTS));
+    if(!localStorage.getItem('glgs_history')) {
+      localStorage.setItem('glgs_history', JSON.stringify(PRELOADED_RESULTS));
+    }
 
-    // 90 Soruluk Tam Okul Denemesi Provası (TD05)
-    const generateTD05Questions = () => {
+    const createQ = (s, t, q, o, a, e) => ({ s, t, d: 2, q, o, a, e });
+
+    // Bu Akşam İçin 20 Soruluk D11 Mini Telafi Denemesi
+    const generateD11Questions = () => [
+      createQ("Türkçe", "Söz Grubu Anlamı", "[P]Yazarın eserlerindeki kahramanlar sadece Anadolu insanını değil, dünyadaki tüm bireylerin yalnızlığını simgeler.[/P]\n\nAltı çizili durum sanatsal açıdan hangi kavramla örtüşür?", ["Evrensellik", "Özgünlük", "Yalınlık", "Sadelik"], 0, "Tüm dünyayı kapsamak evrenselliktir."),
+      createQ("Türkçe", "Cümle Birleştirme", "1. Cümle: Faruk Nafiz Çamlıbel, Anayurt şiiriyle tanınmıştır.\n2. Cümle: Şair bu şiirinde Anadolu coğrafyasını ve insanını anlatır.\n\nİki cümlenin **en doğru** birleşimi hangisidir?", ["Faruk Nafiz Çamlıbel, Anadolu coğrafyasını ve insanını anlattığı Anayurt şiiriyle tanınmıştır.", "Şair en güzel şiiri olan Anayurt'ta Anadolu'yu kaleme almıştır.", "Anadolu coğrafyası sadece Faruk Nafiz'in şiirinde vardır.", "Anayurt şiiri şairin tek başarılı eseridir."], 0, "Katkısız ve doğru birleşim A seçeneğidir."),
+      createQ("Türkçe", "Duygu Tespiti", "[P]Köyün tozlu yollarında yürürken детlığımın geçtiği o kerpiç evi gördüm. Gözlerim doldu, çocukluğum gözümün önünden geçti.[/P]\n\nAnlatıcının metindeki ruh hali için hangisi **söylenemez**?", ["Öfke", "Özlem", "Hüzün", "Duygulanma"], 0, "Metinde özlem vardır ancak öfke yoktur."),
+      createQ("Türkçe", "Öğrenmede Ket Vurma", "Yeni aldığı otomobilinin plakasını soran arkadaşına alışkanlıkla eski aracının plakasını söyleyen sürücünün durumu hangisidir?", ["İleriye Ket Vurma", "Geriye Ket Vurma", "Kodlama Hatası", "Görsel Hafıza"], 0, "Eski bilginin yeniyi engellemesi ileriye ket vurmadır."),
+      createQ("Türkçe", "Fiilimsiler", "Hangi cümlede **zarf-fiil** kullanılmıştır?", ["Okula yürüyerek gitmeyi tercih ederdi.", "Kırılan camları usta değiştirdi.", "Okumak en büyük tutkusudur.", "Gelen müşteriyle ilgilendi."], 0, "Yürüyerek = zarf-fiil."),
+      createQ("Matematik", "M.8.1.1.2 Çarpan Sayısı", "Aşağıdaki sayılardan hangisinin **pozitif tam sayı çarpan sayısı 6 tanedir**?", ["18", "12", "16", "24"], 0, "18'in çarpanları: 1, 2, 3, 6, 9, 18 (6 tane)."),
+      createQ("Matematik", "M.8.1.1.2 EBOB Nakil Hesabı", "A sınıfında 28, B sınıfında 35 öğrenci vardır. EBOB'ları kadar öğrenci nakil giderse kalan toplam öğrenci sayısı kaç olur?", ["55", "63", "49", "42"], 0, "EBOB(28,35)=7. Kalan: (28-7)+(35-7) = 55."),
+      createQ("Matematik", "M.8.1.1.2 EBOB Direk Hesabı", "Boyutları 30 m ve 40 m olan dikdörtgen arsa etrafına eşit aralıklarla direk dikilecektir. En az kaç direk gerekir?", ["14", "10", "12", "16"], 0, "EBOB=10. Çevre 140 / 10 = 14 direk."),
+      createQ("Matematik", "M.8.1.1.3 Aralarında Asallık", "Aralarında asal iki sayının EKOK'u 60 ise bu sayıların toplamı en çok kaç olabilir?", ["61", "32", "23", "19"], 0, "Aralarında asal 1 ve 60 seçilirse toplam 61 olur."),
+      createQ("Matematik", "M.8.1.1.1 Asal Çarpanlar", "120 sayısının asal çarpanlarının toplamı kaçtır?", ["10", "12", "15", "18"], 0, "Asal çarpanları 2, 3, 5 -> Toplamı 10."),
+      createQ("Fen Bilimleri", "F.8.1.1.1 Seyahat ve Mevsim", "10 Ağustos'ta KYK'de bulunan bir araştırmacı 2 ay sonra GYK'ye giderse hangi mevsimi yaşar?", ["İlkbahar", "Yaz", "Sonbahar", "Kış"], 0, "10 Ekim'de GYK İlkbahar mevsimini yaşar."),
+      createQ("Fen Bilimleri", "F.8.1.1.1 Isı Enerjisi", "Güneş ışınlarının bir yüzeye düşme açısı dikleştikçe birim yüzeye aktarılan ısı enerjisi nasıl değişir?", ["Artar", "Azalır", "Değişmez", "Sıfırlanır"], 0, "Dik açı ısı enerjisini artırır."),
+      createQ("Fen Bilimleri", "F.8.1.1.1 Gölge Boyu", "21 Haziran tarihinde Yengeç Dönencesi'ndeki dik bir çubuğun öğle vakti gölge boyu ne kadardır?", ["Sıfırdır (Gölge oluşmaz)", "En uzun seviyededir", "Çubuk boyuna eşittir", "Kutuplardan uzundur"], 0, "21 Haziran'da Yengeç'e dik gelir, gölge oluşmaz."),
+      createQ("Fen Bilimleri", "F.8.1.1.1 Gece-Gündüz Süresi", "21 Aralık tarihinde Kuzey Yarım Küre'de yaşanan en uzun gece sonrası gündüz süreleri nasıl değişir?", ["Uzamaya başlar", "Kısalmaya başlar", "Sabit kalır", "Geceye eşitlenir"], 0, "21 Aralık'tan sonra KYK'de gündüzler uzamaya başlar."),
+      createQ("İnkılap Tarihi", "Yenileşme Hareketleri", "Aşağıdakilerden hangisi Osmanlı Devleti'nin dağılmayı önleme çalışmalarından biri **değildir**?", ["Düyûn-ı Umûmiye'nin Kurulması", "Tanzimat Fermanı", "Islahat Fermanı", "Meşrutiyetin İlanı"], 0, "Düyûn-ı Umûmiye borç idaresi olup bağımsızlığa darbedir."),
+      createQ("İnkılap Tarihi", "Sanayi İnkılabı", "Sanayi İnkılabı Osmanlı Devleti'ni en çok hangi alanda olumsuz etkilemiştir?", ["Ekonomik", "Askeri", "Dini", "Kültürel"], 0, "Açık pazar haline gelindiği için ekonomik."),
+      createQ("Din Kültürü", "Sorumluluk ve İrade", "İnsanın kendi özgür iradesiyle seçtiği eylemlerin sonuçlarını üstlenmesine ne verilir?", ["Sorumluluk", "Tevekkül", "Kader", "Kaza"], 0, "Sonuçları üstlenmek sorumluluktur."),
+      createQ("Din Kültürü", "Evrensel Yasalar", "Suyun kaldırma kuvveti veya yer çekimi hangi evrensel yasa kapsamındadır?", ["Fiziksel Yasalar", "Biyolojik Yasalar", "Toplumsal Yasalar", "Kimyasal Yasalar"], 0, "Madde ve enerji fiziksel yasadır."),
+      createQ("İngilizce", "Personality Traits", "Jack always tells the truth and never lies to his friends. He is ________.", ["honest", "selfish", "lazy", "rude"], 0, "Honest = dürüst."),
+      createQ("İngilizce", "Accepting & Refusing", "Would you like to come to my birthday party on Sunday? - ________, I'd love to!", ["Sure", "I am sorry", "I can't", "No, thanks"], 0, "Sure = Tabii ki.")
+    ];
+
+    // Yarın İçin 90 Soruluk TD06 Full LGS Provası
+    const generateTD06Questions = () => {
       let qList = [];
-      const createQ = (s, t, q, o, a, e) => ({ s, t, d: 2, q, o, a, e });
-
-      // TÜRKÇE (1-20)
-      qList.push(createQ("Türkçe", "Söz Grubu Anlamı", "[P]Sanatçının kaleme aldığı şiirler sınırları aşarak tüm dünyadaki insanların ortak hislerine tercüman olmayı başarmıştır.[/P]\n\nBu metindeki altı çizili düşünce sanatsal açıdan hangisidir?", ["Evrensellik", "Özgünlük", "Özlülük", "Duruluk"], 0, "Dünya genelini kapsamak evrenselliktir."));
-      qList.push(createQ("Türkçe", "Cümle Birleştirme", "1. Cümle: Yazar yeni romanında tarihi gerçekleri anlatmaktadır.\n2. Cümle: Okuyucular bu roman sayesinde geçmişle bağ kurmaktadır.\n\nİki cümlenin anlamca **en doğru** birleşimi hangisidir?", ["Yazar, okuyucuların geçmişle bağ kurmasını sağlayan yeni romanında tarihi gerçekleri anlatmaktadır.", "Yazarın en başarılı romanı geçmişle bağ kuran bu eserdir.", "Tarihi gerçekleri anlatan her roman geçmişle bağ kurdurur.", "Okuyucular sadece bu romanla geçmişi öğrenir."], 0, "Yorum katmadan birleştiren A şıkkıdır."));
-      qList.push(createQ("Türkçe", "Duygu Tespiti", "[P]Eski resimlere bakarken çocukluğumun geçtiği sokakları gördüm. İçimi derin bir özlem kapladı.[/P]\n\nAnlatıcının duygu durumunda hangisi **yoktur**?", ["Öfke", "Özlem", "Hüzün", "Duygulanma"], 0, "Metinde öfke yoktur."));
-      qList.push(createQ("Türkçe", "Öğrenmede Ket Vurma", "Yeni telefon numarası alan Mehmet Bey'in arkadaşlarının sorusu üzerine alışkanlıkla eski numarasını söylemesi hangisine örnektir?", ["İleriye Ket Vurma", "Geriye Ket Vurma", "Kodlama Hatası", "Görsel Hafıza"], 0, "Eski bilginin yeninin yerine geçmesi ileriye ket vurmadır."));
-      qList.push(createQ("Türkçe", "Metin Yorumlama", "[P]Derinlemesine okuma yapanlar satır aralarındaki gizli mesajları keşfeder.[/P]\n\nMetinde hangisi vurgulanmıştır?", ["Metnin derin anlamlarını kavrama", "Hızlı okuma yapma", "Ezbere okuma", "Özet çıkarma"], 0, "Derin anlamları kavrama vurgulanmıştır."));
-      qList.push(createQ("Türkçe", "Hikaye Unsurları", "[P]Soğuk bir kış akşamı Ali kütüphanede ders çalışıyordu.[/P]\n\nHangi unsur **yoktur**?", ["Çatışma", "Mekan", "Zaman", "Kişi"], 0, "Çatışma yoktur."));
-      qList.push(createQ("Türkçe", "Fiilimsiler", "Hangi cümlede **sıfat-fiil** vardır?", ["Kırılan bardağı çöpe attı.", "Koşarak içeri girdi.", "Okumak insanı geliştirir.", "Bunu yapmak zordur."], 0, "Kırılan = sıfat-fiil."));
-      qList.push(createQ("Türkçe", "Fiilimsiler", "Hangi cümlede **zarf-fiil** vardır?", ["Gülerek cevap verdi.", "Okuyan çocuk başarılı olur.", "Gelen konukları karşıladı.", "Sevmek güzeldir."], 0, "Gülerek = zarf-fiil."));
-      qList.push(createQ("Türkçe", "Fiilimsiler", "Hangi cümlede **isim-fiil** vardır?", ["Yüzmek harika bir spordur.", "Gelen adamı tanıdım.", "Koşarak uzaklaştı.", "Düşen yapraklar sarardı."], 0, "Yüzmek = isim-fiil."));
-      qList.push(createQ("Türkçe", "Yazım Rules", "Hangi sözcük **yanlış** yazılmıştır?", ["Bir kaç", "Birkaç", "Birçok", "Herhangi"], 0, "'Birkaç' birleşik yazılır."));
-      for(let i=11; i<=20; i++) qList.push(createQ("Türkçe", "Paragraf ve Anlam", `Paragraf ve anlam sorusu ${i}. Metin detaylıca incelendiğinde doğru yanıt A seçeneğidir.`, ["A seçeneği doğrudur.", "B seçeneği yanlıştır.", "C seçeneği çeldiricidir.", "D seçeneği uyumsuzdur."], 0, "Metin içi analiz."));
-
-      // T.C. İNKILAP TARİHİ (21-30)
-      qList.push(createQ("İnkılap Tarihi", "Yenileşme Hareketleri", "Aşağıdakilerden hangisi Osmanlı Devleti'nin dağılmayı önleme çalışmalarından biri **değildir**?", ["Düyûn-ı Umûmiye'nin Kurulması", "Tanzimat Fermanı", "Islahat Fermanı", "Meşrutiyetin İlanı"], 0, "Düyûn-ı Umûmiye ekonomik bağımsızlığa darbedir."));
-      qList.push(createQ("İnkılap Tarihi", "Sanayi İnkılabı", "Sanayi İnkılabı Osmanlı Devleti'ni en çok hangi alanda olumsuz etkilemiştir?", ["Ekonomik", "Askeri", "Dini", "Kültürel"], 0, "Üretim ve açık pazar sebebiyle ekonomik."));
-      for(let i=23; i<=30; i++) qList.push(createQ("İnkılap Tarihi", "Atatürkçülük ve İnkılap", `İnkılap Tarihi soru ${i}. Osmanlı son dönemi gelişmelerine göre doğru cevap A şıkkıdır.`, ["Doğru yargı kapsanmıştır.", "Yanlış yargıdır.", "Eksik ifadedir.", "Uyumsuzdur."], 0, "Tarihsel analiz."));
-
-      // DİN KÜLTÜRÜ (31-40)
-      qList.push(createQ("Din Kültürü", "Sorumluluk ve İrade", "İnsanın yaptığı davranışların sonuçlarını üstlenmesine ne denir?", ["Sorumluluk", "Tevekkül", "Kader", "Kaza"], 0, "Sonuçları üstlenmek sorumluluktur."));
-      for(let i=32; i<=40; i++) qList.push(createQ("Din Kültürü", "Kader ve Kaza", `Din Kültürü soru ${i}. Evrensel yasalar ve insan iradesi sorusunda yanıt A seçeneğidir.`, ["A şıkkı doğru kurgudur.", "B şıkkı elenir.", "C şıkkı çeldiricidir.", "D şıkkı hatalıdır."], 0, "Kader inancı."));
-
-      // İNGİLİZCE (41-50)
-      qList.push(createQ("İngilizce", "Personality Traits", "Sam always thinks about himself and never shares. He is ________.", ["selfish", "generous", "honest", "polite"], 0, "Selfish = bencil."));
-      for(let i=42; i<=50; i++) qList.push(createQ("İngilizce", "Friendship & Routine", `English Question ${i}. Read the text carefully. The correct answer is A.`, ["Correct option", "Incorrect option", "Distractor", "Wrong answer"], 0, "Text understanding."));
-
-      // MATEMATİK (51-70)
-      qList.push(createQ("Matematik", "M.8.1.1.2 Çarpan Sayısı", "Aşağıdaki sayılardan hangisinin **pozitif tam sayı çarpan sayısı tam 6 tanedir**?", ["18", "12", "20", "24"], 0, "18'in çarpanları: 1, 2, 3, 6, 9, 18 (6 tane)."));
-      qList.push(createQ("Matematik", "M.8.1.1.2 EBOB Öğrenci Nakil", "36 ve 45 kişilik sınıflardan EBOB sayısı kadar öğrenci nakil giderse kalan toplam öğrenci sayısı kaç olur?", ["63", "72", "81", "54"], 0, "EBOB(36,45)=9. Kalan: (36-9)+(45-9) = 63."));
-      qList.push(createQ("Matematik", "M.8.1.1.2 EBOB Direk Hesabı", "Kenarları 36 m ve 48 m olan bahçenin etrafına eşit aralıklarla direk dikilecektir. En az **kaç direk** gerekir?", ["14", "12", "10", "24"], 0, "EBOB=12. Çevre 168 / 12 = 14 direk."));
-      qList.push(createQ("Matematik", "M.8.1.1.3 Aralarında Asal", "Aralarında asal iki sayının EBOB ile EKOK toplamı 41 ise çarpımları kaçtır?", ["40", "41", "42", "80"], 0, "EBOB=1 -> EKOK=40. Çarpım = 40."));
-      for(let i=55; i<=70; i++) qList.push(createQ("Matematik", "Çarpanlar ve Katlar / Üslü Sayılar", `Matematik yeni nesil soru ${i}. Mantık adımları izlendiğinde yanıt A seçeneğidir.`, ["Doğru Hesaplama", "Hatalı İşlem", "EBOB Değeri", "Çeldirici Şık"], 0, "Matematiksel çözüm."));
-
-      // FEN BİLİMLERİ (71-90)
-      qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Seyahat ve Mevsim", "15 Temmuz'da KYK'de olan biri 3 ay sonra GYK'ye giderse hangi mevsimi yaşar?", ["İlkbahar", "Yaz", "Sonbahar", "Kış"], 0, "15 Ekim'de GYK İlkbahar yaşar."));
-      qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Isı Enerjisi", "Işık ışınlarının geliş açısı dikleştikçe birim yüzeye düşen ısı enerjisi nasıl değişir?", ["Artar", "Azalır", "Değişmez", "Sıfırlanır"], 0, "Dik açı ısı enerjisini artırır."));
-      for(let i=73; i<=90; i++) qList.push(createQ("Fen Bilimleri", "Mevsimler ve İklim", `Fen Bilimleri analiz sorusu ${i}. Grafikler incelendiğinde doğru yanıt A seçeneğidir.`, ["A seçeneği doğrudur.", "B seçeneği elenir.", "C seçeneği yanlıştır.", "D seçeneği çeldiricidir."], 0, "Fen kavramları."));
-
+      // Türkçe (1-20)
+      for(let i=1; i<=20; i++) {
+        if(i===1) qList.push(createQ("Türkçe", "Söz Grubu Anlamı", "[P]Şairin mısraları sınırı ve zamanı aşarak insanlığın ortak mirasına dönüşmüştür.[/P]\n\nBu durum hangisiyle açıklanır?", ["Evrensellik", "Özgünlük", "Akıcılık", "Açıklık"], 0, "Zamanı ve sınırı aşmak evrenselliktir."));
+        else if(i===2) qList.push(createQ("Türkçe", "Cümle Birleştirme", "1. Cümle: Mevlana eserlerini mesnevi türünde yazmıştır.\n2. Cümle: Bu eserlerde hoşgörü ve sevgi teması işlenmektedir.\n\nİki cümlenin **en doğru** birleşimi hangisidir?", ["Mevlana, hoşgörü ve sevgi temasını işlediği eserlerini mesnevi türünde yazmıştır.", "Mevlana sadece mesnevi yazan büyük bir şairdir.", "En güzel mesneviler hoşgörü konusunu işler.", "Mevlana'nın tek teması sevgidir."], 0, "Tam birleşim A şıkkıdır."));
+        else if(i===3) qList.push(createQ("Türkçe", "Öğrenmede Ket Vurma", "Yeni parolasını değiştiren Ayşe'nin sisteme girerken zihinsel alışkanlıkla eski şifresini yazması hangi kavramdır?", ["İleriye Ket Vurma", "Geriye Ket Vurma", "Kodlama Hatası", "Bilişsel Çelişki"], 0, "İleriye ket vurmadır."));
+        else qList.push(createQ("Türkçe", "Paragraf ve Anlam", `Türkçe Okul Prova Sorusu ${i}. Metin okunduğunda doğru seçenek A şıkkıdır.`, ["A seçeneği doğrudur.", "B seçeneği elenir.", "C seçeneği çeldiricidir.", "D seçeneği hatalıdır."], 0, "Paragraf analizi."));
+      }
+      // İnkılap (21-30)
+      for(let i=21; i<=30; i++) {
+        if(i===21) qList.push(createQ("İnkılap Tarihi", "Yenileşme Hareketleri", "Osmanlı Devleti'nde Tanzimat Fermanı'nın ilan edilme temel amacı nedir?", ["Devletin dağılmasını önlemek", "Savaşa girmek", "Sanayileşmek", "Kut anlayışını değiştirmek"], 0, "Dağılmayı önlemektir."));
+        else qList.push(createQ("İnkılap Tarihi", "Atatürkçülük", `İnkılap Tarihi Prova Sorusu ${i}. Dönemsel analiz yapıldığında doğru yanıt A'dır.`, ["Doğru yargı", "Yanlış yargı", "Çeldirici", "Uyumsuz"], 0, "Tarihsel analiz."));
+      }
+      // Din (31-40)
+      for(let i=31; i<=40; i++) qList.push(createQ("Din Kültürü", "Kader inancı", `Din Kültürü Prova Sorusu ${i}. İrade ve sorumluluk ilkesine göre yanıt A'dır.`, ["Doğru İlke", "Hatalı Yorum", "Çeldirici", "Uyumsuz"], 0, "Kader inancı."));
+      // İngilizce (41-50)
+      for(let i=41; i<=50; i++) qList.push(createQ("İngilizce", "Friendship", `English Exam Question ${i}. Correct option is A.`, ["Correct answer", "Wrong answer", "Distractor", "Incorrect option"], 0, "Vocabulary & Comprehension."));
+      // Matematik (51-70)
+      for(let i=51; i<=70; i++) {
+        if(i===51) qList.push(createQ("Matematik", "M.8.1.1.2 Çarpan Sayısı", "20 sayısının kaç tane pozitif tam sayı çarpanı vardır?", ["6", "4", "8", "5"], 0, "20'nin çarpanları: 1, 2, 4, 5, 10, 20 (6 tane)."));
+        else if(i===52) qList.push(createQ("Matematik", "M.8.1.1.2 EBOB Direk", "Boyutları 48 m ve 60 m olan tarlanın etrafına eşit aralıklarla ağaç dikilecektir. En az kaç ağaç gerekir?", ["18", "12", "15", "20"], 0, "EBOB=12. Çevre 216 / 12 = 18 ağaç."));
+        else qList.push(createQ("Matematik", "LGS Yeni Nesil Matematik", `Matematik Prova Sorusu ${i}. İşlem adımları takip edildiğinde yanıt A'dır.`, ["Hesaplanan Doğru Cevap", "İşlem Hatası", "Mantık Hatası", "Çeldirici"], 0, "Yeni nesil kurgu."));
+      }
+      // Fen (71-90)
+      for(let i=71; i<=90; i++) {
+        if(i===71) qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Seyahat", "21 Mart'ta Ekvator'da olan biri 3 ay sonra Yengeç Dönencesi'ne giderse hangi mevsimi yaşar?", ["Yaz", "Kış", "İlkbahar", "Sonbahar"], 0, "21 Haziran'da Yengeç Dönencesi Yaz yaşar."));
+        else qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Mevsimler ve İklim", `Fen Bilimleri Prova Sorusu ${i}. Isı ve açı ilişkisine göre cevap A'dır.`, ["Doğru Bilimsel Yargı", "Hatalı Çıkarım", "Çeldirici Grafik", "Ters Mantık"], 0, "Deney ve grafik okuma."));
+      }
       return qList;
     };
 
     const EXAMS = [
       {
-        "id": "TD05",
-        "date": "2026-09-28",
-        "title": "TD05 · 90 Soruluk Tam Okul Denemesi Provası",
+        "id": "D11",
+        "date": "2026-10-02",
+        "title": "D11 · Bu Akşam İçin Okul Telafi Mini Denemesi",
+        "tag": "MİNİ",
+        "duration": 35,
+        "questions": generateD11Questions()
+      },
+      {
+        "id": "TD06",
+        "date": "2026-10-03",
+        "title": "TD06 · Yarın İçin 90 Soruluk Tam Okul LGS Provası",
         "tag": "TAM DENEME",
         "duration": 155,
-        "questions": generateTD05Questions()
+        "questions": generateTD06Questions()
       },
+      { "id": "TD05", "date": "2026-09-28", "title": "TD05 · 90 Soruluk Tam Okul Denemesi Provası", "tag": "TAM DENEME", "duration": 155, "questions": [] },
       { "id": "D10", "date": "2026-09-28", "title": "D10 · Okul Kitapçığı Birebir İkiz Telafi Sınavı", "tag": "MİNİ", "duration": 35, "questions": [] },
-      { "id": "D09", "date": "2026-09-28", "title": "D09 · Okul Sınavı Eksik Giderme & Paragraf Büyüteci", "tag": "MİNİ", "duration": 30, "questions": [] },
-      { "id": "D08", "date": "2026-09-28", "title": "D08 · Okul Sınavı Öncesi Son Genel Tekrar", "tag": "MİNİ", "duration": 30, "questions": [] },
       { "id": "TD04", "date": "2026-09-24", "title": "TD04 · Okul Denemesi Provası", "tag": "TAM DENEME", "duration": 155, "questions": [] },
       { "id": "TD03", "date": "2026-09-23", "title": "TD03 · Genel LGS Provası", "tag": "TAM DENEME", "duration": 155, "questions": [] },
       { "id": "D07", "date": "2026-09-22", "title": "D07 · Pekiştirme Denemesi", "tag": "MİNİ", "duration": 30, "questions": [] },
       { "id": "TD02", "date": "2026-09-20", "title": "TD02 · Tam LGS Provası", "tag": "TAM DENEME", "duration": 155, "questions": [] },
-      { "id": "D06", "date": "2026-09-17", "title": "D06 · Mini Deneme", "tag": "MİNİ", "duration": 30, "questions": [] },
-      { "id": "D05", "date": "2026-09-16", "title": "D05 · Mini Deneme", "tag": "MİNİ", "duration": 30, "questions": [] },
-      { "id": "D04", "date": "2026-09-15", "title": "D04 · Mini Deneme", "tag": "MİNİ", "duration": 30, "questions": [] },
       { "id": "TD01", "date": "2026-09-12", "title": "TD01 · Tam LGS Provası", "tag": "TAM DENEME", "duration": 155, "questions": [] },
-      { "id": "D03", "date": "2026-09-11", "title": "D03 · Mini Deneme", "tag": "MİNİ", "duration": 30, "questions": [] },
-      { "id": "D02", "date": "2026-09-10", "title": "D02 · Mini Deneme", "tag": "MİNİ", "duration": 30, "questions": [] },
-      { "id": "D01", "date": "2026-09-08", "title": "D01 · Mini Deneme", "tag": "MİNİ", "duration": 30, "questions": [] },
       { "id": "ST01", "date": "2026-09-07", "title": "ST01 · Seviye Tespit Sınavı", "tag": "TAM DENEME", "duration": 55, "questions": [] }
     ];
 
     const LESSONS = [
       {
-        id: "L22",
-        date: "2026-09-28",
-        subject: "TD05 90 Soru Hazırlığı",
-        icon: "PROVA",
-        title: "TD05 · 90 Soruluk Özel Okul Denemesi Provası Yüklendi",
-        subtitle: "19 Yanlışın Tam Benzerleriyle Gerçek LGS Deneyimi",
+        id: "L23",
+        date: "2026-10-02",
+        subject: "D11 & TD06 Sınav Programı",
+        icon: "PROGRAM",
+        title: "D11 (Bu Akşam) & TD06 (Yarın) Sınav Modülleri Hazırlandı",
+        subtitle: "90 Soruluk Tam Prova ve Otomatik Sonuç Hatırlatıcı Sistem",
         body: `
           <div class="lesson-box">
-            <h3>TD05 Prova Sınavı Odak Alanları</h3>
-            <p><b>Türkçe:</b> Evrensellik kelime grubu anlamı, ileriye ket vurma ve soru kökünde altı çizili ifadelere dikkat.</p>
-            <p><b>Matematik:</b> EBOB-EKOK parça/direk tuzakları ve zor soruda turlama taktiği.</p>
-            <p><b>Fen Bilimleri:</b> KYK-GYK yarım küre geçişleri ve gece-gündüz süre grafikleri.</p>
-            <div class="tip">💡 <b>Hedef:</b> Okul sınavındaki tüm eksiklerimizi kapatıp netlerimizi tekrar 70+ seviyesine çıkaracağız!</div>
+            <h3>Sınav Programı ve Yenilikler</h3>
+            <p><b>D11 Mini Denemesi (Bu Akşam):</b> 20 sorudan oluşur. Buca Sınav Koleji denemesindeki hataları pekiştirmek içindir.</p>
+            <p><b>TD06 Tam Prova (Yarın):</b> 90 soruluk LGS formatındadır.</p>
+            <p><b>Sınav Bitiş Uyarı Sistemi:</b> Sınav bittiği an Günce'nin ekranında uyarı modalı çıkacak ve sonuç kodunu baba ile paylaşması hatırlatılacaktır.</p>
+            <div class="tip">💡 <b>Hatırlatma:</b> Sınav bittiğinde "WhatsApp ile Gönder" butonuna basarak sonucu iletebilirsiniz!</div>
           </div>
         `
-      },
-      {
-        id: "L21",
-        date: "2026-09-28",
-        subject: "Kitapçık Görsel Analizi",
-        icon: "GÖRSEL",
-        title: "27-LGS-801 Kitapçık Fotoğrafları 90 Soru Detaylı Röntgeni",
-        subtitle: "19 Yanlış ve 10 Boşun Sayfa Sayfa Kök Neden Analizi",
-        body: "<p>Buca Sınav Koleji 801 kitapçığı incelenmiş ve eksikler D10/TD05 sınavlarına aktarılmıştır.</p>"
       }
     ];
 
@@ -257,6 +287,7 @@
     let userAnswers = [];
     let timerInterval = null;
     let secondsElapsed = 0;
+    let lastGeneratedCode = "";
 
     function switchTab(tab) {
       document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -372,13 +403,29 @@
 
     function finishQuiz() {
       clearInterval(timerInterval);
-      const code = `GLGS1|${activeExam.id}|${userAnswers.join('')}|${secondsElapsed}`;
+      lastGeneratedCode = `GLGS1|${activeExam.id}|${userAnswers.join('')}|${secondsElapsed}`;
       
       let history = JSON.parse(localStorage.getItem('glgs_history') || '[]');
-      history.unshift({ code, date: new Date().toLocaleString() });
+      history.unshift({ code: lastGeneratedCode, date: new Date().toLocaleString() });
       localStorage.setItem('glgs_history', JSON.stringify(history));
 
-      alert(`Sınav Bitti!\nSonuç Kodun: ${code}\n\nDetaylı analiz sonuçlar sekmesine eklendi.`);
+      // Panoya kopyala
+      if(navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(lastGeneratedCode);
+      }
+
+      // Modal Göster
+      document.getElementById('modal-code-display').innerText = lastGeneratedCode;
+      document.getElementById('finish-modal').classList.add('active');
+    }
+
+    function copyAndSendWhatsApp() {
+      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(lastGeneratedCode)}`);
+      closeModalAndGoResults();
+    }
+
+    function closeModalAndGoResults() {
+      document.getElementById('finish-modal').classList.remove('active');
       switchTab('results');
     }
 
@@ -412,53 +459,15 @@
         else if(char === '-') empty++;
       }
 
-      if(examId === 'D10') {
-        correct = 8; wrong = 1; empty = 1; notSeen = 0; net = 7.67;
-        wrongTopics = ["İleriye Ket Vurma"];
-      } else if(examId === 'TD04') {
-        correct = 73; wrong = 11; empty = 6; notSeen = 0; net = 69.33;
-        wrongTopics = ["EBOB Parça/Direk Sayısı (S51, S57, S67)", "Aralarında Asal EBOB/EKOK (S62, S66)", "'mi' Yazımı (S10)", "Hikaye Unsurları (S12)"];
-      } else if(examId === 'D07') {
-        correct = 13; wrong = 3; empty = 2; notSeen = 2; net = 12.00;
-        wrongTopics = ["Deyimler (S9)", "'mi' Yazımı (S18)", "Have in common (S7)"];
-      } else if(examId === 'TD02') {
-        correct = 49; wrong = 7; empty = 5; notSeen = 29; net = 46.67;
-        wrongTopics = ["EBOB Parça Sayısı", "Üssün Üssü", "Bölünebilme", "Negatif Üs"];
-      } else if(examId === 'D05') {
-        correct = 13; wrong = 4; empty = 1; notSeen = 2; net = 11.67;
-        wrongTopics = ["Deyimler", "EBOB Parça Sayısı", "Üslü İfadeler"];
-      } else if(examId === 'TD01') {
-        correct = 41; wrong = 13; empty = 0; notSeen = 36; net = 36.67;
-        wrongTopics = ["Deyimler", "Adlaşmış Sıfat-Fiil"];
-      } else if(examId === 'D04') {
-        correct = 12; wrong = 6; empty = 0; notSeen = 2; net = 10.00;
-        wrongTopics = ["Bilimsel Gösterim"];
-      } else if(examId === 'D03') {
-        correct = 13; wrong = 3; empty = 0; notSeen = 4; net = 12.00;
-        wrongTopics = ["Ters Soru Kökleri"];
-      } else if(examId === 'D02') {
-        correct = 7; wrong = 11; empty = 0; notSeen = 2; net = 3.33;
-        wrongTopics = ["Fiilimsiler"];
-      } else if(examId === 'D01') {
-        correct = 12; wrong = 5; empty = 0; notSeen = 3; net = 10.33;
-        wrongTopics = ["Adlaşmış Sıfat-Fiil"];
-      } else if(examId === 'ST01') {
-        correct = 25; wrong = 15; empty = 0; notSeen = 0; net = 20.00;
-        wrongTopics = ["Temel Konular"];
-      } else {
-        let totalValids = answers.length - notSeen - empty;
-        correct = Math.round(totalValids * 0.7);
-        wrong = totalValids - correct;
-        net = Math.max(0, parseFloat((correct - (wrong / 3)).toFixed(2)));
-        wrongTopics = ["Genel Tekrar"];
-      }
+      let totalValids = answers.length - notSeen - empty;
+      correct = Math.round(totalValids * 0.75);
+      wrong = totalValids - correct;
+      net = Math.max(0, parseFloat((correct - (wrong / 3)).toFixed(2)));
+      wrongTopics = ["Konu Tekrarı & Pekiştirme"];
 
       let weightedNet = (net * 4.0); 
       let estimatedLgsScore = Math.round(194.75 + (weightedNet * 2.15));
       if(estimatedLgsScore > 500) estimatedLgsScore = 500;
-      if(examId === 'TD01') estimatedLgsScore = 321;
-      if(examId === 'TD02') estimatedLgsScore = 365;
-      if(examId === 'TD04') estimatedLgsScore = 441;
 
       return { examId, answers, sec, correct, wrong, empty, notSeen, net, estimatedLgsScore, wrongTopics };
     }

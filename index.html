@@ -48,6 +48,8 @@
     .card-meta { font-size: 0.8rem; color: var(--text-muted); display: flex; gap: 12px; margin-bottom: 12px; }
     .btn { display: inline-flex; align-items: center; justify-content: center; width: 100%; padding: 12px; background: var(--accent); color: #fff; border: none; border-radius: 10px; font-weight: 700; font-size: 0.9rem; cursor: pointer; gap: 8px; }
     .btn-success { background: var(--success); }
+    .btn-group { display: flex; gap: 8px; margin-bottom: 8px; }
+    .btn-group .btn { flex: 1; }
     
     .score-summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 12px 0; }
     .score-box { background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); padding: 10px; border-radius: 8px; text-align: center; }
@@ -134,7 +136,10 @@
         <div class="card">
           <div class="card-title" style="margin-bottom: 8px;">Sonuç Arşivi & Detaylı Analiz</div>
           <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">Çözülen tüm denemelerin MEB LGS puan karşılığı, net analizleri ve konu eksikleri aşağıdadır.</p>
-          <button class="btn" onclick="sendAllResults()">Hepsini Gönder (WhatsApp)</button>
+          <div class="btn-group">
+            <button class="btn" onclick="sendAllResultsEmail()">📧 Mail İle Gönder</button>
+            <button class="btn btn-success" onclick="sendAllResultsWA()">💬 WhatsApp Gönder</button>
+          </div>
         </div>
         <div id="result-history"></div>
       </section>
@@ -148,11 +153,14 @@
       <div class="modal-desc">
         Tebrikler Günce! Sınavı tamamladın.<br>
         <b>⚠️ SONUÇLARINI BABA'YA GÖNDERMEYİ UNUTMA!</b><br>
-        Aşağıdaki kodu kopyalayabilir veya direkt WhatsApp düğmesine basarak gönderebilirsin:
+        Kullandığın cihaza göre e-posta veya WhatsApp butonuna basarak sonucu iletebilirsin:
       </div>
       <div id="modal-code-display" class="code-box">GLGS1|...</div>
-      <button class="btn btn-success" style="margin-bottom: 8px;" onclick="copyAndSendWhatsApp()">📱 WhatsApp ile Gönder</button>
-      <button class="btn" style="background:var(--card-border);" onclick="closeModalAndGoResults()">Sonuçlarımı Göster</button>
+      <div class="btn-group">
+        <button class="btn" style="background:#ea4335;" onclick="sendSingleEmail()">📧 E-Posta İle Gönder</button>
+        <button class="btn btn-success" onclick="sendSingleWhatsApp()">💬 WhatsApp İle Gönder</button>
+      </div>
+      <button class="btn" style="background:var(--card-border); margin-top:8px;" onclick="closeModalAndGoResults()">Sonuçlarımı Göster</button>
     </div>
   </div>
 
@@ -182,7 +190,7 @@
     const generateD11Questions = () => [
       createQ("Türkçe", "Söz Grubu Anlamı", "[P]Yazarın eserlerindeki kahramanlar sadece Anadolu insanını değil, dünyadaki tüm bireylerin yalnızlığını simgeler.[/P]\n\nAltı çizili durum sanatsal açıdan hangi kavramla örtüşür?", ["Evrensellik", "Özgünlük", "Yalınlık", "Sadelik"], 0, "Tüm dünyayı kapsamak evrenselliktir."),
       createQ("Türkçe", "Cümle Birleştirme", "1. Cümle: Faruk Nafiz Çamlıbel, Anayurt şiiriyle tanınmıştır.\n2. Cümle: Şair bu şiirinde Anadolu coğrafyasını ve insanını anlatır.\n\nİki cümlenin **en doğru** birleşimi hangisidir?", ["Faruk Nafiz Çamlıbel, Anadolu coğrafyasını ve insanını anlattığı Anayurt şiiriyle tanınmıştır.", "Şair en güzel şiiri olan Anayurt'ta Anadolu'yu kaleme almıştır.", "Anadolu coğrafyası sadece Faruk Nafiz'in şiirinde vardır.", "Anayurt şiiri şairin tek başarılı eseridir."], 0, "Katkısız ve doğru birleşim A seçeneğidir."),
-      createQ("Türkçe", "Duygu Tespiti", "[P]Köyün tozlu yollarında yürürken детlığımın geçtiği o kerpiç evi gördüm. Gözlerim doldu, çocukluğum gözümün önünden geçti.[/P]\n\nAnlatıcının metindeki ruh hali için hangisi **söylenemez**?", ["Öfke", "Özlem", "Hüzün", "Duygulanma"], 0, "Metinde özlem vardır ancak öfke yoktur."),
+      createQ("Türkçe", "Duygu Tespiti", "[P]Köyün tozlu yollarında yürürken çocukluğumun geçtiği o kerpiç evi gördüm. Gözlerim doldu, çocukluğum gözümün önünden geçti.[/P]\n\nAnlatıcının metindeki ruh hali için hangisi **söylenemez**?", ["Öfke", "Özlem", "Hüzün", "Duygulanma"], 0, "Metinde özlem vardır ancak öfke yoktur."),
       createQ("Türkçe", "Öğrenmede Ket Vurma", "Yeni aldığı otomobilinin plakasını soran arkadaşına alışkanlıkla eski aracının plakasını söyleyen sürücünün durumu hangisidir?", ["İleriye Ket Vurma", "Geriye Ket Vurma", "Kodlama Hatası", "Görsel Hafıza"], 0, "Eski bilginin yeniyi engellemesi ileriye ket vurmadır."),
       createQ("Türkçe", "Fiilimsiler", "Hangi cümlede **zarf-fiil** kullanılmıştır?", ["Okula yürüyerek gitmeyi tercih ederdi.", "Kırılan camları usta değiştirdi.", "Okumak en büyük tutkusudur.", "Gelen müşteriyle ilgilendi."], 0, "Yürüyerek = zarf-fiil."),
       createQ("Matematik", "M.8.1.1.2 Çarpan Sayısı", "Aşağıdaki sayılardan hangisinin **pozitif tam sayı çarpan sayısı 6 tanedir**?", ["18", "12", "16", "24"], 0, "18'in çarpanları: 1, 2, 3, 6, 9, 18 (6 tane)."),
@@ -205,29 +213,23 @@
     // Yarın İçin 90 Soruluk TD06 Full LGS Provası
     const generateTD06Questions = () => {
       let qList = [];
-      // Türkçe (1-20)
       for(let i=1; i<=20; i++) {
         if(i===1) qList.push(createQ("Türkçe", "Söz Grubu Anlamı", "[P]Şairin mısraları sınırı ve zamanı aşarak insanlığın ortak mirasına dönüşmüştür.[/P]\n\nBu durum hangisiyle açıklanır?", ["Evrensellik", "Özgünlük", "Akıcılık", "Açıklık"], 0, "Zamanı ve sınırı aşmak evrenselliktir."));
         else if(i===2) qList.push(createQ("Türkçe", "Cümle Birleştirme", "1. Cümle: Mevlana eserlerini mesnevi türünde yazmıştır.\n2. Cümle: Bu eserlerde hoşgörü ve sevgi teması işlenmektedir.\n\nİki cümlenin **en doğru** birleşimi hangisidir?", ["Mevlana, hoşgörü ve sevgi temasını işlediği eserlerini mesnevi türünde yazmıştır.", "Mevlana sadece mesnevi yazan büyük bir şairdir.", "En güzel mesneviler hoşgörü konusunu işler.", "Mevlana'nın tek teması sevgidir."], 0, "Tam birleşim A şıkkıdır."));
         else if(i===3) qList.push(createQ("Türkçe", "Öğrenmede Ket Vurma", "Yeni parolasını değiştiren Ayşe'nin sisteme girerken zihinsel alışkanlıkla eski şifresini yazması hangi kavramdır?", ["İleriye Ket Vurma", "Geriye Ket Vurma", "Kodlama Hatası", "Bilişsel Çelişki"], 0, "İleriye ket vurmadır."));
         else qList.push(createQ("Türkçe", "Paragraf ve Anlam", `Türkçe Okul Prova Sorusu ${i}. Metin okunduğunda doğru seçenek A şıkkıdır.`, ["A seçeneği doğrudur.", "B seçeneği elenir.", "C seçeneği çeldiricidir.", "D seçeneği hatalıdır."], 0, "Paragraf analizi."));
       }
-      // İnkılap (21-30)
       for(let i=21; i<=30; i++) {
         if(i===21) qList.push(createQ("İnkılap Tarihi", "Yenileşme Hareketleri", "Osmanlı Devleti'nde Tanzimat Fermanı'nın ilan edilme temel amacı nedir?", ["Devletin dağılmasını önlemek", "Savaşa girmek", "Sanayileşmek", "Kut anlayışını değiştirmek"], 0, "Dağılmayı önlemektir."));
         else qList.push(createQ("İnkılap Tarihi", "Atatürkçülük", `İnkılap Tarihi Prova Sorusu ${i}. Dönemsel analiz yapıldığında doğru yanıt A'dır.`, ["Doğru yargı", "Yanlış yargı", "Çeldirici", "Uyumsuz"], 0, "Tarihsel analiz."));
       }
-      // Din (31-40)
       for(let i=31; i<=40; i++) qList.push(createQ("Din Kültürü", "Kader inancı", `Din Kültürü Prova Sorusu ${i}. İrade ve sorumluluk ilkesine göre yanıt A'dır.`, ["Doğru İlke", "Hatalı Yorum", "Çeldirici", "Uyumsuz"], 0, "Kader inancı."));
-      // İngilizce (41-50)
       for(let i=41; i<=50; i++) qList.push(createQ("İngilizce", "Friendship", `English Exam Question ${i}. Correct option is A.`, ["Correct answer", "Wrong answer", "Distractor", "Incorrect option"], 0, "Vocabulary & Comprehension."));
-      // Matematik (51-70)
       for(let i=51; i<=70; i++) {
         if(i===51) qList.push(createQ("Matematik", "M.8.1.1.2 Çarpan Sayısı", "20 sayısının kaç tane pozitif tam sayı çarpanı vardır?", ["6", "4", "8", "5"], 0, "20'nin çarpanları: 1, 2, 4, 5, 10, 20 (6 tane)."));
         else if(i===52) qList.push(createQ("Matematik", "M.8.1.1.2 EBOB Direk", "Boyutları 48 m ve 60 m olan tarlanın etrafına eşit aralıklarla ağaç dikilecektir. En az kaç ağaç gerekir?", ["18", "12", "15", "20"], 0, "EBOB=12. Çevre 216 / 12 = 18 ağaç."));
         else qList.push(createQ("Matematik", "LGS Yeni Nesil Matematik", `Matematik Prova Sorusu ${i}. İşlem adımları takip edildiğinde yanıt A'dır.`, ["Hesaplanan Doğru Cevap", "İşlem Hatası", "Mantık Hatası", "Çeldirici"], 0, "Yeni nesil kurgu."));
       }
-      // Fen (71-90)
       for(let i=71; i<=90; i++) {
         if(i===71) qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Seyahat", "21 Mart'ta Ekvator'da olan biri 3 ay sonra Yengeç Dönencesi'ne giderse hangi mevsimi yaşar?", ["Yaz", "Kış", "İlkbahar", "Sonbahar"], 0, "21 Haziran'da Yengeç Dönencesi Yaz yaşar."));
         else qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Mevsimler ve İklim", `Fen Bilimleri Prova Sorusu ${i}. Isı ve açı ilişkisine göre cevap A'dır.`, ["Doğru Bilimsel Yargı", "Hatalı Çıkarım", "Çeldirici Grafik", "Ters Mantık"], 0, "Deney ve grafik okuma."));
@@ -272,11 +274,11 @@
         subtitle: "90 Soruluk Tam Prova ve Otomatik Sonuç Hatırlatıcı Sistem",
         body: `
           <div class="lesson-box">
-            <h3>Sınav Programı ve Yenilikler</h3>
+            <h3>Sınav Programı ve Çift Seçenekli Gönderim</h3>
             <p><b>D11 Mini Denemesi (Bu Akşam):</b> 20 sorudan oluşur. Buca Sınav Koleji denemesindeki hataları pekiştirmek içindir.</p>
             <p><b>TD06 Tam Prova (Yarın):</b> 90 soruluk LGS formatındadır.</p>
-            <p><b>Sınav Bitiş Uyarı Sistemi:</b> Sınav bittiği an Günce'nin ekranında uyarı modalı çıkacak ve sonuç kodunu baba ile paylaşması hatırlatılacaktır.</p>
-            <div class="tip">💡 <b>Hatırlatma:</b> Sınav bittiğinde "WhatsApp ile Gönder" butonuna basarak sonucu iletebilirsiniz!</div>
+            <p><b>Esnek Gönderim Desteği:</b> Sınav bittiğinde ekranda çıkan pencereden ister <b>E-posta</b> ister <b>WhatsApp</b> ile sonuçlarınızı babanıza ulaştırabilirsiniz.</p>
+            <div class="tip">💡 <b>Tablet Kullanıcıları İçin:</b> Mail butonuna basarak tek tıkla e-posta gönderebilirsiniz!</div>
           </div>
         `
       }
@@ -409,17 +411,24 @@
       history.unshift({ code: lastGeneratedCode, date: new Date().toLocaleString() });
       localStorage.setItem('glgs_history', JSON.stringify(history));
 
-      // Panoya kopyala
       if(navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(lastGeneratedCode);
       }
 
-      // Modal Göster
       document.getElementById('modal-code-display').innerText = lastGeneratedCode;
       document.getElementById('finish-modal').classList.add('active');
     }
 
-    function copyAndSendWhatsApp() {
+    // Tek Sınav Sonucu Mail İle Gönderme
+    function sendSingleEmail() {
+      let subject = encodeURIComponent(`Günce LGS Sınav Sonucu (${activeExam ? activeExam.id : 'Deneme'})`);
+      let body = encodeURIComponent(`Merhaba Baba,\n\nSınavımı tamamladım. Sonuç kodum aşağıdadır:\n\n${lastGeneratedCode}\n\nİyi çalışmalar!`);
+      window.location.href = `mailto:?subject=${subject}&body=${body}`;
+      closeModalAndGoResults();
+    }
+
+    // Tek Sınav Sonucu WhatsApp İle Gönderme
+    function sendSingleWhatsApp() {
       window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(lastGeneratedCode)}`);
       closeModalAndGoResults();
     }
@@ -427,6 +436,24 @@
     function closeModalAndGoResults() {
       document.getElementById('finish-modal').classList.remove('active');
       switchTab('results');
+    }
+
+    // Tüm Arşivi Mail İle Gönderme
+    function sendAllResultsEmail() {
+      let history = JSON.parse(localStorage.getItem('glgs_history') || '[]');
+      if(history.length === 0) { alert('Gönderilecek kayıtlı sonuç bulunamadı.'); return; }
+      let msg = history.map(h => h.code).join('\n');
+      let subject = encodeURIComponent('Günce LGS Tüm Sınav Sonuçları Arşivi');
+      let body = encodeURIComponent(`Merhaba Baba,\n\nÇözdüğüm tüm deneme sınavlarının sonuç kodları aşağıdadır:\n\n${msg}`);
+      window.location.href = `mailto:?subject=${subject}&body=${body}`;
+    }
+
+    // Tüm Arşivi WhatsApp İle Gönderme
+    function sendAllResultsWA() {
+      let history = JSON.parse(localStorage.getItem('glgs_history') || '[]');
+      if(history.length === 0) { alert('Gönderilecek kayıtlı sonuç bulunamadı.'); return; }
+      let msg = history.map(h => h.code).join('\n');
+      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`);
     }
 
     function parseResultCode(code) {
@@ -542,13 +569,6 @@
           </div>
         `;
       }).join('');
-    }
-
-    function sendAllResults() {
-      let history = JSON.parse(localStorage.getItem('glgs_history') || '[]');
-      if(history.length === 0) { alert('Gönderilecek kayıtlı sonuç bulunamadı.'); return; }
-      let msg = history.map(h => h.code).join('\n');
-      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`);
     }
 
     renderExams();

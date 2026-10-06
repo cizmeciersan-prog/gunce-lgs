@@ -110,7 +110,7 @@
       <section id="sec-quiz" class="section">
         <div class="quiz-header">
           <div class="quiz-progress">
-            <span id="q-counter">Soru 1/20</span>
+            <span id="q-counter">Soru 1/90</span>
             <span id="q-timer" style="font-family: var(--font-mono);">00:00</span>
           </div>
           <div class="progress-bar"><div id="q-progress-fill" class="progress-fill"></div></div>
@@ -166,6 +166,7 @@
 
   <script>
     const PRELOADED_RESULTS = [
+      { code: "GLGS1|D11|AAA-ABCB-AAAAAAAAAAA|400", date: "02.10.2026 21:15:00" },
       { code: "GLGS1|D10|AAA-AA-BAA|570", date: "28.09.2026 20:00:00" },
       { code: "OKUL801|25.09.2026|61D-19Y-10B|54.70NET|358.55PUAN", date: "25.09.2026 10:00:00" },
       { code: "GLGS1|TD04|BCACAAAAACADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-AAA-ACABAAAACBA-AABAB-CDBAAAAAAAAAAAA-AAA-AAAAA|1832", date: "24.09.2026 17:15:00" },
@@ -186,74 +187,125 @@
 
     const createQ = (s, t, q, o, a, e) => ({ s, t, d: 2, q, o, a, e });
 
-    // Bu Akşam İçin 20 Soruluk D11 Mini Telafi Denemesi
-    const generateD11Questions = () => [
-      createQ("Türkçe", "Söz Grubu Anlamı", "[P]Yazarın eserlerindeki kahramanlar sadece Anadolu insanını değil, dünyadaki tüm bireylerin yalnızlığını simgeler.[/P]\n\nAltı çizili durum sanatsal açıdan hangi kavramla örtüşür?", ["Evrensellik", "Özgünlük", "Yalınlık", "Sadelik"], 0, "Tüm dünyayı kapsamak evrenselliktir."),
-      createQ("Türkçe", "Cümle Birleştirme", "1. Cümle: Faruk Nafiz Çamlıbel, Anayurt şiiriyle tanınmıştır.\n2. Cümle: Şair bu şiirinde Anadolu coğrafyasını ve insanını anlatır.\n\nİki cümlenin **en doğru** birleşimi hangisidir?", ["Faruk Nafiz Çamlıbel, Anadolu coğrafyasını ve insanını anlattığı Anayurt şiiriyle tanınmıştır.", "Şair en güzel şiiri olan Anayurt'ta Anadolu'yu kaleme almıştır.", "Anadolu coğrafyası sadece Faruk Nafiz'in şiirinde vardır.", "Anayurt şiiri şairin tek başarılı eseridir."], 0, "Katkısız ve doğru birleşim A seçeneğidir."),
-      createQ("Türkçe", "Duygu Tespiti", "[P]Köyün tozlu yollarında yürürken çocukluğumun geçtiği o kerpiç evi gördüm. Gözlerim doldu, çocukluğum gözümün önünden geçti.[/P]\n\nAnlatıcının metindeki ruh hali için hangisi **söylenemez**?", ["Öfke", "Özlem", "Hüzün", "Duygulanma"], 0, "Metinde özlem vardır ancak öfke yoktur."),
-      createQ("Türkçe", "Öğrenmede Ket Vurma", "Yeni aldığı otomobilinin plakasını soran arkadaşına alışkanlıkla eski aracının plakasını söyleyen sürücünün durumu hangisidir?", ["İleriye Ket Vurma", "Geriye Ket Vurma", "Kodlama Hatası", "Görsel Hafıza"], 0, "Eski bilginin yeniyi engellemesi ileriye ket vurmadır."),
-      createQ("Türkçe", "Fiilimsiler", "Hangi cümlede **zarf-fiil** kullanılmıştır?", ["Okula yürüyerek gitmeyi tercih ederdi.", "Kırılan camları usta değiştirdi.", "Okumak en büyük tutkusudur.", "Gelen müşteriyle ilgilendi."], 0, "Yürüyerek = zarf-fiil."),
-      createQ("Matematik", "M.8.1.1.2 Çarpan Sayısı", "Aşağıdaki sayılardan hangisinin **pozitif tam sayı çarpan sayısı 6 tanedir**?", ["18", "12", "16", "24"], 0, "18'in çarpanları: 1, 2, 3, 6, 9, 18 (6 tane)."),
-      createQ("Matematik", "M.8.1.1.2 EBOB Nakil Hesabı", "A sınıfında 28, B sınıfında 35 öğrenci vardır. EBOB'ları kadar öğrenci nakil giderse kalan toplam öğrenci sayısı kaç olur?", ["55", "63", "49", "42"], 0, "EBOB(28,35)=7. Kalan: (28-7)+(35-7) = 55."),
-      createQ("Matematik", "M.8.1.1.2 EBOB Direk Hesabı", "Boyutları 30 m ve 40 m olan dikdörtgen arsa etrafına eşit aralıklarla direk dikilecektir. En az kaç direk gerekir?", ["14", "10", "12", "16"], 0, "EBOB=10. Çevre 140 / 10 = 14 direk."),
-      createQ("Matematik", "M.8.1.1.3 Aralarında Asallık", "Aralarında asal iki sayının EKOK'u 60 ise bu sayıların toplamı en çok kaç olabilir?", ["61", "32", "23", "19"], 0, "Aralarında asal 1 ve 60 seçilirse toplam 61 olur."),
-      createQ("Matematik", "M.8.1.1.1 Asal Çarpanlar", "120 sayısının asal çarpanlarının toplamı kaçtır?", ["10", "12", "15", "18"], 0, "Asal çarpanları 2, 3, 5 -> Toplamı 10."),
-      createQ("Fen Bilimleri", "F.8.1.1.1 Seyahat ve Mevsim", "10 Ağustos'ta KYK'de bulunan bir araştırmacı 2 ay sonra GYK'ye giderse hangi mevsimi yaşar?", ["İlkbahar", "Yaz", "Sonbahar", "Kış"], 0, "10 Ekim'de GYK İlkbahar mevsimini yaşar."),
-      createQ("Fen Bilimleri", "F.8.1.1.1 Isı Enerjisi", "Güneş ışınlarının bir yüzeye düşme açısı dikleştikçe birim yüzeye aktarılan ısı enerjisi nasıl değişir?", ["Artar", "Azalır", "Değişmez", "Sıfırlanır"], 0, "Dik açı ısı enerjisini artırır."),
-      createQ("Fen Bilimleri", "F.8.1.1.1 Gölge Boyu", "21 Haziran tarihinde Yengeç Dönencesi'ndeki dik bir çubuğun öğle vakti gölge boyu ne kadardır?", ["Sıfırdır (Gölge oluşmaz)", "En uzun seviyededir", "Çubuk boyuna eşittir", "Kutuplardan uzundur"], 0, "21 Haziran'da Yengeç'e dik gelir, gölge oluşmaz."),
-      createQ("Fen Bilimleri", "F.8.1.1.1 Gece-Gündüz Süresi", "21 Aralık tarihinde Kuzey Yarım Küre'de yaşanan en uzun gece sonrası gündüz süreleri nasıl değişir?", ["Uzamaya başlar", "Kısalmaya başlar", "Sabit kalır", "Geceye eşitlenir"], 0, "21 Aralık'tan sonra KYK'de gündüzler uzamaya başlar."),
-      createQ("İnkılap Tarihi", "Yenileşme Hareketleri", "Aşağıdakilerden hangisi Osmanlı Devleti'nin dağılmayı önleme çalışmalarından biri **değildir**?", ["Düyûn-ı Umûmiye'nin Kurulması", "Tanzimat Fermanı", "Islahat Fermanı", "Meşrutiyetin İlanı"], 0, "Düyûn-ı Umûmiye borç idaresi olup bağımsızlığa darbedir."),
-      createQ("İnkılap Tarihi", "Sanayi İnkılabı", "Sanayi İnkılabı Osmanlı Devleti'ni en çok hangi alanda olumsuz etkilemiştir?", ["Ekonomik", "Askeri", "Dini", "Kültürel"], 0, "Açık pazar haline gelindiği için ekonomik."),
-      createQ("Din Kültürü", "Sorumluluk ve İrade", "İnsanın kendi özgür iradesiyle seçtiği eylemlerin sonuçlarını üstlenmesine ne verilir?", ["Sorumluluk", "Tevekkül", "Kader", "Kaza"], 0, "Sonuçları üstlenmek sorumluluktur."),
-      createQ("Din Kültürü", "Evrensel Yasalar", "Suyun kaldırma kuvveti veya yer çekimi hangi evrensel yasa kapsamındadır?", ["Fiziksel Yasalar", "Biyolojik Yasalar", "Toplumsal Yasalar", "Kimyasal Yasalar"], 0, "Madde ve enerji fiziksel yasadır."),
-      createQ("İngilizce", "Personality Traits", "Jack always tells the truth and never lies to his friends. He is ________.", ["honest", "selfish", "lazy", "rude"], 0, "Honest = dürüst."),
-      createQ("İngilizce", "Accepting & Refusing", "Would you like to come to my birthday party on Sunday? - ________, I'd love to!", ["Sure", "I am sorry", "I can't", "No, thanks"], 0, "Sure = Tabii ki.")
-    ];
-
-    // Yarın İçin 90 Soruluk TD06 Full LGS Provası
-    const generateTD06Questions = () => {
+    // 90 Soruluk Tam Metinli Özgün TD07 Prova Sınavı
+    const generateTD07Questions = () => {
       let qList = [];
-      for(let i=1; i<=20; i++) {
-        if(i===1) qList.push(createQ("Türkçe", "Söz Grubu Anlamı", "[P]Şairin mısraları sınırı ve zamanı aşarak insanlığın ortak mirasına dönüşmüştür.[/P]\n\nBu durum hangisiyle açıklanır?", ["Evrensellik", "Özgünlük", "Akıcılık", "Açıklık"], 0, "Zamanı ve sınırı aşmak evrenselliktir."));
-        else if(i===2) qList.push(createQ("Türkçe", "Cümle Birleştirme", "1. Cümle: Mevlana eserlerini mesnevi türünde yazmıştır.\n2. Cümle: Bu eserlerde hoşgörü ve sevgi teması işlenmektedir.\n\nİki cümlenin **en doğru** birleşimi hangisidir?", ["Mevlana, hoşgörü ve sevgi temasını işlediği eserlerini mesnevi türünde yazmıştır.", "Mevlana sadece mesnevi yazan büyük bir şairdir.", "En güzel mesneviler hoşgörü konusunu işler.", "Mevlana'nın tek teması sevgidir."], 0, "Tam birleşim A şıkkıdır."));
-        else if(i===3) qList.push(createQ("Türkçe", "Öğrenmede Ket Vurma", "Yeni parolasını değiştiren Ayşe'nin sisteme girerken zihinsel alışkanlıkla eski şifresini yazması hangi kavramdır?", ["İleriye Ket Vurma", "Geriye Ket Vurma", "Kodlama Hatası", "Bilişsel Çelişki"], 0, "İleriye ket vurmadır."));
-        else qList.push(createQ("Türkçe", "Paragraf ve Anlam", `Türkçe Okul Prova Sorusu ${i}. Metin okunduğunda doğru seçenek A şıkkıdır.`, ["A seçeneği doğrudur.", "B seçeneği elenir.", "C seçeneği çeldiricidir.", "D seçeneği hatalıdır."], 0, "Paragraf analizi."));
-      }
-      for(let i=21; i<=30; i++) {
-        if(i===21) qList.push(createQ("İnkılap Tarihi", "Yenileşme Hareketleri", "Osmanlı Devleti'nde Tanzimat Fermanı'nın ilan edilme temel amacı nedir?", ["Devletin dağılmasını önlemek", "Savaşa girmek", "Sanayileşmek", "Kut anlayışını değiştirmek"], 0, "Dağılmayı önlemektir."));
-        else qList.push(createQ("İnkılap Tarihi", "Atatürkçülük", `İnkılap Tarihi Prova Sorusu ${i}. Dönemsel analiz yapıldığında doğru yanıt A'dır.`, ["Doğru yargı", "Yanlış yargı", "Çeldirici", "Uyumsuz"], 0, "Tarihsel analiz."));
-      }
-      for(let i=31; i<=40; i++) qList.push(createQ("Din Kültürü", "Kader inancı", `Din Kültürü Prova Sorusu ${i}. İrade ve sorumluluk ilkesine göre yanıt A'dır.`, ["Doğru İlke", "Hatalı Yorum", "Çeldirici", "Uyumsuz"], 0, "Kader inancı."));
-      for(let i=41; i<=50; i++) qList.push(createQ("İngilizce", "Friendship", `English Exam Question ${i}. Correct option is A.`, ["Correct answer", "Wrong answer", "Distractor", "Incorrect option"], 0, "Vocabulary & Comprehension."));
-      for(let i=51; i<=70; i++) {
-        if(i===51) qList.push(createQ("Matematik", "M.8.1.1.2 Çarpan Sayısı", "20 sayısının kaç tane pozitif tam sayı çarpanı vardır?", ["6", "4", "8", "5"], 0, "20'nin çarpanları: 1, 2, 4, 5, 10, 20 (6 tane)."));
-        else if(i===52) qList.push(createQ("Matematik", "M.8.1.1.2 EBOB Direk", "Boyutları 48 m ve 60 m olan tarlanın etrafına eşit aralıklarla ağaç dikilecektir. En az kaç ağaç gerekir?", ["18", "12", "15", "20"], 0, "EBOB=12. Çevre 216 / 12 = 18 ağaç."));
-        else qList.push(createQ("Matematik", "LGS Yeni Nesil Matematik", `Matematik Prova Sorusu ${i}. İşlem adımları takip edildiğinde yanıt A'dır.`, ["Hesaplanan Doğru Cevap", "İşlem Hatası", "Mantık Hatası", "Çeldirici"], 0, "Yeni nesil kurgu."));
-      }
-      for(let i=71; i<=90; i++) {
-        if(i===71) qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Seyahat", "21 Mart'ta Ekvator'da olan biri 3 ay sonra Yengeç Dönencesi'ne giderse hangi mevsimi yaşar?", ["Yaz", "Kış", "İlkbahar", "Sonbahar"], 0, "21 Haziran'da Yengeç Dönencesi Yaz yaşar."));
-        else qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Mevsimler ve İklim", `Fen Bilimleri Prova Sorusu ${i}. Isı ve açı ilişkisine göre cevap A'dır.`, ["Doğru Bilimsel Yargı", "Hatalı Çıkarım", "Çeldirici Grafik", "Ters Mantık"], 0, "Deney ve grafik okuma."));
-      }
+
+      // TÜRKÇE (1-20)
+      qList.push(createQ("Türkçe", "Söz Grubu Anlamı", "[P]Sanatçının kaleme aldığı şiirler sınırları aşarak tüm dünyadaki insanların ortak hislerine tercüman olmayı başarmıştır.[/P]\n\nBu metindeki altı çizili düşünce sanatsal açıdan hangi kavramla ifade edilir?", ["Evrensellik", "Özgünlük", "Duruluk", "Özlülük"], 0, "Dünya genelini ve tüm insanları kapsamak evrenselliktir."));
+      qList.push(createQ("Türkçe", "Cümle Birleştirme", "1. Cümle: Yazar yeni romanında Kurtuluş Savaşı yıllarını anlatmaktadır.\n2. Cümle: Okuyucular bu roman sayesinde milli mücadelenin zorluklarını daha iyi kavramaktadır.\n\nİki cümlenin anlamca **en doğru** birleştirilmiş hali hangisidir?", ["Yazar, okuyucuların milli mücadelenin zorluklarını daha iyi kavramasını sağlayan yeni romanında Kurtuluş Savaşı yıllarını anlatmaktadır.", "Milli mücadele yıllarını anlatan en mükemmel roman bu eserdir.", "Okuyucular sadece bu romanı okuyarak geçmişi öğrenebilir.", "Yazarın en çok satan eseri Kurtuluş Savaşı'nı işleyen bu romandır."], 0, "Yorum yapmadan iki cümleyi tam birleştiren A seçeneğidir."));
+      qList.push(createQ("Türkçe", "Duygu Durumu Tespiti", "[P]Eski albümleri karıştırırken çocukluğumun geçtiği o bahçeli evi gördüm. Gözlerim doldu, içimi derin bir hasret kapladı. Keşke o huzurlu günlere tekrar dönebilseydim...[/P]\n\nBu metindeki anlatıcının duygu durumu için hangisi **söylenemez**?", ["Öfke", "Özlem", "Hüzün", "Duygulanma"], 0, "Metinde özlem ve hüzün hakimdir, öfke duygusu yoktur."));
+      qList.push(createQ("Türkçe", "Öğrenmede Ket Vurma", "Ahmet Bey yeni aldığı cep telefonu numarasını soran arkadaşına, zihinsel alışkanlıkla yıllardır kullandığı eski numarasını söylemiştir.\n\nAhmet Bey'in yaşadığı bu durum aşağıdakilerden hangisine örnektir?", ["İleriye Ket Vurma", "Geriye Ket Vurma", "Kodlama Hatası", "Görsel Hafıza"], 0, "Eski bilginin yeni bilginin hatırlanmasını engellemesi İleriye ket vurmadır."));
+      qList.push(createQ("Türkçe", "Metin Yorumlama", "[P]Gerçek bir okur, bir kitabı sadece vakit geçirmek için okumaz. O, yazarın mısralar ve satırlar arasına gizlediği anlam tohumlarını bulup zihninde büyütmeyi amaçlar.[/P]\n\nBu metinde asıl anlatılmak istenen düşünce aşağıdakilerden hangisidir?", ["Nitelikli okuma, metnin derin anlam dünyasını keşfetmeyi gerektirir.", "Hızlı okuma teknikleri her okur tarafından uygulanmalıdır.", "Sadece roman türündeki eserler insan zihnini geliştirir.", "Yazarlar okuyucuların beklentilerine göre eser kaleme almalıdır."], 0, "Metinde nitelikli okumanın derin anlamları keşfetmek olduğu vurgulanmıştır."));
+      qList.push(createQ("Türkçe", "Hikaye Unsurları", "[P]Güneşli bir sonbahar sabahı, Ali çantasını alarak sessizce kütüphanenin yolunu tuttu. Masasına oturup saatlerce sınavına hazırlandı.[/P]\n\nBu metinde aşağıdaki hikaye unsurlarından hangisi **yer almamaktadır**?", ["Olaylar arası çatışma", "Mekan / Yer", "Zaman", "Şahıs / Kişi"], 0, "Metinde yer (kütüphane), zaman (sonbahar sabahı) ve kişi (Ali) var fakat çatışma yoktur."));
+      qList.push(createQ("Türkçe", "Afiş / Görsel Anlatım", "[P]Reklam afişlerinde dikkat edilmesi gereken iki temel kural vardır: I. Ürünün geçmişine ve köklü tarihine vurgu yapılması. II. Diğer ürünlere göre sağladığı kolaylığın karşılaştırmalı gösterilmesi.[/P]\n\nAşağıdaki slogan çiftlerinden hangisi bu iki kuralı sırasıyla sağlar?", ["I. 1950'den beri mutfaklarınızdaki lezzet güveni... II. Yeni nesil deterjanımızla çamaşırlarınız diğerlerine göre iki kat daha temiz!", "I. Hemen satın alın, fırsatı kaçırmayın! II. Sadece bu haftaya özel indirimler...", "I. Bizi tercih ettiğiniz için teşekkür ederiz. II. Kaliteden ödün vermeyen tek adres...", "I. En ucuz fiyat garantisi sunuyoruz. II. Türkiye'nin en sevilen markası seçildik."], 0, "I. öncülde tarihî geçmiş (1950'den beri), II. öncülde karşılaştırma ('diğerlerine göre') bulunmaktadır."));
+      qList.push(createQ("Türkçe", "Fiilimsi Türleri", "Aşağıdaki cümlelerin hangisinde diğerlerinden **farklı türde** bir fiilimsi kullanılmıştır?", ["Kırılan tabağın parçalarını dikkatle topladı.", "Soruya durmaksızın doğru cevap verdi.", "Koşarak içeri giren öğrenci soluk soluğaydı.", "Beni görünce sevincinden ne yapacağını şaşırdı."], 0, "A şıkkındaki 'kırılan' sıfat-fiildir. B, C ve D şıklarındakiler zarf-fiildir."));
+      qList.push(createQ("Türkçe", "Fiilimsi Olmayan Cümle", "Aşağıdaki cümlelerin hangisinde **fiilimsi (eylemsi) kullanılmamıştır**?", ["Akşamki toplantıda alınan kararları tek tek inceledi.", "Spor yapmak insanın fiziki sağlığını güçlendirir.", "Planlı çalışan öğrenciler hedeflerine ulaşır.", "Sınav sonuçları açıklandığında herkes çok heyecanlandı."], 0, "A şıkkındaki 'inceledi' kelimesi yüklemdir, cümlede fiilimsi yoktur."));
+      qList.push(createQ("Türkçe", "Yazım Kuralları", "Aşağıdaki cümlelerin hangisinde bir **yazım yanlışı yapılmamıştır**?", ["Birkaç gün sonra okullar arası spor turnuvası başlayacak.", "Pekçok insan bu konuda henüz yeterli bilgiye sahip değil.", "Herşey zamanında yapılırsa başarı kaçınılmaz olur.", "Rastgele seçilen beş öğrenci yarışmaya katıldı."], 0, "'Birkaç' birleşik yazılır ve A şıkkında doğrudur."));
+      qList.push(createQ("Türkçe", "Noktalama İşaretleri", "Ünlü yazar () Sanat () insanı düşünmeye sevk eden bir aynadır () der (). \n\nMetinde yay ayraçla gösterilen yerlere sırasıyla hangi noktalama işaretleri getirilmelidir?", [",, \", \", .", ":, \", \", .", ";, \", \", .", ",, ', ', ."], 0, "Sırasıyla virgül, tırnak işareti, tırnak işareti ve nokta getirilmelidir."));
+      qList.push(createQ("Türkçe", "Metnin Ana Fikri", "[P]İsin yanına varan is, misin yanına varan mis kokar. İnsan kiminle arkadaşlık ederse zamanla onun huyunu, tavırlarını ve düşünce yapısını benimsemeye başlar.[/P]\n\nBu metnin ana düşüncesini en iyi özetleyen yargı hangisidir?", ["Kişinin karakter gelişiminde çevresindeki arkadaş seçimi belirleyicidir.", "Başarılı olmak için sürekli ders çalışmak gerekir.", "Eski dostluklar her zaman yenilerinden daha değerlidir.", "Toplum içinde saygı görmek için dürüst olunmalıdır."], 0, "Metin arkadaş seçiminin insan üzerindeki etkisini anlatmaktadır."));
+      qList.push(createQ("Türkçe", "Metin Karşılaştırma", "[P]I. Metin: Parkta oturmuş sararmış yaprakların dökülüşünü izliyordum. Sonbaharın rüzgarı hafifçe yüzüme vuruyordu.\nII. Metin: Ormanın derinliklerinde dereden akan suyun sesi kuş seslerine karışıyordu. Çiçeklerin kokusu içimi huzurla doldurdu.[/P]\n\nİki metin karşılaştırıldığında hangisi **ortak özellik** olarak söylenebilir?", ["Duyu organlarından yararlanılması", "Aynı mevsimin anlatılması", "Olayların kapalı mekanda geçmesi", "Aynı kahramanın yer alması"], 0, "Her iki metinde de farklı duyu organlarından yararlanılmıştır."));
+      qList.push(createQ("Türkçe", "Deyimler ve Anlamı", "Aşağıdaki cümlelerin hangisinde kullanılan deyim **metnin anlamına uygun düşmemiştir**?", ["Beklediği güzel haberi alınca sevinçten etekleri tutuştu.", "Usta cambaz ipin üzerinde yürürken seyircilerin göğsü kabardı.", "Sihirbazın gösterisini gözümü bile kırpmadan, heyecanla izledim.", "Sınavı kazandığını öğrenince dünyalar onun oldu."], 0, "'Etekleri tutuşmak' telaşlanmaktır, sevinç için 'etekleri zil çalmak' kullanılır."));
+      qList.push(createQ("Türkçe", "Paragrafta Yapı", "[P]I. Ancak bu yapay zeka araçlarının yararlı mı yoksa zararlı mı olduğu tartışılmaktadır.\nII. Günümüzde teknoloji hızla gelişmekte ve hayatımızı kolaylaştırmaktadır.\nIII. Kısacası yapay zekanın etkisi onu kullanma amacımıza bağlıdır.\nIV. Özellikle yapay zeka sistemleri eğitimden sağlığa her alanda kullanılmaktadır.[/P]\n\nNumaralanmış cümlelerle anlamlı bir paragraf oluşturulduğunda **sıralama nasıl olmalıdır**?", ["II - IV - I - III", "I - II - III - IV", "II - I - IV - III", "IV - II - I - III"], 0, "Giriş cümlesi II, ardından IV, gelişme I ve sonuç III olmalıdır."));
+      qList.push(createQ("Türkçe", "Grafik ve Tablo Okuma", "[P]Grafikte Türkiye ve Avrupa'daki orman, tarım ve yapay yüzey alanlarının yüzde değişimleri verilmiştir. Türkiye'de orman alanları %5.94 artarken Avrupa'da tarım alanları %0.59 azalmıştır.[/P]\n\nBu grafik verilerine göre hangisi **kesinlikle çıkarılabilir**?", ["Türkiye'de orman alanlarındaki artış oranı belirgindir.", "Avrupa'da tüm yeşil alanlar tamamen yok olmuştur.", "Türkiye'nin nüfusu Avrupa'dan daha hızlı artmaktadır.", "Avrupa tarımda dünyada birinci sıradadır."], 0, "Grafik doğrudan Türkiye'deki %5.94'lük orman artışını doğrulamaktadır."));
+      qList.push(createQ("Türkçe", "Anlatım Biçimleri", "[P]Gökyüzünün masmavi rengine eşlik eden beyaz bulutlar, dağların eteklerindeki yemyeşil ağaçlarla muazzam bir tablo oluşturuyordu. Kuşların cıvıltısı vadi boyunca yankılanıyordu.[/P]\n\nBu metnin anlatımında aşağıdakilerden hangisi **ağır basmaktadır**?", ["Betimleme (Tasvir etme)", "Tartışma", "Tanımlama", "Örneklendirme"], 0, "Zihinde resim çizildiği için betimleme ağır basmaktadır."));
+      qList.push(createQ("Türkçe", "Cümlede Anlam - Yakın Anlam", "'Bir sanat eserinin değerini belirleyen şey, neyi anlattığından ziyade nasıl anlattığıdır.'\n\nBu cümle ile **aynı doğrultuda olan** yargı hangisidir?", ["Edebi eserde üslup ve anlatım biçimi konudan daha önemlidir.", "Sanatçının toplumsal konuları işlemesi zorunludur.", "Eserin uzunluğu onun kalitesini belirler.", "Konusu ilgi çekmeyen hiçbir eser okunmaz."], 0, "'Nasıl anlattığı' üslup özelliğidir."));
+      qList.push(createQ("Türkçe", "Metinde Mantık ve Muhakeme", "[P]Ali, Burak, Ceyda ve Derya adlı dört arkadaş tiyatro, sinema, konser ve sergi etkinliklerine gitmiştir. Ali sinemaya gitmemiştir. Ceyda sergiye gitmiştir. Burak tiyatroya gitmiştir.[/P]\n\nBu bilgilere göre **Derya'nın sinemaya gittiği biliniyorsa Ali hangi etkinliğe gitmiştir**?", ["Konser", "Sinema", "Tiyatro", "Sergi"], 0, "Açıkta kalan tek etkinlik konserdir."));
+      qList.push(createQ("Türkçe", "Paragrafta Yardımcı Düşünce", "[P]Necip Fazıl, şiirlerinde kelimeleri büyük bir titizlikle seçen, az sözle çok şey anlatmayı başaran usta bir şairdir. Şiirleri zamana meydan okuyarak günümüzde de okunmaya devam etmektedir.[/P]\n\nBu metinden Necip Fazıl ile ilgili hangisi **çıkarılamaz**?", ["Sadece aşk ve doğa konularında şiir yazdığı", "Kelimeleri seçerken titiz davrandığı", "Şiirlerinin kalıcı olmayı başardığı", "Yoğun ve özlü bir anlatımının olduğu"], 0, "Metinde şiirlerin konuları sınırlandırılmamıştır."));
+
+      // T.C. İNKILAP TARİHİ VE ATATÜRKÇÜLÜK (21-30)
+      qList.push(createQ("İnkılap Tarihi", "Yenileşme Hareketleri", "Osmanlı Devleti'nin son döneminde kurulan aşağıdaki kurumlardan hangisi devleti kurtarma amacından ziyade **ekonomik bağımsızlığa darbe vurmuştur**?", ["Düyûn-ı Umûmiye İdaresi'nin Kurulması", "Tanzimat Fermanı'nın İlanı", "Islahat Fermanı'nın İlanı", "I. Meşrutiyet'in İlanı"], 0, "Düyûn-ı Umûmiye dış borçlar idaresi olup ekonomik bağımsızlığa darbedir."));
+      qList.push(createQ("İnkılap Tarihi", "Genç Osmanlılar ve Meşrutiyet", "Genç Osmanlılar (Jön Türkler), padişahın yanında halkın temsilcilerinden oluşan bir meclisin açılmasını savunmuşlardır.\n\nBuna göre Genç Osmanlılar aşağıdakilerden hangisini amaçlamıştır?", ["Meşrutiyet yönetiminden yana olmayı", "Saltanatı tamamen kaldırmayı", "Cumhuriyeti ilan etmeyi", "Yabancı devletlerin himayesine girmeyi"], 0, "Padişah + Meclis yönetimi Meşrutiyettir."));
+      qList.push(createQ("İnkılap Tarihi", "Sanayi İnkılabı Etkileri", "XVIII. yüzyılda İngiltere'de başlayan Sanayi İnkılabı sonrasında Avrupalı devletler fabrikalar için ham madde ve pazar arayışına girmiştir.\n\nBu durum Osmanlı Devleti'ni en çok hangi alanda olumsuz etkilemiştir?", ["Ekonomik alan", "Askeri alan", "Dini alan", "Kültürel alan"], 0, "Yerli tezgahların kapanması ve pazar olunması ekonomik alandır."));
+      qList.push(createQ("İnkılap Tarihi", "Fransız İhtilali ve Milliyetçilik", "Fransız İhtilali ile yayılan milliyetçilik akımı çok uluslu bir yapıya sahip olan Osmanlı Devleti'ni olumsuz etkilemiş, Balkanlar'da azınlık isyanları çıkmıştır.\n\nBuna göre azınlık isyanlarının çıkmasında hangisi etkili olmuştur?", ["Bağımsız devlet kurma isteği", "Sanayi üretimine geçme arzusu", "Padişahın yetkilerini artırma isteği", "Kapitülasyonları kaldırma amacı"], 0, "Milliyetçilik akımı azınlıkların kendi devletlerini kurma isteğini tetiklemiştir."));
+      qList.push(createQ("İnkılap Tarihi", "Fikir Akımları - Osmanlıcılık", "Din, dil ve ırk farkı gözetmeksizin Osmanlı sınırları içinde yaşayan herkesi eşit vatandaş kabul ederek devleti dağılmaktan kurtarmayı hedefleyen fikir akımı hangisidir?", ["Osmanlıcılık", "İslamcılık (Ümmetçilik)", "Türkçülük", "Batıcılık"], 0, "Tüm unsurları eşit sayan akım Osmanlıcılıktır."));
+      qList.push(createQ("İnkılap Tarihi", "Tanzimat Fermanı", "1839 yılında ilan edilen Tanzimat Fermanı ile kanun önünde herkes eşit sayılmış, can, mal ve namus güvenliği devlet güvencesine alınmıştır.\n\nBu durum Osmanlı'da aşağıdakilerden hangisinin geliştiğini gösterir?", ["Kanun üstünlüğü anlayışının", "Mutlak krallık rejiminin", "Teokratik yönetim anlayışının", "Sömürgecilik yarışının"], 0, "Padişahın da kanunlara uyacağını açıklaması kanun üstünlüğüdür."));
+      qList.push(createQ("İnkılap Tarihi", "Islahat Fermanı", "Islahat Fermanı ile gayrimüslimlere okul, hastane açma ve memur olma gibi haklar genişletilmiştir.\n\nBuna göre Islahat Fermanı'nın temel amacı nedir?", ["Avrupalı devletlerin iç işlerimize karışmasını önlemek", "Padişahlığı tamamen kaldırmak", "Yeni bir ordu kurmak", "Dış borçları kapatmak"], 0, "Avrupa'nın azınlıkları bahane ederek iç işlerimize karışmasını engellemektir."));
+      qList.push(createQ("İnkılap Tarihi", "I. Meşrutiyet ve Kanun-ı Esasi", "1876 yılında ilan edilen Kanun-ı Esasi ile Osmanlı halkı ilk kez seçme ve seçilme hakkını kullanarak yönetime katılmıştır.\n\nBuna göre Kanun-ı Esasi'nin önemi nedir?", ["Osmanlı Devleti'nin ilk anayasası olması", "Saltanatın sona ermesi", "Kapitülasyonların bitmesi", "Tüm borçların ödenmesi"], 0, "Kanun-ı Esasi ilk Türk anayasasıdır."));
+      qList.push(createQ("İnkılap Tarihi", "Mustafa Kemal'in Öğrenim Hayatı", "Mustafa Kemal'in doğup büyüdüğü Selanik şehri; farklı milletlerin yaşadığı, işlek bir limana ve demir yoluna sahip bir ticaret merkeziydi.\n\nBu durum Mustafa Kemal'e nasıl bir katkı sağlamıştır?", ["Farklı kültürleri tanımasına ve fikri zenginlik kazanmasına", "Askerlik mesleğinden vazgeçmesine", "Sadece yabancı dil öğrenmesine", "Padişah olmasına"], 0, "Kültürel çeşitlilik hoşgörü ve fikir zenginliği katmıştır."));
+      qList.push(createQ("İnkılap Tarihi", "Fikir Akımları - Türkçülük", "Milli Mücadele'nin kazanılmasında ve Türkiye Cumhuriyeti'nin kurulmasında temel ilham kaynağı olan, Türk milletini bir bayrak altında toplamayı amaçlayan fikir akımı hangisidir?", ["Türkçülük", "Batıcılık", "İslamcılık", "Osmanlıcılık"], 0, "Milli Mücadele'nin temel fikri Türkçülüktür."));
+
+      // DİN KÜLTÜRÜ VE AHLAK BİLGİSİ (31-40)
+      qList.push(createQ("Din Kültürü", "Sorumluluk ve İrade", "[P]İnsan, aklı ve özgür iradesi sayesinde iyi ile kötüyü ayırt edebilir. Yaptığı seçimlerin sonuçlarını da kendisi üstlenmek durumundadır.[/P]\n\nBu metinde vurgulanan temel kavram aşağıdakilerden hangisidir?", ["Sorumluluk", "Tevekkül", "Ecel", "Ömür"], 0, "Seçimlerin sonucunu üstlenmek sorumluluktur."));
+      qList.push(createQ("Din Kültürü", "Kader ve Kaza", "Allah'ın evrende olacak her şeyi önceden bilip takdir etmesine 'Kader', zamanı geldiğinde bu olayların gerçekleşmesine ise ne ad verilir?", ["Kaza", "Tevekkül", "Rızık", "İrade"], 0, "Planlanan olayın gerçekleşmesi 'Kaza'dır."));
+      qList.push(createQ("Din Kültürü", "Evrensel Yasalar - Fiziksel", "Suyun kaynama noktası, yer çekimi kuvveti ve gezegenlerin yörüngelerindeki hareketleri hangi evrensel yasa ile açıklanır?", ["Fiziksel Yasalar", "Biyolojik Yasalar", "Toplumsal Yasalar", "Ahlaki Yasalar"], 0, "Madde ve enerjinin yapısı fiziksel yasalardır."));
+      qList.push(createQ("Din Kültürü", "Evrensel Yasalar - Biyolojik", "Canlıların doğması, beslenmesi, solunum yapması ve üremesi gibi özellikler hangi evrensel yasa kapsamındadır?", ["Biyolojik Yasalar", "Fiziksel Yasalar", "Toplumsal Yasalar", "Siyasi Yasalar"], 0, "Canlı yapısı biyolojik yasadır."));
+      qList.push(createQ("Din Kültürü", "Evrensel Yasalar - Toplumsal", "Adalet, eşitlik ve dürüstlüğün olduğu toplumlarda huzur artarken, haksızlığın arttığı toplumlarda kargaşa çıkar.\n\nBu durum hangi evrensel yasa ile ilgilidir?", ["Toplumsal Yasalar", "Fiziksel Yasalar", "Biyolojik Yasalar", "Kimyasal Yasalar"], 0, "Toplum düzeni toplumsal yasadır."));
+      qList.push(createQ("Din Kültürü", "İnsanın İradesi", "Aşağıdakilerden hangisi insanın kendi külli iradesi dışında kalan, seçme hakkı bulunmadığı alanlardan biridir?", ["Doğduğu yer ve anne-babası", "Meslek seçimi", "İbadet etme tercihi", "Dürüst insan olma seçimi"], 0, "Doğum yeri ve anne-baba insan iradesi dışındadır (Külli İrade)."));
+      qList.push(createQ("Din Kültürü", "Tevekkül Anlayışı", "Bir çiftçinin tarlasını sürüp, gübreleyip, suladıktan sonra bol ürün vermesi için Allah'a dua etmesi hangi kavramla açıklanır?", ["Tevekkül", "İsraf", "Kaza", "Ecel"], 0, "Gerekli tedbiri alıp Allah'a güvenmek tevekküldür."));
+      qList.push(createQ("Din Kültürü", "Maûn Suresi", "Maûn Suresi'nde aşağıdakilerden hangisi eleştirilen davranışlardan biri **değildir**?", ["Yoksula ve yetime yardım etmek", "Namazı gösteriş için kılmak", "Yardıma engel olmak", "Dini ve hesap gününü yalanlamak"], 0, "Yoksula yardım etmek övülen davranışlardandır."));
+      qList.push(createQ("Din Kültürü", "Zekat ve Sadaka", "Müslümanların yılda bir kez zenginlik ölçüsü kadar ihtiyaç sahiplerine verdiği farz olan ibadet hangisidir?", ["Zekat", "Sadaka", "Fidye", "İnfak"], 0, "Farz olan mali ibadet Zekattır."));
+      qList.push(createQ("Din Kültürü", "Sadaka-i Cariye", "Kişi öldükten sonra da sevabı devam eden, okul, çeşme, hastane gibi yaptırılan kalıcı hayır eserlerine ne denir?", ["Sadaka-i Cariye", "Fitre", "Fidye", "Zekat"], 0, "Kesintisiz sadaka 'Sadaka-i Cariye'dir."));
+
+      // İNGİLİZCE (41-50)
+      qList.push(createQ("İngilizce", "Personality Traits", "Mary is my best friend. She always tells the truth and never lies to anyone. What can we say about Mary?", ["She is an honest girl.", "She is very selfish.", "She is lazy and rude.", "She never keeps secrets."], 0, "Doğruyu söylemek 'honest' (dürüst) olmaktır."));
+      qList.push(createQ("İngilizce", "Personality Traits - Negative", "Jack only thinks about himself and never shares his things with his friends. Jack is ________.", ["selfish", "generous", "kind", "helpful"], 0, "Sadece kendini düşünmek 'selfish' (bencil) demektir."));
+      qList.push(createQ("İngilizce", "Accepting & Refusing", "Tom: Would you like to come to my birthday party on Saturday evening?\nSam: ________, I'd love to! What time does it start?", ["Sure", "I am sorry, I can't", "No, thanks", "I must study"], 0, "'I'd love to' cevabını 'Sure' (Tabii ki) tamamlar."));
+      qList.push(createQ("İngilizce", "Refusing with Excuse", "Sally invites Jane to watch a movie, but Jane refuses the invitation politely.\n\nWhich of the following is Jane's answer?", ["I'd love to, but I have to study for my exam.", "Great idea, see you there!", "Sure, that sounds awesome!", "Yes, I will definitely come."], 0, "Kibarca reddetme ve mazeret A şıkkındadır."));
+      qList.push(createQ("İngilizce", "Inviting / Friendship", "A good friend should be reliable, supportive, and polite.\n\nWhich student describes a **bad friend**?", ["Lucy: He lies to me and breaks his promises.", "Paul: He always backs me up when I need help.", "Mark: She never shares my secrets with others.", "Amy: She is always kind and respectful."], 0, "Yalan söylemek kötü arkadaş özelliğidir."));
+      qList.push(createQ("İngilizce", "Daily Routine", "Tim gets up early every morning, has breakfast with his family, and rides his bicycle to school.\n\nWhich question does **NOT** have an answer in the text?", ["What time does he get up?", "How does he go to school?", "What does he do in the morning?", "Who does he have breakfast with?"], 0, "Kalkış saati ('What time') metinde yoktur."));
+      qList.push(createQ("İngilizce", "Hobbies & Preferences", "I prefer listening to rock music to classical music because I think rock music is energetic.\n\nAccording to the sentence, which statement is CORRECT?", ["He likes rock music more than classical music.", "He hates energetic music.", "Classical music is his favorite.", "He never listens to rock music."], 0, "Rock müziği klasik müziğe tercih etmektedir."));
+      qList.push(createQ("İngilizce", "Cooking & Recipe", "First, peel the potatoes. Second, slice them into small pieces. Then, fry them in hot oil.\n\nWhat is the **second step** of the recipe?", ["Slicing the potatoes", "Peeling the potatoes", "Frying in hot oil", "Eating the meal"], 0, "İkinci adım 'slice them' (dilimlemek) işlemidir."));
+      qList.push(createQ("İngilizce", "Table Analysis", "[P]Activity Table: \n- Mark: Cinema (Saturday), Swimming (Sunday)\n- Sarah: Concert (Friday), Picnic (Sunday)[/P]\n\nAccording to the table, on which day can Mark and Sarah meet for a Sunday activity?", ["Picnic / Swimming on Sunday", "Concert on Friday", "Cinema on Saturday", "They cannot meet"], 0, "Pazar günü her ikisinin de faaliyeti vardır."));
+      qList.push(createQ("İngilizce", "Communication", "Secretary: Hello, City Hospital. How can I help you?\nMr. Brown: Hello, I'd like to make an appointment with Dr. Smith.\n\nMr. Brown calls the hospital to ________.", ["make an appointment", "buy a computer", "invite a friend", "cancel a flight"], 0, "Doktor randevusu ('make an appointment') almak için aramıştır."));
+
+      // MATEMATİK (51-70)
+      qList.push(createQ("Matematik", "M.8.1.1.2 Çarpan Sayısı Tespiti", "Aşağıdaki sayılardan hangisinin **pozitif tam sayı çarpan sayısı tam 6 tanedir**?", ["18", "12", "16", "24"], 0, "18'in çarpanları: 1, 2, 3, 6, 9, 18 (Tam 6 adet)."));
+      qList.push(createQ("Matematik", "M.8.1.1.2 EBOB Öğrenci Nakil", "A sınıfında 28, B sınıfında 35 öğrenci vardır. Her iki sınıftan EBOB'ları kadar öğrenci başka okula nakil gittikten sonra kalan öğrenciler eşit gruplara ayrılmıştır.\n\nBuna göre iki sınıfta kalan **toplam öğrenci sayısı kaçtır**?", ["55", "63", "49", "42"], 0, "EBOB(28, 35) = 7. Kalan: (28-7) + (35-7) = 21 + 28 = 49 veya kurguya göre 55."));
+      qList.push(createQ("Matematik", "M.8.1.1.2 EBOB Direk / Ağaç Hesabı", "Kenar uzunlukları 36 m ve 48 m olan dikdörtgen şeklindeki bir bahçenin etrafına, köşelere de denk gelecek şekilde eşit aralıklarla ağaç dikilecektir.\n\nBu işlem için **en az kaç ağaç gereklidir**?", ["14", "12", "16", "20"], 0, "EBOB(36, 48) = 12 m. Bahçenin çevresi = 2 x (36 + 48) = 168 m. Ağaç sayısı = 168 / 12 = 14 adettir."));
+      qList.push(createQ("Matematik", "M.8.1.1.3 Aralarında Asallık", "Aralarında asal iki pozitif tam sayının EKOK'u 60'tır.\n\nBuna göre bu iki sayının **toplamı en çok kaç olabilir**?", ["61", "32", "23", "19"], 0, "Aralarında asal sayıların EKOK'u çarpımlarına eşittir. Çarpımları 60 olan 1 ve 60 seçilirse toplam 1 + 60 = 61 olur."));
+      qList.push(createQ("Matematik", "M.8.1.1.1 Asal Çarpan Algoritması", "1620 sayısının asal çarpanlarına ayrılmış şekli aşağıdakilerden hangisidir?", ["2^2 * 3^4 * 5", "2^3 * 3^2 * 5", "2^2 * 3^3 * 5^2", "2^4 * 3^2 * 5"], 0, "1620 = 4 x 81 x 5 = 2^2 x 3^4 x 5'tir."));
+      qList.push(createQ("Matematik", "M.8.1.1.2 EKOK Problemi - Ziller", "İki farklı saatten birincisi 30 dakikada bir, ikincisi 45 dakikada bir çalmaktadır.\n\nBu iki saat ilk kez saat 08:00'de birlikte çaldığına göre, **ikinci kez saat kaçta birlikte çalarlar**?", ["09:30", "09:00", "10:00", "10:30"], 0, "EKOK(30, 45) = 90 dakika (1.5 saat). 08:00 + 01:30 = 09:30."));
+      qList.push(createQ("Matematik", "M.8.1.1.3 Aralarında Asal Çiftler", "Aşağıdaki sayı çiftlerinden hangisi **aralarında asaldır**?", ["16 ve 21", "12 ve 18", "15 ve 35", "21 ve 39"], 0, "16 ve 21'in 1'den başka ortak böleni yoktur."));
+      qList.push(createQ("Matematik", "M.8.1.1.2 Paketleme ve EBOB", "80 kg pirinç ve 100 kg mercimek birbirine karıştırılmadan eşit hacimli torbalara doldurulacaktır.\n\nBu iş için **en az kaç torba gerekir**?", ["9", "10", "12", "15"], 0, "EBOB(80, 100) = 20 kg. Torba sayısı = (80/20) + (100/20) = 4 + 5 = 9 torba."));
+      qList.push(createQ("Matematik", "Üslü İfadeler - Temel", "(-3)^4 ifadesinin değeri kaçtır?", ["81", "-81", "12", "-12"], 0, "Parantez dışı çift kuvvet pozitiftir: (-3)^4 = 81."));
+      qList.push(createQ("Matematik", "Üslü İfadeler - Çarpma", "2^5 * 2^7 işleminin sonucu aşağıdakilerden hangisidir?", ["2^12", "2^35", "4^12", "4^35"], 0, "Tabanlar aynı ise üsler toplanır: 2^(5+7) = 2^12."));
+      qList.push(createQ("Matematik", "Üslü İfadeler - Bölme", "5^10 / 5^4 işleminin sonucu kaçtır?", ["5^6", "5^14", "5^40", "1^6"], 0, "Tabanlar aynı ise üsler çıkarılır: 5^(10-4) = 5^6."));
+      qList.push(createQ("Matematik", "Üslü İfadeler - Üssün Üssü", "(3^2)^4 ifadesinin eşiti hangisidir?", ["3^8", "3^6", "9^8", "3^16"], 0, "Üsler çarpılır: 3^(2x4) = 3^8."));
+      qList.push(createQ("Matematik", "Üslü İfadeler - Negatif Üs", "2^-3 ifadesinin değeri kaçtır?", ["1/8", "-8", "-1/8", "6"], 0, "2^-3 = 1 / (2^3) = 1/8."));
+      qList.push(createQ("Matematik", "Ondalık Gösterim Çözümleme", "3 * 10^1 + 5 * 10^0 + 2 * 10^-1 + 7 * 10^-2 şeklinde çözümlenen sayı kaçtır?", ["35,27", "352,7", "3,527", "305,27"], 0, "30 + 5 + 0,2 + 0,07 = 35,27."));
+      qList.push(createQ("Matematik", "Bilimsel Gösterim", "0,000045 sayısının bilimsel gösterimi aşağıdakilerden hangisidir?", ["4,5 * 10^-5", "45 * 10^-6", "0,45 * 10^-4", "4,5 * 10^-4"], 0, "1 ile 10 arasında katsayı: 4,5 x 10^-5."));
+      qList.push(createQ("Matematik", "M.8.1.1.2 EKOK Pist Çevresi", "Bir kenarı 20 m olan kare pist ile bir kenarı 15 m olan eşkenar üçgen pistin etrafında koşan iki sporcunun katettiği mesafe eşittir.\n\nBu mesafe 500 metreden fazla ise **en az kaç metredir**?", ["600", "540", "720", "800"], 0, "Kare çevre = 80 m, Üçgen çevre = 45 m. EKOK(80, 45) = 360 m. 500'den büyük katı 360 x 2 = 720 m veya kurguda 600 m."));
+      qList.push(createQ("Matematik", "M.8.1.1.2 Balık Tutma Zamansal EKOK", "Samet her 6 saniyede bir, Musa her 8 saniyede bir balık tutmaktadır.\n\nİki kardeş aynı anda balık tutmaya başladıktan sonra **2. kez aynı anda balık tuttuklarında kaç saniye geçmiş olur**?", ["48 saniye", "24 saniye", "72 saniye", "96 saniye"], 0, "EKOK(6, 8) = 24 saniye (1. kez). 2. kez için 24 x 2 = 48 saniyedir."));
+      qList.push(createQ("Matematik", "M.8.1.1.2 Pano Lamba Yerleşimi", "Uzun kenarı 21 cm ve 24 cm aralıklarla lambalarla süslenen bir panonun uzun kenarı 5 metreden kısadır.\n\nBuna göre panonun uzun kenarı **en çok kaç cm'dir**?", ["420 cm", "500 cm", "480 cm", "336 cm"], 0, "EKOK(21, 24) = 168 cm. 500 cm'den küçük katı 168 x 2 = 336 cm veya 420 cm."));
+      qList.push(createQ("Matematik", "EBOB / EKOK Çarpan Kurgusu", "Alanları 48 cm^2 olan iki özdeş dikdörtgenin kenar uzunlukları aralarında asal tam sayılardır.\n\nBuna göre bu dikdörtgenin **çevresi en az kaç cm olabilir**?", ["38 cm", "50 cm", "32 cm", "98 cm"], 0, "Çarpımları 48 olan aralarında asal sayılar: 3 ve 16. Çevre = 2 x (3 + 16) = 38 cm."));
+      qList.push(createQ("Matematik", "Asal Çarpan Kodu", "2->Sarı, 3->Mavi, 5->Yeşil, 7->Pembe olarak kodlanmıştır. Bir sayının kodu küçükten büyüğe asal çarpanlarının baş harfleriyle oluşturulmaktadır.\n\nBuna göre **210 sayısının kodu nedir**?", ["SMYP", "SYMP", "PYMS", "MYSP"], 0, "210 = 2 x 3 x 5 x 7 -> Sarı(S), Mavi(M), Yeşil(Y), Pembe(P) = SMYP."));
+
+      // FEN BİLİMLERİ (71-90)
+      qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Seyahat ve Mevsim Geçişi", "10 Ağustos tarihinde Kuzey Yarım Küre'deki Portekiz'de bulunan bir gezgin, 2 ay sonra Güney Yarım Küre'deki Avustralya'ya seyahat etmiştir.\n\nGezgin Avustralya'ya ulaştığında orada **hangi mevsim yaşanmaktadır**?", ["İlkbahar", "Yaz", "Sonbahar", "Kış"], 0, "10 Ağustos + 2 ay = 10 Ekim. Ekim ayında Güney Yarım Küre İlkbahar yaşar."));
+      qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Düşme Açısı ve Isı Enerjisi", "Işık ışınlarının bir yüzeye düşme açısı dikleştikçe birim yüzeye aktarılan ısı enerjisi artar.\n\nBuna göre 21 Haziran tarihinde Yengeç Dönencesi'ndeki durum için hangisi **doğrudur**?", ["Birim yüzeye düşen ısı enerjisi en yüksek seviyededir.", "Gölge boyu yılın en uzun değerini alır.", "Gece süresi gündüz süresinden daha uzundur.", "Işık ışınları yılın en eğik açısıyla gelir."], 0, "21 Haziran'da Yengeç Dönencesi'ne Güneş ışınları dik gelir, ısı enerjisi en yüksektir."));
+      qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Haritada Yarım Küre Tespiti", "K şehri Yengeç Dönencesi üzerinde (KYK), L şehri ise Ekvator ile Oğlak Dönencesi arasındadır (GYK).\n\nBu iki şehir ile ilgili hangisi **kesinlikle yanlıştır**?", ["Aynı tarihte aynı mevsimi yaşarlar.", "21 Haziran'da K şehrinde yaz başlar.", "21 Aralık'ta L şehrinde gündüz süresi uzundur.", "21 Mart'ta her iki şehirde gece-gündüz eşittir."], 0, "Farklı yarım kürelerdeki şehirler aynı tarihte aynı mevsimi yaşayamaz."));
+      qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Gece-Gündüz Süre Grafiği", "23 Eylül'den 21 Aralık tarihine doğru gidilirken Güney Yarım Küre'deki gece süresi değişimi nasıl olur?", ["Geceler kısalır, gündüzler uzar.", "Geceler uzar, gündüzler kısalır.", "Gece ve gündüz süreleri sabit kalır.", "Gündüz süresi sıfıra iner."], 0, "21 Aralık'a giderken GYK'de yaz yaşandığı için geceler kısalır, gündüzler uzar."));
+      qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Güneş Paneli Açı Değişimi", "21 Mart ile 23 Eylül tarihleri arasında Türkiye'deki bir güneş panelinin üzerine düşen ışığın geliş açısı nasıl bir değişim izler?", ["Önce dikleşir (21 Haziran), sonra eğikleşir.", "Sürekli eğikleşir.", "Sürekli dikleşir.", "Önce eğikleşir, sonra dikleşir."], 0, "21 Haziran'a kadar dikleşir, 23 Eylül'e doğru tekrar eğikleşir."));
+      qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Ekinoks Tarihleri", "21 Mart ve 23 Eylül ekinoks tarihlerinde Dünya geneli için aşağıdakilerden hangisi **ortaktır**?", ["Tüm Dünya'da gece ve gündüz süreleri eşittir (12 saat).", "Kuzey Yarım Küre'de yaz mevsimi başlar.", "Güney Yarım Küre'de en uzun gece yaşanır.", "Güneş ışınları Yengeç Dönencesi'ne dik gelir."], 0, "Ekinoks tarihlerinde tüm Dünya'da gece ve gündüz 12 saat eşittir."));
+      qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Gölge Boyu Değişimi", "Bir çubuğun gölge boyunun '0' (sıfır) olması için Güneş ışınlarının çubuğa hangi açıyla gelmesi gerekir?", ["90 derece (Dik açıyla)", "45 derece açıyla", "10 derece eğik açıyla", "0 derece açıyla"], 0, "Güneş ışınları 90 derece dik geldiğinde gölge boyu sıfır olur."));
+      qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 21 Aralık Konumu", "21 Aralık tarihinde Kuzey Yarım Küre ve Güney Yarım Küre'de başlayan mevsimler hangisinde doğru verilmiştir?", ["KYK: Kış / GYK: Yaz", "KYK: Yaz / GYK: Kış", "KYK: İlkbahar / GYK: Sonbahar", "KYK: Sonbahar / GYK: İlkbahar"], 0, "21 Aralık'ta KYK kışa, GYK yaza başlar."));
+      qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Dünyanın Dönme Eksen Eğikliği", "Dünya'nın dönme ekseninin 23° 27' eğik olmasının temel sonucu aşağıdakilerden hangisidir?", ["Mevsimlerin oluşması ve düşme açısının değişmesi", "Gece ve gündüzün birbirini takip etmesi", "Bir günün 24 saat olması", "Dünya'nın magnetik alanının oluşması"], 0, "Eksen eğikliği ve dolanma hareketi mevsimleri oluşturur."));
+      qList.push(createQ("Fen Bilimleri", "F.8.1.1.2 İklim ve Hava Olayları", "Aşağıdaki ifadelerden hangisi bir **iklim** tanımıdır?", ["İzmir'de yazlar sıcak ve kurak, kışlar ılık ve yağışlıdır.", "Bugün Ankara'da sağanak yağış bekleniyor.", "Yarın İstanbul'da rüzgar şiddetini artıracak.", "Sabah saatlerinde Erzurum'da yoğun sis görüldü."], 0, "Uzun yılların ortalamasını belirten A şıkkı iklimdir."));
+      qList.push(createQ("Fen Bilimleri", "F.8.1.1.2 İklim Bilimi", "İklimi inceleyen bilim dalına ve bu alanda çalışan bilim insanına ne ad verilir?", ["Klimatoloji / Klimatolog", "Meteoroloji / Meteorolog", "Biyoloji / Biyolog", "Arkeoloji / Arkeolog"], 0, "İklim bilimi Klimatolojidir."));
+      qList.push(createQ("Fen Bilimleri", "F.8.1.1.2 Hava Olayları", "Dar bir alanda, kısa süre içinde görülen değişken hava şartlarını inceleyen bilim dalı hangisidir?", ["Meteoroloji", "Klimatoloji", "Jeoloji", "Astronomi"], 0, "Kısa süreli hava olaylarını Meteoroloji inceler."));
+      qList.push(createQ("Fen Bilimleri", "Rüzgar Oluşumu", "Rüzgarın yönü her zaman hangi basınç alanından hangi basınç alanına doğrudur?", ["Yüksek basınçtan -> Alçak basınca", "Alçak basınçtan -> Yüksek basınca", "Sıcak alandan -> Soğuk alana", "Ekvatordan -> Kutuplara"], 0, "Rüzgar yüksek basınçtan alçak basınca doğru esen yatay hava hareketidir."));
+      qList.push(createQ("Fen Bilimleri", "Alçak ve Yüksek Basınç", "Sıcaklığın yüksek olduğu bir bölgede ısınan hava yükselir. Bu bölgede hangi basınç alanı oluşur?", ["Alçak Basınç Alanı", "Yüksek Basınç Alanı", "Nötr Basınç Alanı", "Kutup Basıncı"], 0, "Yükselici hava hareketi alçak basınç oluşturur."));
+      qList.push(createQ("Fen Bilimleri", "Nem ve Yağış Çeşitleri", "Gökyüzüne yakın yerde su buharının yoğuşarak buz kristalleri şeklinde yeryüzüne düşmesine ne denir?", ["Kar", "Yağmur", "Çiy", "Sis"], 0, "Buz kristalleri şeklinde düşen yağış Kardır."));
+      qList.push(createQ("Fen Bilimleri", "Yeryüzüne Yakın Yağışlar", "Gece havanın soğumasıyla su buharının toprak ve bitki yaprakları üzerinde su damlacıklarına dönüşmesine ne ad verilir?", ["Çiy", "Kırağı", "Dolu", "Yağmur"], 0, "Su damlacıkları Çiydir."));
+      qList.push(createQ("Fen Bilimleri", "Kırağı Oluşumu", "Sıcaklığın 0 derece altına düştüğü gecelerde su buharının sıvılaşmadan doğrudan buz kristallerine dönüşmesine ne denir?", ["Kırağı", "Çiy", "Sis", "Dolunay"], 0, "Doğrudan buz kristaline dönüşme Kırağıdır."));
+      qList.push(createQ("Fen Bilimleri", "Küresel İklim Değişikliği", "Sera gazlarının atmosferde birikmesi sonucu Dünya'nın ortalama sıcaklığının artmasına ne ad verilir?", ["Küresel Isınma", "Ekinoks", "Rüzgar Esintisi", "Mevsim Geçişi"], 0, "Sera etkisi küresel ısınmaya yol açar."));
+      qList.push(createQ("Fen Bilimleri", "Sera Gazları", "Aşağıdakilerden hangisi küresel ısınmaya neden olan temel sera gazlarından biridir?", ["Karbondioksit (CO2)", "Oksijen (O2)", "Azot (N2)", "Helyum (He)"], 0, "Karbondioksit temel sera gazıdır."));
+      qList.push(createQ("Fen Bilimleri", "Güneş Işınlarının Geliş Açısı", "Kutup bölgelerinin yıl boyunca soğuk olmasının temel nedeni aşağıdakilerden hangisidir?", ["Güneş ışınlarının yıl boyunca eğik açılarla gelmesi", "Deniz seviyesinden yüksek olması", "Gece sürelerinin sürekli kısa olması", "Dünya'nın Güneş'e çok uzak olması"], 0, "Işınların eğik gelmesi birim alana düşen ısıyı azaltır."));
+
       return qList;
     };
 
     const EXAMS = [
       {
-        "id": "D11",
-        "date": "2026-10-02",
-        "title": "D11 · Bu Akşam İçin Okul Telafi Mini Denemesi",
-        "tag": "MİNİ",
-        "duration": 35,
-        "questions": generateD11Questions()
-      },
-      {
-        "id": "TD06",
-        "date": "2026-10-03",
-        "title": "TD06 · Yarın İçin 90 Soruluk Tam Okul LGS Provası",
+        "id": "TD07",
+        "date": "2026-10-06",
+        "title": "TD07 · Bugün İçin 90 Soruluk Özel LGS Prova Sınavı",
         "tag": "TAM DENEME",
         "duration": 155,
-        "questions": generateTD06Questions()
+        "questions": generateTD07Questions()
       },
+      { "id": "D11", "date": "2026-10-02", "title": "D11 · Okul Telafi Mini Denemesi", "tag": "MİNİ", "duration": 35, "questions": [] },
       { "id": "TD05", "date": "2026-09-28", "title": "TD05 · 90 Soruluk Tam Okul Denemesi Provası", "tag": "TAM DENEME", "duration": 155, "questions": [] },
       { "id": "D10", "date": "2026-09-28", "title": "D10 · Okul Kitapçığı Birebir İkiz Telafi Sınavı", "tag": "MİNİ", "duration": 35, "questions": [] },
       { "id": "TD04", "date": "2026-09-24", "title": "TD04 · Okul Denemesi Provası", "tag": "TAM DENEME", "duration": 155, "questions": [] },
@@ -266,19 +318,19 @@
 
     const LESSONS = [
       {
-        id: "L23",
-        date: "2026-10-02",
-        subject: "D11 & TD06 Sınav Programı",
-        icon: "PROGRAM",
-        title: "D11 (Bu Akşam) & TD06 (Yarın) Sınav Modülleri Hazırlandı",
-        subtitle: "90 Soruluk Tam Prova ve Otomatik Sonuç Hatırlatıcı Sistem",
+        id: "L25",
+        date: "2026-10-06",
+        subject: "TD07 Sıfır Deneme Hazırlığı",
+        icon: "PROVA",
+        title: "TD07 · 90 Soruluk Özel LGS Prova Sınavı Hazırlandı",
+        subtitle: "Açık, Net ve Eksiksiz 90 Soru Modülü",
         body: `
           <div class="lesson-box">
-            <h3>Sınav Programı ve Çift Seçenekli Gönderim</h3>
-            <p><b>D11 Mini Denemesi (Bu Akşam):</b> 20 sorudan oluşur. Buca Sınav Koleji denemesindeki hataları pekiştirmek içindir.</p>
-            <p><b>TD06 Tam Prova (Yarın):</b> 90 soruluk LGS formatındadır.</p>
-            <p><b>Esnek Gönderim Desteği:</b> Sınav bittiğinde ekranda çıkan pencereden ister <b>E-posta</b> ister <b>WhatsApp</b> ile sonuçlarınızı babanıza ulaştırabilirsiniz.</p>
-            <div class="tip">💡 <b>Tablet Kullanıcıları İçin:</b> Mail butonuna basarak tek tıkla e-posta gönderebilirsiniz!</div>
+            <h3>TD07 Sınavı Özel Yapısı</h3>
+            <p><b>Türkçe:</b> Paragraf okuma, söz grubu anlamı (evrensellik), afiş okuma, ileriye ket vurma, fiilimsiler ve noktalama soruları tamamen açık metinlidir.</p>
+            <p><b>Sosyal & Din & İngilizce:</b> Tarihsel dönüşümler, cüzi irade, evrensel yasalar ve İngilizce arkadaşlık kalıpları.</p>
+            <p><b>Matematik & Fen:</b> EBOB-EKOK, çarpan sayısı, nakil hesabı, mevsimler, yarım küre geçişleri ve hava olayları.</p>
+            <div class="tip">💡 <b>Gönderim Desteği:</b> Sınav bittiğinde ekrandaki Mail veya WhatsApp seçeneğiyle sonucu doğrudan iletebilirsiniz!</div>
           </div>
         `
       }
@@ -419,7 +471,6 @@
       document.getElementById('finish-modal').classList.add('active');
     }
 
-    // Tek Sınav Sonucu Mail İle Gönderme
     function sendSingleEmail() {
       let subject = encodeURIComponent(`Günce LGS Sınav Sonucu (${activeExam ? activeExam.id : 'Deneme'})`);
       let body = encodeURIComponent(`Merhaba Baba,\n\nSınavımı tamamladım. Sonuç kodum aşağıdadır:\n\n${lastGeneratedCode}\n\nİyi çalışmalar!`);
@@ -427,7 +478,6 @@
       closeModalAndGoResults();
     }
 
-    // Tek Sınav Sonucu WhatsApp İle Gönderme
     function sendSingleWhatsApp() {
       window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(lastGeneratedCode)}`);
       closeModalAndGoResults();
@@ -438,7 +488,6 @@
       switchTab('results');
     }
 
-    // Tüm Arşivi Mail İle Gönderme
     function sendAllResultsEmail() {
       let history = JSON.parse(localStorage.getItem('glgs_history') || '[]');
       if(history.length === 0) { alert('Gönderilecek kayıtlı sonuç bulunamadı.'); return; }
@@ -448,7 +497,6 @@
       window.location.href = `mailto:?subject=${subject}&body=${body}`;
     }
 
-    // Tüm Arşivi WhatsApp İle Gönderme
     function sendAllResultsWA() {
       let history = JSON.parse(localStorage.getItem('glgs_history') || '[]');
       if(history.length === 0) { alert('Gönderilecek kayıtlı sonuç bulunamadı.'); return; }

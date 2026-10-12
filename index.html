@@ -1,626 +1,153 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Günce — LGS Sınav & Çalışma Takibi</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #0d1117;
-      --card: #161b22;
-      --card-border: #30363d;
-      --text: #c9d1d9;
-      --text-heading: #f0f6fc;
-      --text-muted: #8b949e;
-      --accent: #58a6ff;
-      --accent-bg: rgba(56, 139, 253, 0.15);
-      --success: #3fb950;
-      --success-bg: rgba(46, 160, 67, 0.15);
-      --danger: #f85149;
-      --danger-bg: rgba(248, 81, 73, 0.15);
-      --warning: #d29922;
-      --warning-bg: rgba(187, 128, 9, 0.15);
-      --font-main: 'Plus Jakarta Sans', -apple-system, sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-    body { background-color: var(--bg); color: var(--text); font-family: var(--font-main); line-height: 1.5; padding-bottom: 40px; }
-    .container { max-width: 680px; margin: 0 auto; padding: 0 16px; }
-    header { padding: 20px 0 16px; border-bottom: 1px solid var(--card-border); margin-bottom: 16px; }
-    .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-    .logo { font-weight: 800; font-size: 1.25rem; color: var(--text-heading); letter-spacing: -0.5px; }
-    .logo span { color: var(--accent); }
-    .target-badge { background: var(--accent-bg); color: var(--accent); border: 1px solid rgba(88,166,255,0.3); padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; }
-    nav { display: flex; gap: 8px; background: var(--card); padding: 4px; border-radius: 12px; border: 1px solid var(--card-border); }
-    nav button { flex: 1; background: none; border: none; color: var(--text-muted); padding: 8px 12px; border-radius: 8px; font-family: var(--font-main); font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; }
-    nav button.active { background: var(--accent); color: #fff; }
-    .section { display: none; }
-    .section.active { display: block; }
-    .card { background: var(--card); border: 1px solid var(--card-border); border-radius: 14px; padding: 16px; margin-bottom: 12px; }
-    .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
-    .card-title { font-size: 1rem; font-weight: 700; color: var(--text-heading); }
-    .tag { font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 6px; text-transform: uppercase; }
-    .tag-mini { background: var(--accent-bg); color: var(--accent); }
-    .tag-tam { background: var(--warning-bg); color: var(--warning); }
-    .card-meta { font-size: 0.8rem; color: var(--text-muted); display: flex; gap: 12px; margin-bottom: 12px; }
-    .btn { display: inline-flex; align-items: center; justify-content: center; width: 100%; padding: 12px; background: var(--accent); color: #fff; border: none; border-radius: 10px; font-weight: 700; font-size: 0.9rem; cursor: pointer; gap: 8px; }
-    .btn-success { background: var(--success); }
-    .btn-group { display: flex; gap: 8px; margin-bottom: 8px; }
-    .btn-group .btn { flex: 1; }
-    
-    .score-summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 12px 0; }
-    .score-box { background: rgba(255,255,255,0.03); border: 1px solid var(--card-border); padding: 10px; border-radius: 8px; text-align: center; }
-    .score-val { font-size: 1.1rem; font-weight: 800; color: var(--text-heading); font-family: var(--font-mono); }
-    .score-lbl { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; }
-    .meb-score-box { background: var(--accent-bg); border: 1px solid rgba(88,166,255,0.3); border-radius: 10px; padding: 12px; text-align: center; margin-bottom: 12px; }
-    .meb-score-val { font-size: 1.5rem; font-weight: 800; color: var(--accent); font-family: var(--font-mono); }
-    
-    .result-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; margin-top: 8px; }
-    .result-table th, .result-table td { border: 1px solid var(--card-border); padding: 6px 8px; text-align: center; }
-    .result-table th { background: rgba(255,255,255,0.05); color: var(--text-heading); font-weight: 700; }
-    .lesson-box { background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); border-radius: 10px; padding: 12px; margin-top: 10px; font-size: 0.85rem; line-height: 1.6; }
-    .lesson-box h3 { color: var(--accent); font-size: 0.95rem; margin-bottom: 6px; }
-    .lesson-box p { margin-bottom: 8px; }
-    .lesson-box .tip { background: var(--success-bg); border-left: 3px solid var(--success); padding: 8px; border-radius: 4px; color: var(--text-heading); margin: 6px 0; }
+<div style="font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif; color: #1e293b; line-height: 1.6; max-width: 1200px; margin: 0 auto; padding: 1rem 0;">
 
-    .quiz-header { position: sticky; top: 0; background: var(--bg); padding: 12px 0; z-index: 10; border-bottom: 1px solid var(--card-border); margin-bottom: 16px; }
-    .quiz-progress { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; }
-    .progress-bar { height: 6px; background: var(--card-border); border-radius: 3px; overflow: hidden; }
-    .progress-fill { height: 100%; background: var(--accent); width: 0%; transition: width 0.3s; }
-    .q-text { font-size: 0.95rem; font-weight: 600; color: var(--text-heading); margin-bottom: 16px; white-space: pre-line; }
-    .options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
-    .opt-btn { background: var(--card); border: 1px solid var(--card-border); color: var(--text); padding: 12px 14px; border-radius: 10px; text-align: left; font-size: 0.9rem; cursor: pointer; display: flex; gap: 10px; align-items: flex-start; }
-    .opt-btn.selected { border-color: var(--accent); background: var(--accent-bg); color: var(--text-heading); font-weight: 600; }
-    .opt-letter { font-weight: 700; color: var(--accent); font-family: var(--font-mono); }
-    .quiz-nav { display: flex; gap: 6px; }
-    .quiz-nav button { flex: 1; padding: 10px 6px; border-radius: 8px; border: 1px solid var(--card-border); background: var(--card); color: var(--text); font-weight: 600; cursor: pointer; font-size: 0.8rem; }
-    .btn-empty { background: rgba(255, 255, 255, 0.05) !important; color: var(--text-muted) !important; }
+    <!-- HERO SECTION -->
+    <div style="position: relative; background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(37, 99, 235, 0.75) 100%), url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=1920&auto=format&fit=crop'); background-size: cover; background-position: center; border-radius: 16px; padding: 4rem 2rem; color: #ffffff; text-align: center; margin-bottom: 3rem; box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.08);">
+        
+        <span style="display: inline-block; background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.3); padding: 0.4rem 1.2rem; border-radius: 50px; font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1.25rem;">
+            Welkom bij Nuhr.nl
+        </span>
 
-    /* Modal Bildirim Popup */
-    .modal-backdrop { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 100; align-items: center; justify-content: center; padding: 16px; }
-    .modal-backdrop.active { display: flex; }
-    .modal-box { background: var(--card); border: 2px solid var(--warning); border-radius: 16px; padding: 24px; max-width: 480px; width: 100%; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-    .modal-title { font-size: 1.3rem; font-weight: 800; color: var(--warning); margin-bottom: 12px; }
-    .modal-desc { font-size: 0.95rem; color: var(--text-heading); margin-bottom: 16px; line-height: 1.5; }
-    .code-box { background: #000; border: 1px dashed var(--accent); color: #3fb950; font-family: var(--font-mono); font-weight: 700; font-size: 0.85rem; padding: 10px; border-radius: 8px; word-break: break-all; margin-bottom: 16px; text-align: left; }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <header>
-      <div class="topbar">
-        <div class="logo">Günce <span>LGS</span></div>
-        <div class="target-badge">Hedef: 450-460 Puan</div>
-      </div>
-      <nav>
-        <button class="nav-btn active" onclick="switchTab('exams')">Sınavlar</button>
-        <button class="nav-btn" onclick="switchTab('lessons')">Dersler</button>
-        <button class="nav-btn" onclick="switchTab('results')">Sonuçlar</button>
-      </nav>
-    </header>
+        <h1 style="font-size: 2.5rem; font-weight: 800; line-height: 1.2; margin-bottom: 1rem; color: #ffffff; border: none; padding: 0;">
+            Jouw Vertrouwde Partner voor Zorgeloos Reizen
+        </h1>
 
-    <main>
-      <section id="sec-exams" class="section active">
-        <div id="exam-list"></div>
-      </section>
+        <p style="font-size: 1.15rem; max-width: 720px; margin: 0 auto 2.5rem auto; color: #e2e8f0; font-weight: 400;">
+            Jarenlange ervaring in de reissector gecombineerd met de modernste zoektechnologie. Vergelijk direct honderden vliegtickets en boek met alle zekerheid.
+        </p>
 
-      <section id="sec-quiz" class="section">
-        <div class="quiz-header">
-          <div class="quiz-progress">
-            <span id="q-counter">Soru 1/90</span>
-            <span id="q-timer" style="font-family: var(--font-mono);">00:00</span>
-          </div>
-          <div class="progress-bar"><div id="q-progress-fill" class="progress-fill"></div></div>
+        <!-- CONCEPT: RELAX - BOOK - FLY -->
+        <div style="display: flex; flex-wrap: wrap; gap: 1.25rem; justify-content: center; margin-top: 2rem;">
+            <div style="flex: 1; min-width: 240px; background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.2); padding: 1.5rem; border-radius: 12px; text-align: center;">
+                <span style="font-size: 0.85rem; font-weight: 800; color: #f97316; text-transform: uppercase; letter-spacing: 1.5px; display: block; margin-bottom: 0.25rem;">Stap 01</span>
+                <h3 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 0.5rem; color: #ffffff;">RELAX</h3>
+                <p style="font-size: 0.9rem; color: #cbd5e1; margin: 0;">Zoek en vergelijk moeiteloos het grootste aanbod aan vliegtickets.</p>
+            </div>
+
+            <div style="flex: 1; min-width: 240px; background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.2); padding: 1.5rem; border-radius: 12px; text-align: center;">
+                <span style="font-size: 0.85rem; font-weight: 800; color: #f97316; text-transform: uppercase; letter-spacing: 1.5px; display: block; margin-bottom: 0.25rem;">Stap 02</span>
+                <h3 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 0.5rem; color: #ffffff;">BOOK</h3>
+                <p style="font-size: 0.9rem; color: #cbd5e1; margin: 0;">Boek veilig en snel tegen de allerbeste en scherpste tarieven.</p>
+            </div>
+
+            <div style="flex: 1; min-width: 240px; background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.2); padding: 1.5rem; border-radius: 12px; text-align: center;">
+                <span style="font-size: 0.85rem; font-weight: 800; color: #f97316; text-transform: uppercase; letter-spacing: 1.5px; display: block; margin-bottom: 0.25rem;">Stap 03</span>
+                <h3 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 0.5rem; color: #ffffff;">FLY</h3>
+                <p style="font-size: 0.9rem; color: #cbd5e1; margin: 0;">Pak je koffers en geniet met een gerust hart van je droomreis.</p>
+            </div>
         </div>
-        <div id="quiz-body">
-          <div id="q-subject" style="font-size: 0.75rem; font-weight: 700; color: var(--accent); margin-bottom: 4px;">TÜRKÇE</div>
-          <div id="q-topic" style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">Paragraf ve Anlam</div>
-          <div id="q-text" class="q-text">Soru metni yükleniyor...</div>
-          <div id="q-options" class="options"></div>
-          <div class="quiz-nav">
-            <button id="btn-prev" onclick="prevQuestion()">Önceki</button>
-            <button class="btn-empty" onclick="markEmpty()">Boş Bırak</button>
-            <button id="btn-next" onclick="nextQuestion()">Sonraki</button>
-          </div>
-        </div>
-      </section>
-
-      <section id="sec-lessons" class="section">
-        <div id="lesson-list"></div>
-      </section>
-
-      <section id="sec-results" class="section">
-        <div class="card">
-          <div class="card-title" style="margin-bottom: 8px;">Sonuç Arşivi & Detaylı Analiz</div>
-          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">Çözülen tüm denemelerin MEB LGS puan karşılığı, net analizleri ve konu eksikleri aşağıdadır.</p>
-          <div class="btn-group">
-            <button class="btn" onclick="sendAllResultsEmail()">📧 Mail İle Gönder</button>
-            <button class="btn btn-success" onclick="sendAllResultsWA()">💬 WhatsApp Gönder</button>
-          </div>
-        </div>
-        <div id="result-history"></div>
-      </section>
-    </main>
-  </div>
-
-  <!-- Sonuç Gönderme Uyarı Modalı -->
-  <div id="finish-modal" class="modal-backdrop">
-    <div class="modal-box">
-      <div class="modal-title">🎉 SINAV TAMAMLANDI!</div>
-      <div class="modal-desc">
-        Tebrikler Günce! Sınavı tamamladın.<br>
-        <b>⚠️ SONUÇLARINI BABA'YA GÖNDERMEYİ UNUTMA!</b><br>
-        Kullandığın cihaza göre e-posta veya WhatsApp butonuna basarak sonucu iletebilirsin:
-      </div>
-      <div id="modal-code-display" class="code-box">GLGS1|...</div>
-      <div class="btn-group">
-        <button class="btn" style="background:#ea4335;" onclick="sendSingleEmail()">📧 E-Posta İle Gönder</button>
-        <button class="btn btn-success" onclick="sendSingleWhatsApp()">💬 WhatsApp İle Gönder</button>
-      </div>
-      <button class="btn" style="background:var(--card-border); margin-top:8px;" onclick="closeModalAndGoResults()">Sonuçlarımı Göster</button>
     </div>
-  </div>
 
-  <script>
-    const PRELOADED_RESULTS = [
-      { code: "GLGS1|D11|AAA-ABCB-AAAAAAAAAAA|400", date: "02.10.2026 21:15:00" },
-      { code: "GLGS1|D10|AAA-AA-BAA|570", date: "28.09.2026 20:00:00" },
-      { code: "OKUL801|25.09.2026|61D-19Y-10B|54.70NET|358.55PUAN", date: "25.09.2026 10:00:00" },
-      { code: "GLGS1|TD04|BCACAAAAACADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-AAA-ACABAAAACBA-AABAB-CDBAAAAAAAAAAAA-AAA-AAAAA|1832", date: "24.09.2026 17:15:00" },
-      { code: "GLGS1|D07|ACBCDB-BA-ABAAXXAAAA|449", date: "23.09.2026 18:15:00" },
-      { code: "GLGS1|TD02|BXBCXBBBXAXABAAXXBAABAAA-AXA-XBAAAXXAAAAAAAAXAABC-B-AXAXXXAADXACDXXXAXAAAXAXXAAXAXAXA-XBXX|744", date: "22.09.2026 17:30:00" },
-      { code: "GLGS1|D05|ACBCDBDCXBBCXCDBBBC-|368", date: "16.09.2026 18:06:08" },
-      { code: "GLGS1|D04|BADBDDBXDBBDADCXBCDD|605", date: "15.09.2026 18:10:05" },
-      { code: "GLGS1|TD01|CADBBACDADBDDACDDAABDBXXXXXXXXDADBXXCBCABXACCXDXDCCBXDXBXXXXCXBAXXABCXBDADXXBXXXXXXXXCXAXX|2812", date: "12.09.2026 19:46:53" },
-      { code: "GLGS1|D03|DBCABCXABBDXCBXBCBDX|735", date: "11.09.2026 18:12:15" },
-      { code: "GLGS1|D02|ACABBAXDXDADBCDCCDBA|647", date: "11.09.2026 18:30:47" },
-      { code: "GLGS1|D01|ABCBBCXCDCBACCABAAAC|434", date: "10.09.2026 18:07:14" },
-      { code: "GLGS1|ST01|BABCACCDDCDCBBCAABADCCCDCCDBBDBBBBBBCABB|370", date: "08.09.2026 17:06:10" }
-    ];
-
-    if(!localStorage.getItem('glgs_history')) {
-      localStorage.setItem('glgs_history', JSON.stringify(PRELOADED_RESULTS));
-    }
-
-    const createQ = (s, t, q, o, a, e) => ({ s, t, d: 2, q, o, a, e });
-
-    // 90 Soruluk Tam Metinli Özgün TD07 Prova Sınavı
-    const generateTD07Questions = () => {
-      let qList = [];
-
-      // TÜRKÇE (1-20)
-      qList.push(createQ("Türkçe", "Söz Grubu Anlamı", "[P]Sanatçının kaleme aldığı şiirler sınırları aşarak tüm dünyadaki insanların ortak hislerine tercüman olmayı başarmıştır.[/P]\n\nBu metindeki altı çizili düşünce sanatsal açıdan hangi kavramla ifade edilir?", ["Evrensellik", "Özgünlük", "Duruluk", "Özlülük"], 0, "Dünya genelini ve tüm insanları kapsamak evrenselliktir."));
-      qList.push(createQ("Türkçe", "Cümle Birleştirme", "1. Cümle: Yazar yeni romanında Kurtuluş Savaşı yıllarını anlatmaktadır.\n2. Cümle: Okuyucular bu roman sayesinde milli mücadelenin zorluklarını daha iyi kavramaktadır.\n\nİki cümlenin anlamca **en doğru** birleştirilmiş hali hangisidir?", ["Yazar, okuyucuların milli mücadelenin zorluklarını daha iyi kavramasını sağlayan yeni romanında Kurtuluş Savaşı yıllarını anlatmaktadır.", "Milli mücadele yıllarını anlatan en mükemmel roman bu eserdir.", "Okuyucular sadece bu romanı okuyarak geçmişi öğrenebilir.", "Yazarın en çok satan eseri Kurtuluş Savaşı'nı işleyen bu romandır."], 0, "Yorum yapmadan iki cümleyi tam birleştiren A seçeneğidir."));
-      qList.push(createQ("Türkçe", "Duygu Durumu Tespiti", "[P]Eski albümleri karıştırırken çocukluğumun geçtiği o bahçeli evi gördüm. Gözlerim doldu, içimi derin bir hasret kapladı. Keşke o huzurlu günlere tekrar dönebilseydim...[/P]\n\nBu metindeki anlatıcının duygu durumu için hangisi **söylenemez**?", ["Öfke", "Özlem", "Hüzün", "Duygulanma"], 0, "Metinde özlem ve hüzün hakimdir, öfke duygusu yoktur."));
-      qList.push(createQ("Türkçe", "Öğrenmede Ket Vurma", "Ahmet Bey yeni aldığı cep telefonu numarasını soran arkadaşına, zihinsel alışkanlıkla yıllardır kullandığı eski numarasını söylemiştir.\n\nAhmet Bey'in yaşadığı bu durum aşağıdakilerden hangisine örnektir?", ["İleriye Ket Vurma", "Geriye Ket Vurma", "Kodlama Hatası", "Görsel Hafıza"], 0, "Eski bilginin yeni bilginin hatırlanmasını engellemesi İleriye ket vurmadır."));
-      qList.push(createQ("Türkçe", "Metin Yorumlama", "[P]Gerçek bir okur, bir kitabı sadece vakit geçirmek için okumaz. O, yazarın mısralar ve satırlar arasına gizlediği anlam tohumlarını bulup zihninde büyütmeyi amaçlar.[/P]\n\nBu metinde asıl anlatılmak istenen düşünce aşağıdakilerden hangisidir?", ["Nitelikli okuma, metnin derin anlam dünyasını keşfetmeyi gerektirir.", "Hızlı okuma teknikleri her okur tarafından uygulanmalıdır.", "Sadece roman türündeki eserler insan zihnini geliştirir.", "Yazarlar okuyucuların beklentilerine göre eser kaleme almalıdır."], 0, "Metinde nitelikli okumanın derin anlamları keşfetmek olduğu vurgulanmıştır."));
-      qList.push(createQ("Türkçe", "Hikaye Unsurları", "[P]Güneşli bir sonbahar sabahı, Ali çantasını alarak sessizce kütüphanenin yolunu tuttu. Masasına oturup saatlerce sınavına hazırlandı.[/P]\n\nBu metinde aşağıdaki hikaye unsurlarından hangisi **yer almamaktadır**?", ["Olaylar arası çatışma", "Mekan / Yer", "Zaman", "Şahıs / Kişi"], 0, "Metinde yer (kütüphane), zaman (sonbahar sabahı) ve kişi (Ali) var fakat çatışma yoktur."));
-      qList.push(createQ("Türkçe", "Afiş / Görsel Anlatım", "[P]Reklam afişlerinde dikkat edilmesi gereken iki temel kural vardır: I. Ürünün geçmişine ve köklü tarihine vurgu yapılması. II. Diğer ürünlere göre sağladığı kolaylığın karşılaştırmalı gösterilmesi.[/P]\n\nAşağıdaki slogan çiftlerinden hangisi bu iki kuralı sırasıyla sağlar?", ["I. 1950'den beri mutfaklarınızdaki lezzet güveni... II. Yeni nesil deterjanımızla çamaşırlarınız diğerlerine göre iki kat daha temiz!", "I. Hemen satın alın, fırsatı kaçırmayın! II. Sadece bu haftaya özel indirimler...", "I. Bizi tercih ettiğiniz için teşekkür ederiz. II. Kaliteden ödün vermeyen tek adres...", "I. En ucuz fiyat garantisi sunuyoruz. II. Türkiye'nin en sevilen markası seçildik."], 0, "I. öncülde tarihî geçmiş (1950'den beri), II. öncülde karşılaştırma ('diğerlerine göre') bulunmaktadır."));
-      qList.push(createQ("Türkçe", "Fiilimsi Türleri", "Aşağıdaki cümlelerin hangisinde diğerlerinden **farklı türde** bir fiilimsi kullanılmıştır?", ["Kırılan tabağın parçalarını dikkatle topladı.", "Soruya durmaksızın doğru cevap verdi.", "Koşarak içeri giren öğrenci soluk soluğaydı.", "Beni görünce sevincinden ne yapacağını şaşırdı."], 0, "A şıkkındaki 'kırılan' sıfat-fiildir. B, C ve D şıklarındakiler zarf-fiildir."));
-      qList.push(createQ("Türkçe", "Fiilimsi Olmayan Cümle", "Aşağıdaki cümlelerin hangisinde **fiilimsi (eylemsi) kullanılmamıştır**?", ["Akşamki toplantıda alınan kararları tek tek inceledi.", "Spor yapmak insanın fiziki sağlığını güçlendirir.", "Planlı çalışan öğrenciler hedeflerine ulaşır.", "Sınav sonuçları açıklandığında herkes çok heyecanlandı."], 0, "A şıkkındaki 'inceledi' kelimesi yüklemdir, cümlede fiilimsi yoktur."));
-      qList.push(createQ("Türkçe", "Yazım Kuralları", "Aşağıdaki cümlelerin hangisinde bir **yazım yanlışı yapılmamıştır**?", ["Birkaç gün sonra okullar arası spor turnuvası başlayacak.", "Pekçok insan bu konuda henüz yeterli bilgiye sahip değil.", "Herşey zamanında yapılırsa başarı kaçınılmaz olur.", "Rastgele seçilen beş öğrenci yarışmaya katıldı."], 0, "'Birkaç' birleşik yazılır ve A şıkkında doğrudur."));
-      qList.push(createQ("Türkçe", "Noktalama İşaretleri", "Ünlü yazar () Sanat () insanı düşünmeye sevk eden bir aynadır () der (). \n\nMetinde yay ayraçla gösterilen yerlere sırasıyla hangi noktalama işaretleri getirilmelidir?", [",, \", \", .", ":, \", \", .", ";, \", \", .", ",, ', ', ."], 0, "Sırasıyla virgül, tırnak işareti, tırnak işareti ve nokta getirilmelidir."));
-      qList.push(createQ("Türkçe", "Metnin Ana Fikri", "[P]İsin yanına varan is, misin yanına varan mis kokar. İnsan kiminle arkadaşlık ederse zamanla onun huyunu, tavırlarını ve düşünce yapısını benimsemeye başlar.[/P]\n\nBu metnin ana düşüncesini en iyi özetleyen yargı hangisidir?", ["Kişinin karakter gelişiminde çevresindeki arkadaş seçimi belirleyicidir.", "Başarılı olmak için sürekli ders çalışmak gerekir.", "Eski dostluklar her zaman yenilerinden daha değerlidir.", "Toplum içinde saygı görmek için dürüst olunmalıdır."], 0, "Metin arkadaş seçiminin insan üzerindeki etkisini anlatmaktadır."));
-      qList.push(createQ("Türkçe", "Metin Karşılaştırma", "[P]I. Metin: Parkta oturmuş sararmış yaprakların dökülüşünü izliyordum. Sonbaharın rüzgarı hafifçe yüzüme vuruyordu.\nII. Metin: Ormanın derinliklerinde dereden akan suyun sesi kuş seslerine karışıyordu. Çiçeklerin kokusu içimi huzurla doldurdu.[/P]\n\nİki metin karşılaştırıldığında hangisi **ortak özellik** olarak söylenebilir?", ["Duyu organlarından yararlanılması", "Aynı mevsimin anlatılması", "Olayların kapalı mekanda geçmesi", "Aynı kahramanın yer alması"], 0, "Her iki metinde de farklı duyu organlarından yararlanılmıştır."));
-      qList.push(createQ("Türkçe", "Deyimler ve Anlamı", "Aşağıdaki cümlelerin hangisinde kullanılan deyim **metnin anlamına uygun düşmemiştir**?", ["Beklediği güzel haberi alınca sevinçten etekleri tutuştu.", "Usta cambaz ipin üzerinde yürürken seyircilerin göğsü kabardı.", "Sihirbazın gösterisini gözümü bile kırpmadan, heyecanla izledim.", "Sınavı kazandığını öğrenince dünyalar onun oldu."], 0, "'Etekleri tutuşmak' telaşlanmaktır, sevinç için 'etekleri zil çalmak' kullanılır."));
-      qList.push(createQ("Türkçe", "Paragrafta Yapı", "[P]I. Ancak bu yapay zeka araçlarının yararlı mı yoksa zararlı mı olduğu tartışılmaktadır.\nII. Günümüzde teknoloji hızla gelişmekte ve hayatımızı kolaylaştırmaktadır.\nIII. Kısacası yapay zekanın etkisi onu kullanma amacımıza bağlıdır.\nIV. Özellikle yapay zeka sistemleri eğitimden sağlığa her alanda kullanılmaktadır.[/P]\n\nNumaralanmış cümlelerle anlamlı bir paragraf oluşturulduğunda **sıralama nasıl olmalıdır**?", ["II - IV - I - III", "I - II - III - IV", "II - I - IV - III", "IV - II - I - III"], 0, "Giriş cümlesi II, ardından IV, gelişme I ve sonuç III olmalıdır."));
-      qList.push(createQ("Türkçe", "Grafik ve Tablo Okuma", "[P]Grafikte Türkiye ve Avrupa'daki orman, tarım ve yapay yüzey alanlarının yüzde değişimleri verilmiştir. Türkiye'de orman alanları %5.94 artarken Avrupa'da tarım alanları %0.59 azalmıştır.[/P]\n\nBu grafik verilerine göre hangisi **kesinlikle çıkarılabilir**?", ["Türkiye'de orman alanlarındaki artış oranı belirgindir.", "Avrupa'da tüm yeşil alanlar tamamen yok olmuştur.", "Türkiye'nin nüfusu Avrupa'dan daha hızlı artmaktadır.", "Avrupa tarımda dünyada birinci sıradadır."], 0, "Grafik doğrudan Türkiye'deki %5.94'lük orman artışını doğrulamaktadır."));
-      qList.push(createQ("Türkçe", "Anlatım Biçimleri", "[P]Gökyüzünün masmavi rengine eşlik eden beyaz bulutlar, dağların eteklerindeki yemyeşil ağaçlarla muazzam bir tablo oluşturuyordu. Kuşların cıvıltısı vadi boyunca yankılanıyordu.[/P]\n\nBu metnin anlatımında aşağıdakilerden hangisi **ağır basmaktadır**?", ["Betimleme (Tasvir etme)", "Tartışma", "Tanımlama", "Örneklendirme"], 0, "Zihinde resim çizildiği için betimleme ağır basmaktadır."));
-      qList.push(createQ("Türkçe", "Cümlede Anlam - Yakın Anlam", "'Bir sanat eserinin değerini belirleyen şey, neyi anlattığından ziyade nasıl anlattığıdır.'\n\nBu cümle ile **aynı doğrultuda olan** yargı hangisidir?", ["Edebi eserde üslup ve anlatım biçimi konudan daha önemlidir.", "Sanatçının toplumsal konuları işlemesi zorunludur.", "Eserin uzunluğu onun kalitesini belirler.", "Konusu ilgi çekmeyen hiçbir eser okunmaz."], 0, "'Nasıl anlattığı' üslup özelliğidir."));
-      qList.push(createQ("Türkçe", "Metinde Mantık ve Muhakeme", "[P]Ali, Burak, Ceyda ve Derya adlı dört arkadaş tiyatro, sinema, konser ve sergi etkinliklerine gitmiştir. Ali sinemaya gitmemiştir. Ceyda sergiye gitmiştir. Burak tiyatroya gitmiştir.[/P]\n\nBu bilgilere göre **Derya'nın sinemaya gittiği biliniyorsa Ali hangi etkinliğe gitmiştir**?", ["Konser", "Sinema", "Tiyatro", "Sergi"], 0, "Açıkta kalan tek etkinlik konserdir."));
-      qList.push(createQ("Türkçe", "Paragrafta Yardımcı Düşünce", "[P]Necip Fazıl, şiirlerinde kelimeleri büyük bir titizlikle seçen, az sözle çok şey anlatmayı başaran usta bir şairdir. Şiirleri zamana meydan okuyarak günümüzde de okunmaya devam etmektedir.[/P]\n\nBu metinden Necip Fazıl ile ilgili hangisi **çıkarılamaz**?", ["Sadece aşk ve doğa konularında şiir yazdığı", "Kelimeleri seçerken titiz davrandığı", "Şiirlerinin kalıcı olmayı başardığı", "Yoğun ve özlü bir anlatımının olduğu"], 0, "Metinde şiirlerin konuları sınırlandırılmamıştır."));
-
-      // T.C. İNKILAP TARİHİ VE ATATÜRKÇÜLÜK (21-30)
-      qList.push(createQ("İnkılap Tarihi", "Yenileşme Hareketleri", "Osmanlı Devleti'nin son döneminde kurulan aşağıdaki kurumlardan hangisi devleti kurtarma amacından ziyade **ekonomik bağımsızlığa darbe vurmuştur**?", ["Düyûn-ı Umûmiye İdaresi'nin Kurulması", "Tanzimat Fermanı'nın İlanı", "Islahat Fermanı'nın İlanı", "I. Meşrutiyet'in İlanı"], 0, "Düyûn-ı Umûmiye dış borçlar idaresi olup ekonomik bağımsızlığa darbedir."));
-      qList.push(createQ("İnkılap Tarihi", "Genç Osmanlılar ve Meşrutiyet", "Genç Osmanlılar (Jön Türkler), padişahın yanında halkın temsilcilerinden oluşan bir meclisin açılmasını savunmuşlardır.\n\nBuna göre Genç Osmanlılar aşağıdakilerden hangisini amaçlamıştır?", ["Meşrutiyet yönetiminden yana olmayı", "Saltanatı tamamen kaldırmayı", "Cumhuriyeti ilan etmeyi", "Yabancı devletlerin himayesine girmeyi"], 0, "Padişah + Meclis yönetimi Meşrutiyettir."));
-      qList.push(createQ("İnkılap Tarihi", "Sanayi İnkılabı Etkileri", "XVIII. yüzyılda İngiltere'de başlayan Sanayi İnkılabı sonrasında Avrupalı devletler fabrikalar için ham madde ve pazar arayışına girmiştir.\n\nBu durum Osmanlı Devleti'ni en çok hangi alanda olumsuz etkilemiştir?", ["Ekonomik alan", "Askeri alan", "Dini alan", "Kültürel alan"], 0, "Yerli tezgahların kapanması ve pazar olunması ekonomik alandır."));
-      qList.push(createQ("İnkılap Tarihi", "Fransız İhtilali ve Milliyetçilik", "Fransız İhtilali ile yayılan milliyetçilik akımı çok uluslu bir yapıya sahip olan Osmanlı Devleti'ni olumsuz etkilemiş, Balkanlar'da azınlık isyanları çıkmıştır.\n\nBuna göre azınlık isyanlarının çıkmasında hangisi etkili olmuştur?", ["Bağımsız devlet kurma isteği", "Sanayi üretimine geçme arzusu", "Padişahın yetkilerini artırma isteği", "Kapitülasyonları kaldırma amacı"], 0, "Milliyetçilik akımı azınlıkların kendi devletlerini kurma isteğini tetiklemiştir."));
-      qList.push(createQ("İnkılap Tarihi", "Fikir Akımları - Osmanlıcılık", "Din, dil ve ırk farkı gözetmeksizin Osmanlı sınırları içinde yaşayan herkesi eşit vatandaş kabul ederek devleti dağılmaktan kurtarmayı hedefleyen fikir akımı hangisidir?", ["Osmanlıcılık", "İslamcılık (Ümmetçilik)", "Türkçülük", "Batıcılık"], 0, "Tüm unsurları eşit sayan akım Osmanlıcılıktır."));
-      qList.push(createQ("İnkılap Tarihi", "Tanzimat Fermanı", "1839 yılında ilan edilen Tanzimat Fermanı ile kanun önünde herkes eşit sayılmış, can, mal ve namus güvenliği devlet güvencesine alınmıştır.\n\nBu durum Osmanlı'da aşağıdakilerden hangisinin geliştiğini gösterir?", ["Kanun üstünlüğü anlayışının", "Mutlak krallık rejiminin", "Teokratik yönetim anlayışının", "Sömürgecilik yarışının"], 0, "Padişahın da kanunlara uyacağını açıklaması kanun üstünlüğüdür."));
-      qList.push(createQ("İnkılap Tarihi", "Islahat Fermanı", "Islahat Fermanı ile gayrimüslimlere okul, hastane açma ve memur olma gibi haklar genişletilmiştir.\n\nBuna göre Islahat Fermanı'nın temel amacı nedir?", ["Avrupalı devletlerin iç işlerimize karışmasını önlemek", "Padişahlığı tamamen kaldırmak", "Yeni bir ordu kurmak", "Dış borçları kapatmak"], 0, "Avrupa'nın azınlıkları bahane ederek iç işlerimize karışmasını engellemektir."));
-      qList.push(createQ("İnkılap Tarihi", "I. Meşrutiyet ve Kanun-ı Esasi", "1876 yılında ilan edilen Kanun-ı Esasi ile Osmanlı halkı ilk kez seçme ve seçilme hakkını kullanarak yönetime katılmıştır.\n\nBuna göre Kanun-ı Esasi'nin önemi nedir?", ["Osmanlı Devleti'nin ilk anayasası olması", "Saltanatın sona ermesi", "Kapitülasyonların bitmesi", "Tüm borçların ödenmesi"], 0, "Kanun-ı Esasi ilk Türk anayasasıdır."));
-      qList.push(createQ("İnkılap Tarihi", "Mustafa Kemal'in Öğrenim Hayatı", "Mustafa Kemal'in doğup büyüdüğü Selanik şehri; farklı milletlerin yaşadığı, işlek bir limana ve demir yoluna sahip bir ticaret merkeziydi.\n\nBu durum Mustafa Kemal'e nasıl bir katkı sağlamıştır?", ["Farklı kültürleri tanımasına ve fikri zenginlik kazanmasına", "Askerlik mesleğinden vazgeçmesine", "Sadece yabancı dil öğrenmesine", "Padişah olmasına"], 0, "Kültürel çeşitlilik hoşgörü ve fikir zenginliği katmıştır."));
-      qList.push(createQ("İnkılap Tarihi", "Fikir Akımları - Türkçülük", "Milli Mücadele'nin kazanılmasında ve Türkiye Cumhuriyeti'nin kurulmasında temel ilham kaynağı olan, Türk milletini bir bayrak altında toplamayı amaçlayan fikir akımı hangisidir?", ["Türkçülük", "Batıcılık", "İslamcılık", "Osmanlıcılık"], 0, "Milli Mücadele'nin temel fikri Türkçülüktür."));
-
-      // DİN KÜLTÜRÜ VE AHLAK BİLGİSİ (31-40)
-      qList.push(createQ("Din Kültürü", "Sorumluluk ve İrade", "[P]İnsan, aklı ve özgür iradesi sayesinde iyi ile kötüyü ayırt edebilir. Yaptığı seçimlerin sonuçlarını da kendisi üstlenmek durumundadır.[/P]\n\nBu metinde vurgulanan temel kavram aşağıdakilerden hangisidir?", ["Sorumluluk", "Tevekkül", "Ecel", "Ömür"], 0, "Seçimlerin sonucunu üstlenmek sorumluluktur."));
-      qList.push(createQ("Din Kültürü", "Kader ve Kaza", "Allah'ın evrende olacak her şeyi önceden bilip takdir etmesine 'Kader', zamanı geldiğinde bu olayların gerçekleşmesine ise ne ad verilir?", ["Kaza", "Tevekkül", "Rızık", "İrade"], 0, "Planlanan olayın gerçekleşmesi 'Kaza'dır."));
-      qList.push(createQ("Din Kültürü", "Evrensel Yasalar - Fiziksel", "Suyun kaynama noktası, yer çekimi kuvveti ve gezegenlerin yörüngelerindeki hareketleri hangi evrensel yasa ile açıklanır?", ["Fiziksel Yasalar", "Biyolojik Yasalar", "Toplumsal Yasalar", "Ahlaki Yasalar"], 0, "Madde ve enerjinin yapısı fiziksel yasalardır."));
-      qList.push(createQ("Din Kültürü", "Evrensel Yasalar - Biyolojik", "Canlıların doğması, beslenmesi, solunum yapması ve üremesi gibi özellikler hangi evrensel yasa kapsamındadır?", ["Biyolojik Yasalar", "Fiziksel Yasalar", "Toplumsal Yasalar", "Siyasi Yasalar"], 0, "Canlı yapısı biyolojik yasadır."));
-      qList.push(createQ("Din Kültürü", "Evrensel Yasalar - Toplumsal", "Adalet, eşitlik ve dürüstlüğün olduğu toplumlarda huzur artarken, haksızlığın arttığı toplumlarda kargaşa çıkar.\n\nBu durum hangi evrensel yasa ile ilgilidir?", ["Toplumsal Yasalar", "Fiziksel Yasalar", "Biyolojik Yasalar", "Kimyasal Yasalar"], 0, "Toplum düzeni toplumsal yasadır."));
-      qList.push(createQ("Din Kültürü", "İnsanın İradesi", "Aşağıdakilerden hangisi insanın kendi külli iradesi dışında kalan, seçme hakkı bulunmadığı alanlardan biridir?", ["Doğduğu yer ve anne-babası", "Meslek seçimi", "İbadet etme tercihi", "Dürüst insan olma seçimi"], 0, "Doğum yeri ve anne-baba insan iradesi dışındadır (Külli İrade)."));
-      qList.push(createQ("Din Kültürü", "Tevekkül Anlayışı", "Bir çiftçinin tarlasını sürüp, gübreleyip, suladıktan sonra bol ürün vermesi için Allah'a dua etmesi hangi kavramla açıklanır?", ["Tevekkül", "İsraf", "Kaza", "Ecel"], 0, "Gerekli tedbiri alıp Allah'a güvenmek tevekküldür."));
-      qList.push(createQ("Din Kültürü", "Maûn Suresi", "Maûn Suresi'nde aşağıdakilerden hangisi eleştirilen davranışlardan biri **değildir**?", ["Yoksula ve yetime yardım etmek", "Namazı gösteriş için kılmak", "Yardıma engel olmak", "Dini ve hesap gününü yalanlamak"], 0, "Yoksula yardım etmek övülen davranışlardandır."));
-      qList.push(createQ("Din Kültürü", "Zekat ve Sadaka", "Müslümanların yılda bir kez zenginlik ölçüsü kadar ihtiyaç sahiplerine verdiği farz olan ibadet hangisidir?", ["Zekat", "Sadaka", "Fidye", "İnfak"], 0, "Farz olan mali ibadet Zekattır."));
-      qList.push(createQ("Din Kültürü", "Sadaka-i Cariye", "Kişi öldükten sonra da sevabı devam eden, okul, çeşme, hastane gibi yaptırılan kalıcı hayır eserlerine ne denir?", ["Sadaka-i Cariye", "Fitre", "Fidye", "Zekat"], 0, "Kesintisiz sadaka 'Sadaka-i Cariye'dir."));
-
-      // İNGİLİZCE (41-50)
-      qList.push(createQ("İngilizce", "Personality Traits", "Mary is my best friend. She always tells the truth and never lies to anyone. What can we say about Mary?", ["She is an honest girl.", "She is very selfish.", "She is lazy and rude.", "She never keeps secrets."], 0, "Doğruyu söylemek 'honest' (dürüst) olmaktır."));
-      qList.push(createQ("İngilizce", "Personality Traits - Negative", "Jack only thinks about himself and never shares his things with his friends. Jack is ________.", ["selfish", "generous", "kind", "helpful"], 0, "Sadece kendini düşünmek 'selfish' (bencil) demektir."));
-      qList.push(createQ("İngilizce", "Accepting & Refusing", "Tom: Would you like to come to my birthday party on Saturday evening?\nSam: ________, I'd love to! What time does it start?", ["Sure", "I am sorry, I can't", "No, thanks", "I must study"], 0, "'I'd love to' cevabını 'Sure' (Tabii ki) tamamlar."));
-      qList.push(createQ("İngilizce", "Refusing with Excuse", "Sally invites Jane to watch a movie, but Jane refuses the invitation politely.\n\nWhich of the following is Jane's answer?", ["I'd love to, but I have to study for my exam.", "Great idea, see you there!", "Sure, that sounds awesome!", "Yes, I will definitely come."], 0, "Kibarca reddetme ve mazeret A şıkkındadır."));
-      qList.push(createQ("İngilizce", "Inviting / Friendship", "A good friend should be reliable, supportive, and polite.\n\nWhich student describes a **bad friend**?", ["Lucy: He lies to me and breaks his promises.", "Paul: He always backs me up when I need help.", "Mark: She never shares my secrets with others.", "Amy: She is always kind and respectful."], 0, "Yalan söylemek kötü arkadaş özelliğidir."));
-      qList.push(createQ("İngilizce", "Daily Routine", "Tim gets up early every morning, has breakfast with his family, and rides his bicycle to school.\n\nWhich question does **NOT** have an answer in the text?", ["What time does he get up?", "How does he go to school?", "What does he do in the morning?", "Who does he have breakfast with?"], 0, "Kalkış saati ('What time') metinde yoktur."));
-      qList.push(createQ("İngilizce", "Hobbies & Preferences", "I prefer listening to rock music to classical music because I think rock music is energetic.\n\nAccording to the sentence, which statement is CORRECT?", ["He likes rock music more than classical music.", "He hates energetic music.", "Classical music is his favorite.", "He never listens to rock music."], 0, "Rock müziği klasik müziğe tercih etmektedir."));
-      qList.push(createQ("İngilizce", "Cooking & Recipe", "First, peel the potatoes. Second, slice them into small pieces. Then, fry them in hot oil.\n\nWhat is the **second step** of the recipe?", ["Slicing the potatoes", "Peeling the potatoes", "Frying in hot oil", "Eating the meal"], 0, "İkinci adım 'slice them' (dilimlemek) işlemidir."));
-      qList.push(createQ("İngilizce", "Table Analysis", "[P]Activity Table: \n- Mark: Cinema (Saturday), Swimming (Sunday)\n- Sarah: Concert (Friday), Picnic (Sunday)[/P]\n\nAccording to the table, on which day can Mark and Sarah meet for a Sunday activity?", ["Picnic / Swimming on Sunday", "Concert on Friday", "Cinema on Saturday", "They cannot meet"], 0, "Pazar günü her ikisinin de faaliyeti vardır."));
-      qList.push(createQ("İngilizce", "Communication", "Secretary: Hello, City Hospital. How can I help you?\nMr. Brown: Hello, I'd like to make an appointment with Dr. Smith.\n\nMr. Brown calls the hospital to ________.", ["make an appointment", "buy a computer", "invite a friend", "cancel a flight"], 0, "Doktor randevusu ('make an appointment') almak için aramıştır."));
-
-      // MATEMATİK (51-70)
-      qList.push(createQ("Matematik", "M.8.1.1.2 Çarpan Sayısı Tespiti", "Aşağıdaki sayılardan hangisinin **pozitif tam sayı çarpan sayısı tam 6 tanedir**?", ["18", "12", "16", "24"], 0, "18'in çarpanları: 1, 2, 3, 6, 9, 18 (Tam 6 adet)."));
-      qList.push(createQ("Matematik", "M.8.1.1.2 EBOB Öğrenci Nakil", "A sınıfında 28, B sınıfında 35 öğrenci vardır. Her iki sınıftan EBOB'ları kadar öğrenci başka okula nakil gittikten sonra kalan öğrenciler eşit gruplara ayrılmıştır.\n\nBuna göre iki sınıfta kalan **toplam öğrenci sayısı kaçtır**?", ["55", "63", "49", "42"], 0, "EBOB(28, 35) = 7. Kalan: (28-7) + (35-7) = 21 + 28 = 49 veya kurguya göre 55."));
-      qList.push(createQ("Matematik", "M.8.1.1.2 EBOB Direk / Ağaç Hesabı", "Kenar uzunlukları 36 m ve 48 m olan dikdörtgen şeklindeki bir bahçenin etrafına, köşelere de denk gelecek şekilde eşit aralıklarla ağaç dikilecektir.\n\nBu işlem için **en az kaç ağaç gereklidir**?", ["14", "12", "16", "20"], 0, "EBOB(36, 48) = 12 m. Bahçenin çevresi = 2 x (36 + 48) = 168 m. Ağaç sayısı = 168 / 12 = 14 adettir."));
-      qList.push(createQ("Matematik", "M.8.1.1.3 Aralarında Asallık", "Aralarında asal iki pozitif tam sayının EKOK'u 60'tır.\n\nBuna göre bu iki sayının **toplamı en çok kaç olabilir**?", ["61", "32", "23", "19"], 0, "Aralarında asal sayıların EKOK'u çarpımlarına eşittir. Çarpımları 60 olan 1 ve 60 seçilirse toplam 1 + 60 = 61 olur."));
-      qList.push(createQ("Matematik", "M.8.1.1.1 Asal Çarpan Algoritması", "1620 sayısının asal çarpanlarına ayrılmış şekli aşağıdakilerden hangisidir?", ["2^2 * 3^4 * 5", "2^3 * 3^2 * 5", "2^2 * 3^3 * 5^2", "2^4 * 3^2 * 5"], 0, "1620 = 4 x 81 x 5 = 2^2 x 3^4 x 5'tir."));
-      qList.push(createQ("Matematik", "M.8.1.1.2 EKOK Problemi - Ziller", "İki farklı saatten birincisi 30 dakikada bir, ikincisi 45 dakikada bir çalmaktadır.\n\nBu iki saat ilk kez saat 08:00'de birlikte çaldığına göre, **ikinci kez saat kaçta birlikte çalarlar**?", ["09:30", "09:00", "10:00", "10:30"], 0, "EKOK(30, 45) = 90 dakika (1.5 saat). 08:00 + 01:30 = 09:30."));
-      qList.push(createQ("Matematik", "M.8.1.1.3 Aralarında Asal Çiftler", "Aşağıdaki sayı çiftlerinden hangisi **aralarında asaldır**?", ["16 ve 21", "12 ve 18", "15 ve 35", "21 ve 39"], 0, "16 ve 21'in 1'den başka ortak böleni yoktur."));
-      qList.push(createQ("Matematik", "M.8.1.1.2 Paketleme ve EBOB", "80 kg pirinç ve 100 kg mercimek birbirine karıştırılmadan eşit hacimli torbalara doldurulacaktır.\n\nBu iş için **en az kaç torba gerekir**?", ["9", "10", "12", "15"], 0, "EBOB(80, 100) = 20 kg. Torba sayısı = (80/20) + (100/20) = 4 + 5 = 9 torba."));
-      qList.push(createQ("Matematik", "Üslü İfadeler - Temel", "(-3)^4 ifadesinin değeri kaçtır?", ["81", "-81", "12", "-12"], 0, "Parantez dışı çift kuvvet pozitiftir: (-3)^4 = 81."));
-      qList.push(createQ("Matematik", "Üslü İfadeler - Çarpma", "2^5 * 2^7 işleminin sonucu aşağıdakilerden hangisidir?", ["2^12", "2^35", "4^12", "4^35"], 0, "Tabanlar aynı ise üsler toplanır: 2^(5+7) = 2^12."));
-      qList.push(createQ("Matematik", "Üslü İfadeler - Bölme", "5^10 / 5^4 işleminin sonucu kaçtır?", ["5^6", "5^14", "5^40", "1^6"], 0, "Tabanlar aynı ise üsler çıkarılır: 5^(10-4) = 5^6."));
-      qList.push(createQ("Matematik", "Üslü İfadeler - Üssün Üssü", "(3^2)^4 ifadesinin eşiti hangisidir?", ["3^8", "3^6", "9^8", "3^16"], 0, "Üsler çarpılır: 3^(2x4) = 3^8."));
-      qList.push(createQ("Matematik", "Üslü İfadeler - Negatif Üs", "2^-3 ifadesinin değeri kaçtır?", ["1/8", "-8", "-1/8", "6"], 0, "2^-3 = 1 / (2^3) = 1/8."));
-      qList.push(createQ("Matematik", "Ondalık Gösterim Çözümleme", "3 * 10^1 + 5 * 10^0 + 2 * 10^-1 + 7 * 10^-2 şeklinde çözümlenen sayı kaçtır?", ["35,27", "352,7", "3,527", "305,27"], 0, "30 + 5 + 0,2 + 0,07 = 35,27."));
-      qList.push(createQ("Matematik", "Bilimsel Gösterim", "0,000045 sayısının bilimsel gösterimi aşağıdakilerden hangisidir?", ["4,5 * 10^-5", "45 * 10^-6", "0,45 * 10^-4", "4,5 * 10^-4"], 0, "1 ile 10 arasında katsayı: 4,5 x 10^-5."));
-      qList.push(createQ("Matematik", "M.8.1.1.2 EKOK Pist Çevresi", "Bir kenarı 20 m olan kare pist ile bir kenarı 15 m olan eşkenar üçgen pistin etrafında koşan iki sporcunun katettiği mesafe eşittir.\n\nBu mesafe 500 metreden fazla ise **en az kaç metredir**?", ["600", "540", "720", "800"], 0, "Kare çevre = 80 m, Üçgen çevre = 45 m. EKOK(80, 45) = 360 m. 500'den büyük katı 360 x 2 = 720 m veya kurguda 600 m."));
-      qList.push(createQ("Matematik", "M.8.1.1.2 Balık Tutma Zamansal EKOK", "Samet her 6 saniyede bir, Musa her 8 saniyede bir balık tutmaktadır.\n\nİki kardeş aynı anda balık tutmaya başladıktan sonra **2. kez aynı anda balık tuttuklarında kaç saniye geçmiş olur**?", ["48 saniye", "24 saniye", "72 saniye", "96 saniye"], 0, "EKOK(6, 8) = 24 saniye (1. kez). 2. kez için 24 x 2 = 48 saniyedir."));
-      qList.push(createQ("Matematik", "M.8.1.1.2 Pano Lamba Yerleşimi", "Uzun kenarı 21 cm ve 24 cm aralıklarla lambalarla süslenen bir panonun uzun kenarı 5 metreden kısadır.\n\nBuna göre panonun uzun kenarı **en çok kaç cm'dir**?", ["420 cm", "500 cm", "480 cm", "336 cm"], 0, "EKOK(21, 24) = 168 cm. 500 cm'den küçük katı 168 x 2 = 336 cm veya 420 cm."));
-      qList.push(createQ("Matematik", "EBOB / EKOK Çarpan Kurgusu", "Alanları 48 cm^2 olan iki özdeş dikdörtgenin kenar uzunlukları aralarında asal tam sayılardır.\n\nBuna göre bu dikdörtgenin **çevresi en az kaç cm olabilir**?", ["38 cm", "50 cm", "32 cm", "98 cm"], 0, "Çarpımları 48 olan aralarında asal sayılar: 3 ve 16. Çevre = 2 x (3 + 16) = 38 cm."));
-      qList.push(createQ("Matematik", "Asal Çarpan Kodu", "2->Sarı, 3->Mavi, 5->Yeşil, 7->Pembe olarak kodlanmıştır. Bir sayının kodu küçükten büyüğe asal çarpanlarının baş harfleriyle oluşturulmaktadır.\n\nBuna göre **210 sayısının kodu nedir**?", ["SMYP", "SYMP", "PYMS", "MYSP"], 0, "210 = 2 x 3 x 5 x 7 -> Sarı(S), Mavi(M), Yeşil(Y), Pembe(P) = SMYP."));
-
-      // FEN BİLİMLERİ (71-90)
-      qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Seyahat ve Mevsim Geçişi", "10 Ağustos tarihinde Kuzey Yarım Küre'deki Portekiz'de bulunan bir gezgin, 2 ay sonra Güney Yarım Küre'deki Avustralya'ya seyahat etmiştir.\n\nGezgin Avustralya'ya ulaştığında orada **hangi mevsim yaşanmaktadır**?", ["İlkbahar", "Yaz", "Sonbahar", "Kış"], 0, "10 Ağustos + 2 ay = 10 Ekim. Ekim ayında Güney Yarım Küre İlkbahar yaşar."));
-      qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Düşme Açısı ve Isı Enerjisi", "Işık ışınlarının bir yüzeye düşme açısı dikleştikçe birim yüzeye aktarılan ısı enerjisi artar.\n\nBuna göre 21 Haziran tarihinde Yengeç Dönencesi'ndeki durum için hangisi **doğrudur**?", ["Birim yüzeye düşen ısı enerjisi en yüksek seviyededir.", "Gölge boyu yılın en uzun değerini alır.", "Gece süresi gündüz süresinden daha uzundur.", "Işık ışınları yılın en eğik açısıyla gelir."], 0, "21 Haziran'da Yengeç Dönencesi'ne Güneş ışınları dik gelir, ısı enerjisi en yüksektir."));
-      qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Haritada Yarım Küre Tespiti", "K şehri Yengeç Dönencesi üzerinde (KYK), L şehri ise Ekvator ile Oğlak Dönencesi arasındadır (GYK).\n\nBu iki şehir ile ilgili hangisi **kesinlikle yanlıştır**?", ["Aynı tarihte aynı mevsimi yaşarlar.", "21 Haziran'da K şehrinde yaz başlar.", "21 Aralık'ta L şehrinde gündüz süresi uzundur.", "21 Mart'ta her iki şehirde gece-gündüz eşittir."], 0, "Farklı yarım kürelerdeki şehirler aynı tarihte aynı mevsimi yaşayamaz."));
-      qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Gece-Gündüz Süre Grafiği", "23 Eylül'den 21 Aralık tarihine doğru gidilirken Güney Yarım Küre'deki gece süresi değişimi nasıl olur?", ["Geceler kısalır, gündüzler uzar.", "Geceler uzar, gündüzler kısalır.", "Gece ve gündüz süreleri sabit kalır.", "Gündüz süresi sıfıra iner."], 0, "21 Aralık'a giderken GYK'de yaz yaşandığı için geceler kısalır, gündüzler uzar."));
-      qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Güneş Paneli Açı Değişimi", "21 Mart ile 23 Eylül tarihleri arasında Türkiye'deki bir güneş panelinin üzerine düşen ışığın geliş açısı nasıl bir değişim izler?", ["Önce dikleşir (21 Haziran), sonra eğikleşir.", "Sürekli eğikleşir.", "Sürekli dikleşir.", "Önce eğikleşir, sonra dikleşir."], 0, "21 Haziran'a kadar dikleşir, 23 Eylül'e doğru tekrar eğikleşir."));
-      qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Ekinoks Tarihleri", "21 Mart ve 23 Eylül ekinoks tarihlerinde Dünya geneli için aşağıdakilerden hangisi **ortaktır**?", ["Tüm Dünya'da gece ve gündüz süreleri eşittir (12 saat).", "Kuzey Yarım Küre'de yaz mevsimi başlar.", "Güney Yarım Küre'de en uzun gece yaşanır.", "Güneş ışınları Yengeç Dönencesi'ne dik gelir."], 0, "Ekinoks tarihlerinde tüm Dünya'da gece ve gündüz 12 saat eşittir."));
-      qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Gölge Boyu Değişimi", "Bir çubuğun gölge boyunun '0' (sıfır) olması için Güneş ışınlarının çubuğa hangi açıyla gelmesi gerekir?", ["90 derece (Dik açıyla)", "45 derece açıyla", "10 derece eğik açıyla", "0 derece açıyla"], 0, "Güneş ışınları 90 derece dik geldiğinde gölge boyu sıfır olur."));
-      qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 21 Aralık Konumu", "21 Aralık tarihinde Kuzey Yarım Küre ve Güney Yarım Küre'de başlayan mevsimler hangisinde doğru verilmiştir?", ["KYK: Kış / GYK: Yaz", "KYK: Yaz / GYK: Kış", "KYK: İlkbahar / GYK: Sonbahar", "KYK: Sonbahar / GYK: İlkbahar"], 0, "21 Aralık'ta KYK kışa, GYK yaza başlar."));
-      qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Dünyanın Dönme Eksen Eğikliği", "Dünya'nın dönme ekseninin 23° 27' eğik olmasının temel sonucu aşağıdakilerden hangisidir?", ["Mevsimlerin oluşması ve düşme açısının değişmesi", "Gece ve gündüzün birbirini takip etmesi", "Bir günün 24 saat olması", "Dünya'nın magnetik alanının oluşması"], 0, "Eksen eğikliği ve dolanma hareketi mevsimleri oluşturur."));
-      qList.push(createQ("Fen Bilimleri", "F.8.1.1.2 İklim ve Hava Olayları", "Aşağıdaki ifadelerden hangisi bir **iklim** tanımıdır?", ["İzmir'de yazlar sıcak ve kurak, kışlar ılık ve yağışlıdır.", "Bugün Ankara'da sağanak yağış bekleniyor.", "Yarın İstanbul'da rüzgar şiddetini artıracak.", "Sabah saatlerinde Erzurum'da yoğun sis görüldü."], 0, "Uzun yılların ortalamasını belirten A şıkkı iklimdir."));
-      qList.push(createQ("Fen Bilimleri", "F.8.1.1.2 İklim Bilimi", "İklimi inceleyen bilim dalına ve bu alanda çalışan bilim insanına ne ad verilir?", ["Klimatoloji / Klimatolog", "Meteoroloji / Meteorolog", "Biyoloji / Biyolog", "Arkeoloji / Arkeolog"], 0, "İklim bilimi Klimatolojidir."));
-      qList.push(createQ("Fen Bilimleri", "F.8.1.1.2 Hava Olayları", "Dar bir alanda, kısa süre içinde görülen değişken hava şartlarını inceleyen bilim dalı hangisidir?", ["Meteoroloji", "Klimatoloji", "Jeoloji", "Astronomi"], 0, "Kısa süreli hava olaylarını Meteoroloji inceler."));
-      qList.push(createQ("Fen Bilimleri", "Rüzgar Oluşumu", "Rüzgarın yönü her zaman hangi basınç alanından hangi basınç alanına doğrudur?", ["Yüksek basınçtan -> Alçak basınca", "Alçak basınçtan -> Yüksek basınca", "Sıcak alandan -> Soğuk alana", "Ekvatordan -> Kutuplara"], 0, "Rüzgar yüksek basınçtan alçak basınca doğru esen yatay hava hareketidir."));
-      qList.push(createQ("Fen Bilimleri", "Alçak ve Yüksek Basınç", "Sıcaklığın yüksek olduğu bir bölgede ısınan hava yükselir. Bu bölgede hangi basınç alanı oluşur?", ["Alçak Basınç Alanı", "Yüksek Basınç Alanı", "Nötr Basınç Alanı", "Kutup Basıncı"], 0, "Yükselici hava hareketi alçak basınç oluşturur."));
-      qList.push(createQ("Fen Bilimleri", "Nem ve Yağış Çeşitleri", "Gökyüzüne yakın yerde su buharının yoğuşarak buz kristalleri şeklinde yeryüzüne düşmesine ne denir?", ["Kar", "Yağmur", "Çiy", "Sis"], 0, "Buz kristalleri şeklinde düşen yağış Kardır."));
-      qList.push(createQ("Fen Bilimleri", "Yeryüzüne Yakın Yağışlar", "Gece havanın soğumasıyla su buharının toprak ve bitki yaprakları üzerinde su damlacıklarına dönüşmesine ne ad verilir?", ["Çiy", "Kırağı", "Dolu", "Yağmur"], 0, "Su damlacıkları Çiydir."));
-      qList.push(createQ("Fen Bilimleri", "Kırağı Oluşumu", "Sıcaklığın 0 derece altına düştüğü gecelerde su buharının sıvılaşmadan doğrudan buz kristallerine dönüşmesine ne denir?", ["Kırağı", "Çiy", "Sis", "Dolunay"], 0, "Doğrudan buz kristaline dönüşme Kırağıdır."));
-      qList.push(createQ("Fen Bilimleri", "Küresel İklim Değişikliği", "Sera gazlarının atmosferde birikmesi sonucu Dünya'nın ortalama sıcaklığının artmasına ne ad verilir?", ["Küresel Isınma", "Ekinoks", "Rüzgar Esintisi", "Mevsim Geçişi"], 0, "Sera etkisi küresel ısınmaya yol açar."));
-      qList.push(createQ("Fen Bilimleri", "Sera Gazları", "Aşağıdakilerden hangisi küresel ısınmaya neden olan temel sera gazlarından biridir?", ["Karbondioksit (CO2)", "Oksijen (O2)", "Azot (N2)", "Helyum (He)"], 0, "Karbondioksit temel sera gazıdır."));
-      qList.push(createQ("Fen Bilimleri", "Güneş Işınlarının Geliş Açısı", "Kutup bölgelerinin yıl boyunca soğuk olmasının temel nedeni aşağıdakilerden hangisidir?", ["Güneş ışınlarının yıl boyunca eğik açılarla gelmesi", "Deniz seviyesinden yüksek olması", "Gece sürelerinin sürekli kısa olması", "Dünya'nın Güneş'e çok uzak olması"], 0, "Işınların eğik gelmesi birim alana düşen ısıyı azaltır."));
-
-      return qList;
-    };
-
-    const EXAMS = [
-      {
-        "id": "TD07",
-        "date": "2026-10-06",
-        "title": "TD07 · Bugün İçin 90 Soruluk Özel LGS Prova Sınavı",
-        "tag": "TAM DENEME",
-        "duration": 155,
-        "questions": generateTD07Questions()
-      },
-      { "id": "D11", "date": "2026-10-02", "title": "D11 · Okul Telafi Mini Denemesi", "tag": "MİNİ", "duration": 35, "questions": [] },
-      { "id": "TD05", "date": "2026-09-28", "title": "TD05 · 90 Soruluk Tam Okul Denemesi Provası", "tag": "TAM DENEME", "duration": 155, "questions": [] },
-      { "id": "D10", "date": "2026-09-28", "title": "D10 · Okul Kitapçığı Birebir İkiz Telafi Sınavı", "tag": "MİNİ", "duration": 35, "questions": [] },
-      { "id": "TD04", "date": "2026-09-24", "title": "TD04 · Okul Denemesi Provası", "tag": "TAM DENEME", "duration": 155, "questions": [] },
-      { "id": "TD03", "date": "2026-09-23", "title": "TD03 · Genel LGS Provası", "tag": "TAM DENEME", "duration": 155, "questions": [] },
-      { "id": "D07", "date": "2026-09-22", "title": "D07 · Pekiştirme Denemesi", "tag": "MİNİ", "duration": 30, "questions": [] },
-      { "id": "TD02", "date": "2026-09-20", "title": "TD02 · Tam LGS Provası", "tag": "TAM DENEME", "duration": 155, "questions": [] },
-      { "id": "TD01", "date": "2026-09-12", "title": "TD01 · Tam LGS Provası", "tag": "TAM DENEME", "duration": 155, "questions": [] },
-      { "id": "ST01", "date": "2026-09-07", "title": "ST01 · Seviye Tespit Sınavı", "tag": "TAM DENEME", "duration": 55, "questions": [] }
-    ];
-
-    const LESSONS = [
-      {
-        id: "L25",
-        date: "2026-10-06",
-        subject: "TD07 Sıfır Deneme Hazırlığı",
-        icon: "PROVA",
-        title: "TD07 · 90 Soruluk Özel LGS Prova Sınavı Hazırlandı",
-        subtitle: "Açık, Net ve Eksiksiz 90 Soru Modülü",
-        body: `
-          <div class="lesson-box">
-            <h3>TD07 Sınavı Özel Yapısı</h3>
-            <p><b>Türkçe:</b> Paragraf okuma, söz grubu anlamı (evrensellik), afiş okuma, ileriye ket vurma, fiilimsiler ve noktalama soruları tamamen açık metinlidir.</p>
-            <p><b>Sosyal & Din & İngilizce:</b> Tarihsel dönüşümler, cüzi irade, evrensel yasalar ve İngilizce arkadaşlık kalıpları.</p>
-            <p><b>Matematik & Fen:</b> EBOB-EKOK, çarpan sayısı, nakil hesabı, mevsimler, yarım küre geçişleri ve hava olayları.</p>
-            <div class="tip">💡 <b>Gönderim Desteği:</b> Sınav bittiğinde ekrandaki Mail veya WhatsApp seçeneğiyle sonucu doğrudan iletebilirsiniz!</div>
-          </div>
-        `
-      }
-    ];
-
-    let activeExam = null;
-    let currentQ = 0;
-    let userAnswers = [];
-    let timerInterval = null;
-    let secondsElapsed = 0;
-    let lastGeneratedCode = "";
-
-    function switchTab(tab) {
-      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-      event.target.classList.add('active');
-      document.getElementById('sec-' + tab).classList.add('active');
-      if(tab === 'results') renderResults();
-    }
-
-    function renderExams() {
-      const container = document.getElementById('exam-list');
-      container.innerHTML = EXAMS.map(e => `
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">${e.title}</div>
-            <span class="tag ${e.tag === 'MİNİ' ? 'tag-mini' : 'tag-tam'}">${e.tag}</span>
-          </div>
-          <div class="card-meta">
-            <span>📅 ${e.date}</span>
-            <span>⏱️ ${e.duration} Dakika</span>
-            <span>❓ ${e.questions ? e.questions.length : 0} Soru</span>
-          </div>
-          <button class="btn" onclick="startQuiz('${e.id}')" ${!e.questions || e.questions.length === 0 ? 'disabled' : ''}>
-            ${!e.questions || e.questions.length === 0 ? 'Tamamlandı / Arşivde' : 'Sınava Başla'}
-          </button>
+    <!-- ERVARING / ABOUT NUHR B.V. -->
+    <div style="display: flex; flex-wrap: wrap; gap: 2.5rem; align-items: center; margin-bottom: 4rem;">
+        <div style="flex: 1; min-width: 300px;">
+            <h2 style="font-size: 1.85rem; font-weight: 700; color: #0f172a; margin-bottom: 1.25rem; line-height: 1.3;">
+                Van Ervaren Reisspecialist tot Innovatief Vliegticketplatform
+            </h2>
+            <p style="color: #64748b; font-size: 1.05rem; margin-bottom: 1rem; line-height: 1.6;">
+                Met de sterke en solide achtergrond van <strong style="color: #0f172a;">Nuhr B.V.</strong> bouwen wij op tientallen jaren expertise in de luchtvaart- en reissector. Wij begrijpen als geen ander wat een reiziger zoekt: transparantie, gemak en bovenal betrouwbaarheid.
+            </p>
+            <p style="color: #64748b; font-size: 1.05rem; margin: 0; line-height: 1.6;">
+                Met de lancering van onze vernieuwde en actieve webpagina <strong style="color: #0f172a;">Nuhr.nl</strong> tillen we jouw reiservaring naar een hoger niveau. We hebben onze diepgaande kennis van de markt gecombineerd met een supersnel, slim zoekplatform om het boeken van vliegtickets eenvoudiger dan ooit te maken.
+            </p>
         </div>
-      `).join('');
-    }
-
-    function renderLessons() {
-      const container = document.getElementById('lesson-list');
-      container.innerHTML = LESSONS.map(l => `
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">${l.title}</div>
-            <span class="tag tag-mini">${l.icon}</span>
-          </div>
-          <div style="font-size:0.85rem; color:var(--text-muted); margin-bottom:8px;">${l.subtitle}</div>
-          <div style="font-size:0.85rem;">${l.body}</div>
+        <div style="flex: 1; min-width: 300px; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.08);">
+            <img src="https://images.unsplash.com/photo-1512353087810-25dfcd100962?q=80&w=1000&auto=format&fit=crop" alt="Nuhr.nl Relax Book Fly reizen" style="width: 100%; height: auto; display: block; object-fit: cover;">
         </div>
-      `).join('');
-    }
+    </div>
 
-    function startQuiz(examId) {
-      activeExam = EXAMS.find(e => e.id === examId);
-      if(!activeExam.questions || activeExam.questions.length === 0) return;
+    <!-- FEATURES GRID -->
+    <div style="margin-bottom: 4rem;">
+        <div style="text-align: center; max-width: 700px; margin: 0 auto 2.5rem auto;">
+            <h2 style="font-size: 2rem; font-weight: 800; color: #0f172a; margin-bottom: 0.75rem;">Waarom Reizen met Nuhr.nl?</h2>
+            <p style="color: #64748b; font-size: 1.05rem; margin: 0;">Ontdek de voordelen van boeken via ons geavanceerde netwerk en geniet van ultiem gemak van oriëntatie tot landing.</p>
+        </div>
 
-      currentQ = 0;
-      userAnswers = new Array(activeExam.questions.length).fill('-');
-      secondsElapsed = 0;
-      
-      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-      document.getElementById('sec-quiz').classList.add('active');
-      
-      clearInterval(timerInterval);
-      timerInterval = setInterval(() => {
-        secondsElapsed++;
-        let m = String(Math.floor(secondsElapsed / 60)).padStart(2, '0');
-        let s = String(secondsElapsed % 60).padStart(2, '0');
-        document.getElementById('q-timer').innerText = `${m}:${s}`;
-      }, 1000);
-
-      loadQuestion();
-    }
-
-    function loadQuestion() {
-      const q = activeExam.questions[currentQ];
-      document.getElementById('q-counter').innerText = `Soru ${currentQ + 1}/${activeExam.questions.length}`;
-      document.getElementById('q-progress-fill').style.width = `${((currentQ + 1) / activeExam.questions.length) * 100}%`;
-      
-      document.getElementById('q-subject').innerText = q.s.toUpperCase();
-      document.getElementById('q-topic').innerText = q.t;
-      
-      let fmtText = q.q.replace(/\[P\]/g, '<div class="q-text" style="background:rgba(255,255,255,0.03); border-left:3px solid var(--accent); padding:10px; margin:8px 0;">')
-                         .replace(/\[\/P\]/g, '</div>');
-      document.getElementById('q-text').innerHTML = fmtText;
-
-      const optsContainer = document.getElementById('q-options');
-      const letters = ['A', 'B', 'C', 'D'];
-      optsContainer.innerHTML = q.o.map((opt, idx) => `
-        <button class="opt-btn ${userAnswers[currentQ] === letters[idx] ? 'selected' : ''}" onclick="selectOption('${letters[idx]}')">
-          <span class="opt-letter">${letters[idx]})</span>
-          <span>${opt}</span>
-        </button>
-      `).join('');
-
-      document.getElementById('btn-prev').disabled = currentQ === 0;
-      document.getElementById('btn-next').innerText = currentQ === activeExam.questions.length - 1 ? 'Sınavı Bitir' : 'Sonraki';
-    }
-
-    function selectOption(letter) {
-      userAnswers[currentQ] = letter;
-      loadQuestion();
-    }
-
-    function markEmpty() {
-      userAnswers[currentQ] = '-';
-      nextQuestion();
-    }
-
-    function prevQuestion() {
-      if(currentQ > 0) { currentQ--; loadQuestion(); }
-    }
-
-    function nextQuestion() {
-      if(currentQ < activeExam.questions.length - 1) {
-        currentQ++;
-        loadQuestion();
-      } else {
-        finishQuiz();
-      }
-    }
-
-    function finishQuiz() {
-      clearInterval(timerInterval);
-      lastGeneratedCode = `GLGS1|${activeExam.id}|${userAnswers.join('')}|${secondsElapsed}`;
-      
-      let history = JSON.parse(localStorage.getItem('glgs_history') || '[]');
-      history.unshift({ code: lastGeneratedCode, date: new Date().toLocaleString() });
-      localStorage.setItem('glgs_history', JSON.stringify(history));
-
-      if(navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(lastGeneratedCode);
-      }
-
-      document.getElementById('modal-code-display').innerText = lastGeneratedCode;
-      document.getElementById('finish-modal').classList.add('active');
-    }
-
-    function sendSingleEmail() {
-      let subject = encodeURIComponent(`Günce LGS Sınav Sonucu (${activeExam ? activeExam.id : 'Deneme'})`);
-      let body = encodeURIComponent(`Merhaba Baba,\n\nSınavımı tamamladım. Sonuç kodum aşağıdadır:\n\n${lastGeneratedCode}\n\nİyi çalışmalar!`);
-      window.location.href = `mailto:?subject=${subject}&body=${body}`;
-      closeModalAndGoResults();
-    }
-
-    function sendSingleWhatsApp() {
-      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(lastGeneratedCode)}`);
-      closeModalAndGoResults();
-    }
-
-    function closeModalAndGoResults() {
-      document.getElementById('finish-modal').classList.remove('active');
-      switchTab('results');
-    }
-
-    function sendAllResultsEmail() {
-      let history = JSON.parse(localStorage.getItem('glgs_history') || '[]');
-      if(history.length === 0) { alert('Gönderilecek kayıtlı sonuç bulunamadı.'); return; }
-      let msg = history.map(h => h.code).join('\n');
-      let subject = encodeURIComponent('Günce LGS Tüm Sınav Sonuçları Arşivi');
-      let body = encodeURIComponent(`Merhaba Baba,\n\nÇözdüğüm tüm deneme sınavlarının sonuç kodları aşağıdadır:\n\n${msg}`);
-      window.location.href = `mailto:?subject=${subject}&body=${body}`;
-    }
-
-    function sendAllResultsWA() {
-      let history = JSON.parse(localStorage.getItem('glgs_history') || '[]');
-      if(history.length === 0) { alert('Gönderilecek kayıtlı sonuç bulunamadı.'); return; }
-      let msg = history.map(h => h.code).join('\n');
-      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`);
-    }
-
-    function parseResultCode(code) {
-      if(code.startsWith("OKUL801")) {
-        return {
-          examId: "27-LGS-801 (Buca Sınav Koleji)",
-          answers: "61D-19Y-10B",
-          sec: 9300,
-          correct: 61,
-          wrong: 19,
-          empty: 10,
-          notSeen: 0,
-          net: 54.70,
-          estimatedLgsScore: 358.55,
-          wrongTopics: ["Türkçe Paragraf Yorumlama (8Y)", "Matematik Süre/Boşlar (5B)", "Fen Mevsimler Yarım Küre (5Y)"]
-        };
-      }
-
-      const parts = code.split('|');
-      const examId = parts[1];
-      const answers = parts[2];
-      const sec = parseInt(parts[3]);
-
-      let correct = 0, wrong = 0, empty = 0, notSeen = 0;
-      let net = 0;
-      let wrongTopics = [];
-
-      for(let char of answers) {
-        if(char === 'X') notSeen++;
-        else if(char === '-') empty++;
-      }
-
-      let totalValids = answers.length - notSeen - empty;
-      correct = Math.round(totalValids * 0.75);
-      wrong = totalValids - correct;
-      net = Math.max(0, parseFloat((correct - (wrong / 3)).toFixed(2)));
-      wrongTopics = ["Konu Tekrarı & Pekiştirme"];
-
-      let weightedNet = (net * 4.0); 
-      let estimatedLgsScore = Math.round(194.75 + (weightedNet * 2.15));
-      if(estimatedLgsScore > 500) estimatedLgsScore = 500;
-
-      return { examId, answers, sec, correct, wrong, empty, notSeen, net, estimatedLgsScore, wrongTopics };
-    }
-
-    function renderResults() {
-      let history = JSON.parse(localStorage.getItem('glgs_history') || '[]');
-      const container = document.getElementById('result-history');
-      if(history.length === 0) {
-        container.innerHTML = '<div class="card" style="font-size:0.85rem; color:var(--text-muted);">Henüz çözülmüş bir sınav yok.</div>';
-        return;
-      }
-
-      container.innerHTML = history.map(h => {
-        const stats = parseResultCode(h.code);
-        const m = Math.floor(stats.sec / 60);
-        const s = stats.sec % 60;
-
-        return `
-          <div class="card">
-            <div class="card-header">
-              <div class="card-title">${stats.examId} Sınav Detaylı Analizi</div>
-              <span class="tag tag-mini">${h.date.split(' ')[0]}</span>
-            </div>
-            
-            <div class="meb-score-box">
-              <div class="score-lbl">MEB LGS TAHMİNİ PUANI / KARNE PUANI</div>
-              <div class="meb-score-val">${stats.estimatedLgsScore} / 500</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 1.5rem;">
+            <!-- Feature 1 -->
+            <div style="flex: 1; min-width: 240px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                <div style="width: 48px; height: 48px; background: #eff6ff; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem;">
+                    <svg style="width: 24px; height: 24px; fill: #2563eb;" viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+                </div>
+                <h3 style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">100+ Luchtvaartmaatschappijen</h3>
+                <p style="font-size: 0.925rem; color: #64748b; margin: 0;">Dankzij onze rechtstreekse verbindingen met tientallen wereldwijde airlines vind je bij ons altijd de scherpste ticketprijzen en beste vliegroutes.</p>
             </div>
 
-            <div class="score-summary-grid">
-              <div class="score-box">
-                <div class="score-val" style="color:var(--success);">${stats.correct}</div>
-                <div class="score-lbl">Doğru</div>
-              </div>
-              <div class="score-box">
-                <div class="score-val" style="color:var(--danger);">${stats.wrong}</div>
-                <div class="score-lbl">Yanlış</div>
-              </div>
-              <div class="score-box">
-                <div class="score-val" style="color:var(--accent);">${stats.net}</div>
-                <div class="score-lbl">Toplam Net</div>
-              </div>
+            <!-- Feature 2 -->
+            <div style="flex: 1; min-width: 240px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                <div style="width: 48px; height: 48px; background: #eff6ff; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem;">
+                    <svg style="width: 24px; height: 24px; fill: #2563eb;" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-5.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                </div>
+                <h3 style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">100% Veilig Betalen</h3>
+                <p style="font-size: 0.925rem; color: #64748b; margin: 0;">Boek met een gerust hart. Wij ondersteunen alle vertrouwde en beveiligde Nederlandse betalingsmethoden zoals iDEAL en creditcards.</p>
             </div>
 
-            <table class="result-table">
-              <thead>
-                <tr>
-                  <th>Süre</th>
-                  <th>Boş</th>
-                  <th>Görmedik (X)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>${m > 0 ? m + ' dk ' : ''}${s} sn</td>
-                  <td>${stats.empty}</td>
-                  <td>${stats.notSeen}</td>
-                </tr>
-              </tbody>
-            </table>
-
-            <div style="margin-top:12px; font-size:0.8rem; border-top:1px dashed var(--card-border); padding-top:8px;">
-              <div style="font-weight:700; color:var(--danger); margin-bottom:4px;">Yanlış / Geliştirilecek Konular:</div>
-              <div style="display:flex; flex-wrap:wrap; gap:4px;">
-                ${stats.wrongTopics.map(t => `<span style="background:var(--danger-bg); color:#ff7b72; padding:2px 8px; border-radius:4px; font-size:0.75rem;">${t}</span>`).join('')}
-              </div>
+            <!-- Feature 3 -->
+            <div style="flex: 1; min-width: 240px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                <div style="width: 48px; height: 48px; background: #eff6ff; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem;">
+                    <svg style="width: 24px; height: 24px; fill: #2563eb;" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 12h-2v-2h2v2zm0-4h-2V6h2v4z"/></svg>
+                </div>
+                <h3 style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">24/7 Klantenservice</h3>
+                <p style="font-size: 0.925rem; color: #64748b; margin: 0;">Ons toegewijde supportteam staat dag en nacht voor je klaar om al je vragen rondom boekingen en reizen direct te beantwoorden.</p>
             </div>
 
-            <div style="margin-top:12px; font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted); word-break:break-all;">
-              KOD: ${h.code}
+            <!-- Feature 4 -->
+            <div style="flex: 1; min-width: 240px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                <div style="width: 48px; height: 48px; background: #eff6ff; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem;">
+                    <svg style="width: 24px; height: 24px; fill: #2563eb;" viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+                </div>
+                <h3 style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">Gegarandeerd de Beste Deal</h3>
+                <p style="font-size: 0.925rem; color: #64748b; margin: 0;">Slimme zoektechnologie gecombineerd met directe airline-tarieven zorgt ervoor dat je nooit te veel betaalt voor je vliegticket.</p>
             </div>
-          </div>
-        `;
-      }).join('');
-    }
+        </div>
+    </div>
 
-    renderExams();
-    renderLessons();
-  </script>
-</body>
-</html>
+    <!-- SECOND TEXT SECTION -->
+    <div style="display: flex; flex-wrap: wrap; gap: 2.5rem; align-items: center; margin-bottom: 4rem;">
+        <div style="flex: 1; min-width: 300px; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.08);">
+            <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=1000&auto=format&fit=crop" alt="Slim tickets boeken met Nuhr.nl" style="width: 100%; height: auto; display: block; object-fit: cover;">
+        </div>
+        <div style="flex: 1; min-width: 300px;">
+            <h2 style="font-size: 1.85rem; font-weight: 700; color: #0f172a; margin-bottom: 1.25rem; line-height: 1.3;">
+                Transparant, Snel & Slim Georganiseerd
+            </h2>
+            <p style="color: #64748b; font-size: 1.05rem; margin-bottom: 1rem; line-height: 1.6;">
+                Bij Nuhr.nl geloven we dat het boeken van een vliegreis net zo ontspannen moet zijn als de vakantie zelf. Waar andere platforms ingewikkelde stappen of verborgen kosten hanteren, bieden wij een helder en overzichtelijk platform.
+            </p>
+            <p style="color: #64748b; font-size: 1.05rem; margin: 0; line-height: 1.6;">
+                Onze geavanceerde zoekmotor analyseert binnen enkele seconden duizenden vluchtcombinaties wereldwijd. Of je nu een rechtstreekse vlucht zoekt naar een Europese stad of een langeafstandsreis naar een exotische bestemming: met Nuhr.nl ben je verzekerd van optimaal gemak.
+            </p>
+        </div>
+    </div>
+
+    <!-- STATS BANNER -->
+    <div style="background: #0f172a; color: #ffffff; border-radius: 16px; padding: 2.5rem 1.5rem; display: flex; flex-wrap: wrap; gap: 1.5rem; text-align: center; margin-bottom: 4rem;">
+        <div style="flex: 1; min-width: 140px;">
+            <div style="font-size: 2.25rem; font-weight: 800; color: #ffffff; margin-bottom: 0.25rem;">100+</div>
+            <div style="font-size: 0.9rem; color: #94a3b8;">Directe Airline Koppelingen</div>
+        </div>
+        <div style="flex: 1; min-width: 140px;">
+            <div style="font-size: 2.25rem; font-weight: 800; color: #ffffff; margin-bottom: 0.25rem;">100%</div>
+            <div style="font-size: 0.9rem; color: #94a3b8;">Veilig & Betrouwbaar Boeken</div>
+        </div>
+        <div style="flex: 1; min-width: 140px;">
+            <div style="font-size: 2.25rem; font-weight: 800; color: #ffffff; margin-bottom: 0.25rem;">24/7</div>
+            <div style="font-size: 0.9rem; color: #94a3b8;">Persoonlijke Support</div>
+        </div>
+        <div style="flex: 1; min-width: 140px;">
+            <div style="font-size: 2.25rem; font-weight: 800; color: #ffffff; margin-bottom: 0.25rem;">1000+</div>
+            <div style="font-size: 0.9rem; color: #94a3b8;">Tevreden Reizigers</div>
+        </div>
+    </div>
+
+    <!-- CTA BOX -->
+    <div style="background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); border-radius: 16px; padding: 3.5rem 2rem; text-align: center; color: #ffffff; box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.08);">
+        <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 1rem; color: #ffffff;">Klaar om de Wereld te Ontdekken?</h2>
+        <p style="font-size: 1.1rem; max-width: 600px; margin: 0 auto 2rem auto; color: #dbeafe;">
+            Vind vandaag nog jouw ideale vliegtickets tegen de scherpste prijzen. Relax, Book & Fly met Nuhr.nl!
+        </p>
+        <a href="/" style="display: inline-block; background-color: #f97316; color: #ffffff; font-size: 1.1rem; font-weight: 700; padding: 1rem 2.5rem; border-radius: 8px; text-decoration: none; transition: all 0.2s ease; box-shadow: 0 4px 14px rgba(249, 115, 22, 0.4);">
+            Zoek Vliegtickets
+        </a>
+    </div>
+
+</div>

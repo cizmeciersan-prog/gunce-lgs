@@ -65,7 +65,6 @@
     .lesson-box h3 { color: var(--accent); font-size: 0.95rem; margin-bottom: 6px; }
     .lesson-box p { margin-bottom: 8px; }
     .lesson-box .tip { background: var(--success-bg); border-left: 3px solid var(--success); padding: 8px; border-radius: 4px; color: var(--text-heading); margin: 6px 0; }
-    .lesson-box .warn-box { background: var(--danger-bg); border-left: 3px solid var(--danger); padding: 8px; border-radius: 4px; color: #ff7b72; margin: 6px 0; }
 
     .quiz-header { position: sticky; top: 0; background: var(--bg); padding: 12px 0; z-index: 10; border-bottom: 1px solid var(--card-border); margin-bottom: 16px; }
     .quiz-progress { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; }
@@ -119,7 +118,7 @@
         </div>
         <div id="quiz-body">
           <div id="q-subject" style="font-size: 0.75rem; font-weight: 700; color: var(--accent); margin-bottom: 4px;">TÜRKÇE</div>
-          <div id="q-topic" style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">Yeni Nesil Mini Telafi Sınavı</div>
+          <div id="q-topic" style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">Beceri Temelli Yeni Nesil Mini Sınav</div>
           <div id="q-text" class="q-text">Soru metni yükleniyor...</div>
           <div id="q-options" class="options"></div>
           <div class="quiz-nav">
@@ -167,6 +166,7 @@
 
   <script>
     const PRELOADED_RESULTS = [
+      { code: "GLGS1|D12|AAAAAAAAAACAA-AAAAAA|96", date: "13.10.2026 21:00:00" },
       { code: "GLGS1|TD08|AAAAAAABABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACADAAAA-A--AAAAA--AAAAAAACACAAAAAAAAAAAAAAAAAAA|2245", date: "12.10.2026 20:00:00" },
       { code: "GLGS1|D11|AAA-ABCB-AAAAAAAAAAA|400", date: "02.10.2026 21:15:00" },
       { code: "GLGS1|D10|AAA-AA-BAA|570", date: "28.09.2026 20:00:00" },
@@ -189,54 +189,55 @@
 
     const createQ = (s, t, q, o, a, e) => ({ s, t, d: 2, q, o, a, e });
 
-    // 13.10.2026 Salı Günü İçin %85 Yeni Nesil Oranlı 20 Soruluk Mini Telafi Denemesi (D12)
-    const generateD12Questions = () => {
+    // 14.10.2026 Çarşamba Günü İçin Yüksek Oranlı Yeni Nesil 20 Soruluk Mini Deneme (D13)
+    const generateD13Questions = () => {
       let qList = [];
 
-      // TÜRKÇE (4 Soru - Yeni Nesil Görsel/Mantık Ağırlıklı)
-      qList.push(createQ("Türkçe", "T.8.3.9 Fiilimsilerin Cümledeki İşlevi", "Fiilimsiler eylem anlamını koruyarak cümlede isim, sıfat veya zarf görevinde bulunurlar.\n\n[BOX]1. Bahçede <u>koşan</u> çocukları izledi.\n2. Okula <u>yürüyerek</u> gitmeyi tercih eder.\n3. Kitap <u>okumak</u> zihni dinlendirir.[/BOX]\n\nNumaralanmış cümlelerdeki altı çizili fiilimsilerin türleri sırasıyla aşağıdakilerin hangisinde verilmiştir?", ["Sıfat-fiil / Zarf-fiil / İsim-fiil", "İsim-fiil / Sıfat-fiil / Zarf-fiil", "Zarf-fiil / İsim-fiil / Sıfat-fiil", "Sıfat-fiil / İsim-fiil / Zarf-fiil"], 0, "1. koşan (An/En -> Sıfat-fiil), 2. yürüyerek (Arak/Erek -> Zarf-fiil), 3. okumak (Ma/Iş/Mak -> İsim-fiil)."));
-      qList.push(createQ("Türkçe", "T.8.4.16 Yazım Kuralları - Kurum Adları", "Aşağıdaki yazım kurallarından hangisiyle ilgili bir <u>yazım yanlışı</u> yapılmıştır?\n\n[BOX]A) Türk Dil Kurumunun yayınlarını takip ederiz.\nB) Saat 09.05'te tören başladı.\nC) Her şey zamanında yapılmalıdır.\nD) Pekçok öğrenci bu kuralı karıştırıyor.[/BOX]", ["Pekçok kelimesinin birleşik yazılması yanlıştır (doğrusu 'pek çok' ayrı olmalıdır).", "Türk Dil Kurumunun ifadesinde kesme kullanılmaması yanlıştır.", "Saat ile dakika arasına nokta konulması yanlıştır.", "Her şey kelimesinin ayrı yazılması yanlıştır."], 0, "'Pek çok' sözcüğü her zaman ayrı yazılır."));
-      qList.push(createQ("Türkçe", "T.8.3.32 Tablo / Grafik Yorumlama", "[BOX]Grafik: Bir okulda 8. sınıf öğrencilerinin günlere göre çözdüğü ortalama soru sayıları verilmiştir:\n- Pazartesi: 80 Soru\n- Salı: 120 Soru\n- Çarşamba: 100 Soru\n- Perşembe: 150 Soru[/BOX]\n\nGrafiğe göre aşağıdakilerden hangisi <u>kesinlikle çıkarılamaz</u>?", ["En çok soru Çarşamba günü çözülmüştür.", "Perşembe günü çözülen soru sayısı Pazartesi'den fazladır.", "En az soru Pazartesi günü çözülmüştür.", "Salı günü Çarşamba'dan daha fazla soru çözülmüştür."], 0, "Grafiğe göre en çok soru Çarşamba değil Perşembe günü çözülmüştür."));
-      qList.push(createQ("Türkçe", "T.8.3.7 Söz Sanatları", "[BOX]Işıl ışıl parlayan Güneş, sabahın ilk ışıklarıyla dağların arkasından göz kırpıyordu köye.[/BOX]\n\nBu cümledeki anlatımı güçlendiren söz sanatı hangisidir?", ["Kişileştirme (Teşhis)", "Benzetme (Teşbih)", "Karşıtlık (Tezat)", "Abartma (Mübalağa)"], 0, "Güneş'in göz kırpması insani özellik kazandırdığı için kişileştirmedir."));
+      // TÜRKÇE (4 Soru - Görsel / Yazım / Paragraf Analiz)
+      qList.push(createQ("Türkçe", "T.8.4.16 Yazım Kuralları - İkileme ve Ayrı Yazılanlar", "Aşağıdaki cümlelerin hangisinde <u>yazım kuralına uyulmuştur</u>?", ["Kütüphanede pek çok yeni araştırma kitabı bulduk.", "Pekçok öğrenci bu kuralı karıştırmaktadır.", "Herşey zamanında yapılırsa başarı gelir.", "Açılan sergiyi bir çok kişi ziyaret etti."], 0, "'Pek çok' ve 'bir çok' her zaman ayrı yazılır. A şıkkında 'pek çok' doğru yazılmıştır."));
+      qList.push(createQ("Türkçe", "T.8.3.32 Afiş & Görsel Okuma", "[BOX]Görsel Mesajı: Plastik kapak toplama kampanyası görselinde '1000 Kapak = 1 Tekerlekli Sandalye, Bir Hayata Dokun!' ifadesi yer almaktadır.[/BOX]\n\nBu afişten çıkarılabilecek <u>en kapsamlı yargı</u> hangisidir?", ["Çevre bilinci ile sosyal yardımlaşmanın birleştirilmesi", "Yalnızca plastik atıkların toplanması gerektiği", "Tekerlekli sandalye fiyatlarının arttığı", "Kampanyaların sadece okullarda yapıldığı"], 0, "Afiş hem çevre (plastik toplama) hem de sosyal yardımlaşma (sandalye alma) amacını taşır."));
+      qList.push(createQ("Türkçe", "T.8.3.9 Fiilimsi Grubu", "[BOX]1. <u>Gülerek</u> içeri giren çocuk neşeyle selam verdi.\n2. <u>Kırılan</u> tabağın parçalarını topladı.\n3. Kitap <u>okumayı</u> çok severdi.[/BOX]\n\nNumaralanmış cümlelerdeki altı çizili fiilimsilerin türleri hangisidir?", ["Zarf-fiil / Sıfat-fiil / İsim-fiil", "Sıfat-fiil / İsim-fiil / Zarf-fiil", "İsim-fiil / Zarf-fiil / Sıfat-fiil", "Zarf-fiil / İsim-fiil / Sıfat-fiil"], 0, "1. gülerek (-erek -> Zarf-fiil), 2. kırılan (-an -> Sıfat-fiil), 3. okumayı (-ma -> İsim-fiil)."));
+      qList.push(createQ("Türkçe", "T.8.3.21 Metin Tamamlama", "[BOX]Kitap okumak sadece kelime dağarcığını geliştirmekle kalmaz; bireyin olaylara farklı açılardan bakmasını da sağlar. Bu nedenle kitap okuyan bir insan, karşılaştığı sorunlar karşısında ----.[/BOX]\n\nBoş bırakılan yere hangisinin getirilmesi <u>anlam akışına en uygundur</u>?", ["daha akılcı ve esnek çözümler üretebilir", "hemen pes ederek geri çekilir", "başkalarının fikirlerine tamamen kapalı olur", "öfkesine yenik düşerek yanlış kararlar alır"], 0, "Düşüncenin akışına göre esnek çözümler üretmesi uygundur."));
 
-      // T.C. İNKILAP TARİHİ (2 Soru - Görsel & Fikir Hayatı)
-      qList.push(createQ("İnkılap Tarihi", "ITA.8.1.3 M. Kemal'in Fikir Hayatını Etkileyen Şehirler", "[BOX]Manastır Askeri İdadisinde okurken Namık Kemal'in vatan şiirleriyle tanışan Mustafa Kemal, aynı dönemde Türkçülük akımının öncülerinden Ziya Gökalp'in eserlerini okumuştur.[/BOX]\n\nBu durum Mustafa Kemal'de hangi fikri yapının oluşmasını sağlamıştır?", ["Milliyetçilik ve Vatansevgisi", "Manda ve Himaye", "Batı Karşıtlığı", "Sömürgecilik"], 0, "Namık Kemal ve Ziya Gökalp milliyetçilik düşüncesini pekiştirmiştir."));
-      qList.push(createQ("İnkılap Tarihi", "ITA.8.1.4 Askerlik Hayatı ve Kişilik", "Mustafa Kemal'in Trablusgarp'ta İtalyanlara karşı yerli halkı bir araya getirerek Derne ve Tobruk'ta direniş örgütlemesi hangi kişilik özelliğidir?", ["Teşkilatçılık ve Liderlik", "Açık sözlülük", "İnkılapçılık", "Sanatseverlik"], 0, "Halkı örgütlemek teşkilatçılığın göstergesidir."));
+      // T.C. İNKILAP TARİHİ (2 Soru - Görsel Harita & Fikir Hayatı)
+      qList.push(createQ("İnkılap Tarihi", "ITA.8.1.3 M. Kemal'in Şehirler ve Fikir Dünyası", "[BOX]Selanik'te batı kültürünü tanıyan, Manastır'da milliyetçilik hisleri gelişen, Şam'da Vatan ve Hürriyet Cemiyeti'ni kuran Mustafa Kemal, Sofya'da ise parlamenter sistemi incelemiştir.[/BOX]\n\nBu bilgiye göre Sofya şehri Mustafa Kemal'e en çok hangi alanda katkı sağlamıştır?", ["Diplomasi ve Meclis (Parlamento) Tecrübesi", "Sadece askeri strateji", "Dini liderlik", "Ekonomik tüccarlık"], 0, "Sofya'da Askeri Ateşe iken meclis izlemesi diplomasi tecrübesi kazandırmıştır."));
+      qList.push(createQ("İnkılap Tarihi", "ITA.8.1.4 Çanakkale ve İleri Görüşlülük", "Mustafa Kemal'in Çanakkale Savaşı'nda düşman donanmasının Anafartalar ve Conkbayırı'ndan çıkarma yapacağını önceden tahmin ederek önlem aldırması onun hangi kişilik özelliğidir?", ["İleri görüşlülük", "İnkılapçılık", "Açık sözlülük", "Sanatseverlik"], 0, "Olayları önceden öngörüp tedbir almak İleri Görüşlülüktür."));
 
-      // DİN KÜLTÜRÜ (2 Soru)
-      qList.push(createQ("Din Kültürü", "DIN.8.1.1 Kader ve Kaza", "Allah'ın ezelden ebede kadar olacak olayları takdir etmesine Kader, bu olayların zamanı gelince gerçekleşmesine Kaza denir.\n\nHangi seçenek <u>Kaza</u> kavramına örnektir?", ["13 Ekim 2026'da sağanak yağmurun yağması", "Suyun 100 derecede kaynaması kuralı", "Yer çekimi kanunun varlığı", "İnsanın ölümlü yaratılması"], 0, "Belli bir tarihte gerçekleşen olay Kaza'dır."));
-      qList.push(createQ("Din Kültürü", "DIN.8.1.2 Özgür İrade ve Sorumluluk", "İnsan akıl ve özgür iradesiyle seçimlerini yapar. Yapılan eylemlerin sonuçlarını üstlenmeye ne denir?", ["Sorumluluk", "Tevekkül", "Ecel", "Kader"], 0, "Seçimlerin sonucunu üstlenmek sorumluluktur."));
+      // DİN KÜLTÜRÜ (2 Soru - Evrensel Yasalar & İrade)
+      qList.push(createQ("Din Kültürü", "DIN.8.1.1 Evrensel Yasalar Analizi", "[BOX]Su 100 derecede kaynar. Güneş ve Ay belirlenmiş bir yörüngede hareket eder. Yer çekimi cisimleri kendine çeker.[/BOX]\n\nBu durumlar hangi evrensel yasa kapsamındadır?", ["Fiziksel Yasalar", "Biyolojik Yasalar", "Toplumsal Yasalar", "Hukuki Yasalar"], 0, "Madde ve enerjinin kuralları Fiziksel yasalardır."));
+      qList.push(createQ("Din Kültürü", "DIN.8.1.2 Cüzi İrade ve Sorumluluk", "Aşağıdakilerden hangisi insanın kendi <u>Cüzi İradesi</u> (özgür seçimi) kapsamında yer alır?", ["Dürüst ve çalışkan bir insan olmayı seçmek", "Annesini ve babasını seçmek", "Doğduğu yeri belirlemek", "Göz rengini kendi isteğiyle değiştirmek"], 0, "Ahlaki tercihler cüzi irade alanındadır."));
 
-      // İNGİLİZCE (2 Soru)
-      qList.push(createQ("İngilizce", "E.8.2.3.1 Expressing Preferences", "I prefer listening to rock music to classical music because I think rock is energetic.\n\nWhich option is <u>CORRECT</u>?", ["He likes rock music more than classical music.", "He hates energetic songs.", "Classical music is his favorite.", "He never listens to rock."], 0, "Rock müziği klasik müziğe tercih etmektedir."));
-      qList.push(createQ("İngilizce", "E.8.1.5.1 Apologizing & Excuses", "[BOX]Dear Sam,\nI'd love to come to your party, but I can't because I must study for my exam.[/BOX]\n\nWhy does he refuse the invitation?", ["Because he has an exam to study.", "Because he hates Sam.", "Because he feels sick.", "Because he goes shopping."], 0, "Sınava çalışması gerektiği için daveti reddetmiştir."));
+      // İNGİLİZCE (2 Soru - Teen Life & Apologizing)
+      qList.push(createQ("İngilizce", "E.8.2.3.1 Expressing Preferences", "I prefer driving a car to riding a bicycle because I think cars are more comfortable.\n\nWhich statement is <u>CORRECT</u>?", ["He likes cars more than bicycles.", "He hates comfortable vehicles.", "Riding a bicycle is his favorite.", "He never drives a car."], 0, "Arabayı bisiklete tercih etmektedir."));
+      qList.push(createQ("İngilizce", "E.8.1.5.1 Apologizing & Excuses", "[BOX]Dear Mark,\nThanks for inviting me to your birthday party on Saturday. I'd love to join, but I can't because I must stay at home and look after my little brother.[/BOX]\n\nWhy does the sender refuse the invitation?", ["Because he has to take care of his brother.", "Because he dislikes Mark.", "Because he is going to the cinema.", "Because he is ill."], 0, "Kardeşine bakması gerektiği için mazeret bildirmiştir."));
 
-      // MATEMATİK (5 Soru - %100 Yeni Nesil Şekilli & Kurgulu)
-      qList.push(createQ("Matematik", "M.8.1.2.2 Üslü İfadelerde Sıralama", "[BOX]Üslü Sayı Kartları:\na = 2^60\nb = 3^40\nc = 5^20[/BOX]\n\nKartların üzerinde yazan sayıların büyükten küçüğe <u>doğru sıralanışı</u> hangisidir?", ["b > a > c", "a > b > c", "c > b > a", "b > c > a"], 0, "Üsler 20'de eşitlenir: a=(2^3)^20=8^20, b=(3^2)^20=9^20, c=5^20. Sıralama: b > a > c."));
-      qList.push(createQ("Matematik", "M.8.1.2.2 Üslü İfadeler Denklik", "2^x = 32 ve 3^y = 81 olduğuna göre <u>x^y ifadesinin değeri kaçtır</u>?", ["625", "256", "125", "81"], 0, "2^5=32 (x=5), 3^4=81 (y=4). x^y = 5^4 = 625."));
-      qList.push(createQ("Matematik", "M.8.1.1.2 EBOB / EKOK Bahçe Kurgusu", "Uzun kenarı 60 m, kısa kenarı 45 m olan dikdörtgen şeklindeki bir tarlanın etrafına, köşelere de gelmek şartıyla eşit aralıklarla ağaç dikilecektir. <u>En az kaç ağaç gerekir</u>?", ["14", "12", "16", "20"], 0, "EBOB(60,45)=15 m. Çevre = 2x105 = 210 m. Ağaç = 210/15 = 14 adettir."));
-      qList.push(createQ("Matematik", "M.8.1.1.3 Aralarında Asallık", "Aralarında asal iki sayının EKOK'u 60'tır. Bu iki sayının <u>toplamı en çok kaç olabilir</u>?", ["61", "32", "23", "19"], 0, "Aralarında asal sayıların EKOK'u çarpımlarıdır. 1 ve 60 seçilirse toplam 1+60 = 61 olur."));
-      qList.push(createQ("Matematik", "M.8.1.2.1 Negatif Üs", "(-2)^-4 + (1/2)^3 işleminin sonucu kaçtır?", ["3/16", "1/16", "1/8", "5/16"], 0, "1/16 + 1/8 = 1/16 + 2/16 = 3/16."));
+      // MATEMATİK (5 Soru - %100 Şekilli & EBOB/EKOK & Üslü İfadeler)
+      qList.push(createQ("Matematik", "M.8.1.2.2 Üslü Sayılarda EBOB ile Sıralama", "[BOX]Üslü Sayı Kartları:\na = 3^60\nb = 2^90\nc = 5^30[/BOX]\n\nBu sayıların büyükten küçüğe <u>doğru sıralanışı</u> hangisidir?", ["a > b > c", "b > a > c", "c > a > b", "a > c > b"], 0, "Üslerin EBOB'u 30'dur. a = (3^2)^30 = 9^30, b = (2^3)^30 = 8^30, c = 5^30. Sıralama: a > b > c."));
+      qList.push(createQ("Matematik", "M.8.1.2.2 Üslü Denkliği Kuralı", "3^x = 81 ve 5^y = 125 olduğuna göre <u>x^y işleminin sonucu kaçtır</u>?", ["64", "81", "125", "16"], 0, "3^4 = 81 -> x=4. 5^3 = 125 -> y=3. x^y = 4^3 = 64."));
+      qList.push(createQ("Matematik", "M.8.1.1.2 EBOB Paketleme Problemi", "72 kg pirinç ve 90 kg mercimek birbirine karıştırılmadan eşit hacimli torbalara doldurulacaktır. <u>En az kaç torba gerekir</u>?", ["9 torba", "18 torba", "10 torba", "12 torba"], 0, "EBOB(72, 90) = 18 kg. Torba sayısı = (72/18) + (90/18) = 4 + 5 = 9 torba."));
+      qList.push(createQ("Matematik", "M.8.1.1.3 Aralarında Asal Çiftler", "Alanı 40 cm^2 olan dikdörtgenin kenar uzunlukları aralarında asal tam sayılardır. <u>Çevresi en çok kaç cm olur</u>?", ["82 cm", "44 cm", "26 cm", "50 cm"], 0, "Aralarında asal kenarlar 1 ve 40 seçilirse Çevre = 2 x (1 + 40) = 82 cm."));
+      qList.push(createQ("Matematik", "M.8.1.2.1 Negatif Üs", "4^-2 + (1/2)^3 işleminin sonucu kaçtır?", ["3/16", "1/16", "1/8", "5/16"], 0, "4^-2 = 1/16. (1/2)^3 = 1/8 = 2/16. Toplam = 3/16."));
 
-      // FEN BİLİMLERİ (5 Soru - %100 Yeni Nesil Deney & Tablo)
-      qList.push(createQ("Fen Bilimleri", "F.8.2.1.3 DNA'nın Kendini Eşlemesi", "DNA kendisini eşlerken gerçekleşen olayların kronolojik sıralaması hangisidir?\n\n[BOX]I. Nükleotidler karşılıklı eşleşir.\nII. DNA zincirleri bir fermuar gibi açılır.\nIII. İki yeni özdeş DNA oluşur.[/BOX]", ["II - I - III", "I - II - III", "III - I - II", "II - III - I"], 0, "Sıralama: Zincir açılır (II) -> Nükleotidler eşleşir (I) -> Yeni DNA'lar oluşur (III)."));
-      qList.push(createQ("Fen Bilimleri", "F.8.2.1.1 Karmaşıklık Sıralaması", "Kromozom, DNA, Gen ve Nükleotid yapıları basitten karmaşığa doğru sıralandığında <u>3. sırada hangi yapı bulunur</u>?", ["DNA", "Kromozom", "Gen", "Nükleotid"], 0, "Basitten karmaşığa: Nükleotid < Gen < DNA < Kromozom. 3. sırada DNA bulunur."));
-      qList.push(createQ("Fen Bilimleri", "F.8.2.1.2 Baz Eşleşme Hesabı", "Bir DNA molekülünde 400 Adenin, 600 Guanin nükleotidi bulunmaktadır. Bu DNA'daki <u>toplam Nükleotid sayısı kaçtır</u>?", ["2000", "1000", "1200", "2400"], 0, "A(400)=T(400), G(600)=S(600). Toplam = 400+400+600+600 = 2000."));
-      qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Isı Enerjisi ve Açı", "Işık ışınlarının yüzeye düşme açısı dikleştikçe (90 dereceye yaklaştıkça) birim yüzeye aktarılan ısı enerjisi nasıl değişir?", ["Artar", "Azalır", "Değişmez", "Sıfırlanır"], 0, "Dik gelen ışınlar birim yüzeye daha fazla ısı enerjisi aktarır."));
-      qList.push(createQ("Fen Bilimleri", "F.8.1.2.1 Rüzgar Oluşumu", "Rüzgar daima hangi basınç alanından hangi basınç alanına doğru esen yatay hava hareketidir?", ["Yüksek Basınçtan -> Alçak Basınca", "Alçak Basınçtan -> Yüksek Basınca", "Sıcak Alandan -> Soğuk Alana", "Ekvatordan -> Kutuplara"], 0, "Rüzgar soğuk yüksek basınçtan sıcak alçak basınca doğru eser."));
+      // FEN BİLİMLERİ (5 Soru - %100 Yeni Nesil Deney & DNA)
+      qList.push(createQ("Fen Bilimleri", "F.8.2.1.2 Nükleotid Sayısı Hesabı", "Bir DNA molekülünde 300 Adenin ve 500 Guanin bulunmaktadır. Bu DNA'daki <u>toplam Nükleotid sayısı kaçtır</u>?", ["1600", "800", "1200", "2000"], 0, "A(300) = T(300), G(500) = S(500). Toplam = 300+300+500+500 = 1600."));
+      qList.push(createQ("Fen Bilimleri", "F.8.2.1.3 DNA Eşlenmesi Sırası", "DNA kendisini eşlerken gerçekleşen olayların sırası hangisidir?\n\n[BOX]I. Nükleotidler karşılıklı A-T, G-S şeklinde eşleşir.\nII. DNA zincirleri bir fermuar gibi ayrılır.\nIII. İki yeni özdeş DNA molekülü oluşur.[/BOX]", ["II - I - III", "I - II - III", "III - I - II", "II - III - I"], 0, "Sıralama: Zincir ayrılır (II) -> Nükleotidler eşleşir (I) -> Yeni DNA'lar oluşur (III)."));
+      qList.push(createQ("Fen Bilimleri", "F.8.2.1.1 Karmaşıklık Hiyerarşisi", "Kromozom, DNA, Gen ve Nükleotid yapıları basitten karmaşığa doğru sıralandığında <u>en karmaşık yapı hangisidir</u>?", ["Kromozom", "DNA", "Gen", "Nükleotid"], 0, "Basitten karmaşığa: Nükleotid < Gen < DNA < Kromozom. En karmaşığı Kromozomdur."));
+      qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Güneş Işığı Açısı ve Sıcaklık", "21 Haziran tarihinde Yengeç Dönencesi'ne Güneş ışınları dik açıyla (90 derece) düşmektedir.\n\nBu durum Yengeç Dönencesi'nde neye yol açar?", ["Birim yüzeye düşen ısı enerjisinin maksimum olmasına ve yaz başlamasına", "Gölge boyunun yılın en uzun seviyesine ulaşmasına", "En uzun gecenin yaşanmasına", "Sıcaklığın sıfırın altına düşmesine"], 0, "Dik gelen ışınlar birim alana maksimum ısı enerjisi aktarır."));
+      qList.push(createQ("Fen Bilimleri", "F.8.1.2.1 Rüzgar Yönü ve Basınç", "[BOX]A Bölgesi: Soğuk hava (Yüksek Basınç)\nB Bölgesi: Sıcak hava (Alçak Basınç)[/BOX]\n\nBu iki bölge arasında oluşacak rüzgarın yönü hangisidir?", ["A bölgesinden -> B bölgesine doğru", "B bölgesinden -> A bölgesine doğru", "Rüzgar oluşmaz", "Yukarıdan aşağıya doğru"], 0, "Rüzgar daima yüksek basınçtan (soğuk) alçak basınca (sıcak) doğru eser."));
 
       return qList;
     };
 
     const EXAMS = [
       {
-        "id": "D12",
-        "date": "2026-10-13",
-        "title": "D12 · Yarın İçin 20 Soruluk Yeni Nesil Mini Telafi Denemesi",
+        "id": "D13",
+        "date": "2026-10-14",
+        "title": "D13 · Yarın İçin 20 Soruluk Yeni Nesil Mini Telafi Denemesi",
         "tag": "MİNİ",
         "duration": 35,
-        "questions": generateD12Questions()
+        "questions": generateD13Questions()
       },
+      { "id": "D12", "date": "2026-10-13", "title": "D12 · 20 Soruluk Mini Telafi Denemesi", "tag": "MİNİ", "duration": 35, "questions": [] },
       { "id": "TD08", "date": "2026-10-12", "title": "TD08 · 90 Soruluk LGS Prova Sınavı", "tag": "TAM DENEME", "duration": 155, "questions": [] },
       { "id": "TD07", "date": "2026-10-06", "title": "TD07 · Özel LGS Prova Sınavı", "tag": "TAM DENEME", "duration": 155, "questions": [] },
       { "id": "D11", "date": "2026-10-02", "title": "D11 · Okul Telafi Mini Denemesi", "tag": "MİNİ", "duration": 35, "questions": [] },
@@ -252,24 +253,23 @@
 
     const LESSONS = [
       {
-        id: "L27",
-        date: "2026-10-12",
-        subject: "TD08 Sınavı Hatalı & Boş Sorular Çözüm Rehberi",
-        icon: "ÇÖZÜM",
-        title: "TD08 · Günce'nin Hatalı ve Boş Bıraktığı Soruların Adım Adım Çözüm Analizi",
-        subtitle: "Matematik, Fen ve Türkçe Hatalarını Tamamlama Modülü",
+        id: "L28",
+        date: "2026-10-13",
+        subject: "D12 Mini Sınav Pekiştirme Dersi",
+        icon: "PEKİŞTİRME",
+        title: "D12 · Günce'nin Pürüzsüz Başarısı ve Küçük Notlar",
+        subtitle: "Pek Çok Ayrı Yazımı ve Üslü Sıralama Taktikleri",
         body: `
           <div class="lesson-box">
-            <h3>1. Türkçe Hataları ve Püf Noktaları</h3>
-            <p><b>Soru 8 (Fiilimsiler):</b> Cümlede üç fiilimsi türünü bulurken ek kontrolü yapılır: <i>'koşan'</i> (-an -> Sıfat-fiil), <i>'görünce'</i> (-ince -> Zarf-fiil), <i>'gülümsemek'</i> (-mek -> İsim-fiil). Üçü aynı cümlede yer alır.</p>
-            <p><b>Soru 10 ve 11 (Yazım ve Noktalama):</b> Kurum ve kuruluş adlarına gelen ekler kesme işaretiyle <u>ayrılmaz</u> (Türk Dil Kurumunun). Ayrıca <i>'pek çok'</i> kelimesi her zaman <u>ayrı</u> yazılır!</p>
-
-            <h3>2. Fen Bilimleri Hataları (DNA ve Genetik Kod)</h3>
-            <p><b>DNA Eşlenme Sırası:</b> 1. DNA zincirleri fermuar gibi açılır. 2. Sitoplazmadaki serbest nükleotidler çekirdeğe girerek A-T ve G-S şeklinde eşleşir. 3. İki yeni özdeş DNA oluşur.</p>
-
-            <h3>3. Matematik Süre ve Boş Soruları Analizi</h3>
-            <p><b>Üslü Sayılarda Sıralama Taktiği (2^60, 3^40, 5^20):</b> Tabanlar farklıysa üsler EBOB'u olan 20'de eşitlenir: <i>2^60 = (2^3)^20 = 8^20</i>, <i>3^40 = (3^2)^20 = 9^20</i>, <i>5^20</i>. Buradan 9^20 > 8^20 > 5^20 yani <b>b > a > c</b> çıkar.</p>
-            <div class="tip">💡 <b>Önemli İpucu:</b> Matematik üslü sıralama sorularında üsleri mutlaka EBOB değerine getirerek tabanları karşılaştır!</div>
+            <h3>D12 Performans Değerlendirmesi</h3>
+            <p>Günce D12 sınavında <b>17.67 net</b> alarak müthiş bir çıkış yaptı (453 Puan)!</p>
+            <p><b>1. Türkçe Yazım Kuralı Hatırlatması:</b> <i>'Pek çok'</i> sözcüğü Türk Dil Kurumu kuralına göre her zaman <u>ayrı</u> yazılır. (Örn: Pazarda <u>pek çok</u> meyve tezgahı vardı.)</p>
+            <p><b>2. Matematik Üslü Sıralama Taktiği:</b> Üsleri EBOB değerine getir. Örn: $3^{60}, 2^{90}, 5^{30}$ sayılarında üslerin EBOB'u 30'dur.<br>
+            $3^{60} = (3^2)^{30} = 9^{30}$<br>
+            $2^{90} = (2^3)^{30} = 8^{30}$<br>
+            $5^{30} = 5^{30}$<br>
+            Sıralama: $9^{30} > 8^{30} > 5^{30} \rightarrow a > b > c$ olur.</p>
+            <div class="tip">💡 <b>Püf Noktası:</b> Üslü sıralamalarda tabanı değil, üsleri EBOB ortak parantezine aldığında soru birkaç saniyede çözülür!</div>
           </div>
         `
       }

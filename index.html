@@ -61,17 +61,13 @@
     .result-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; margin-top: 8px; }
     .result-table th, .result-table td { border: 1px solid var(--card-border); padding: 6px 8px; text-align: center; }
     .result-table th { background: rgba(255,255,255,0.05); color: var(--text-heading); font-weight: 700; }
-    .lesson-box { background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); border-radius: 10px; padding: 12px; margin-top: 10px; font-size: 0.85rem; line-height: 1.6; }
-    .lesson-box h3 { color: var(--accent); font-size: 0.95rem; margin-bottom: 6px; }
-    .lesson-box p { margin-bottom: 8px; }
-    .lesson-box .tip { background: var(--success-bg); border-left: 3px solid var(--success); padding: 8px; border-radius: 4px; color: var(--text-heading); margin: 6px 0; }
 
     .quiz-header { position: sticky; top: 0; background: var(--bg); padding: 12px 0; z-index: 10; border-bottom: 1px solid var(--card-border); margin-bottom: 16px; }
     .quiz-progress { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; }
     .progress-bar { height: 6px; background: var(--card-border); border-radius: 3px; overflow: hidden; }
     .progress-fill { height: 100%; background: var(--accent); width: 0%; transition: width 0.3s; }
-    .q-text { font-size: 0.95rem; font-weight: 600; color: var(--text-heading); margin-bottom: 16px; white-space: pre-line; }
-    .q-box { background: rgba(255,255,255,0.03); border-left: 3px solid var(--accent); padding: 12px; margin: 10px 0; border-radius: 6px; font-size: 0.95rem; }
+    .q-text { font-size: 0.95rem; font-weight: 600; color: var(--text-heading); margin-bottom: 16px; white-space: pre-line; line-height: 1.6; }
+    .q-box { background: rgba(88, 166, 255, 0.08); border-left: 4px solid var(--accent); padding: 12px 14px; margin: 12px 0; border-radius: 6px; font-size: 0.9rem; color: var(--text-heading); }
     .options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
     .opt-btn { background: var(--card); border: 1px solid var(--card-border); color: var(--text); padding: 12px 14px; border-radius: 10px; text-align: left; font-size: 0.9rem; cursor: pointer; display: flex; gap: 10px; align-items: flex-start; }
     .opt-btn.selected { border-color: var(--accent); background: var(--accent-bg); color: var(--text-heading); font-weight: 600; }
@@ -171,17 +167,7 @@
       { code: "GLGS1|TD08|AAAAAAABABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACADAAAA-A--AAAAA--AAAAAAACACAAAAAAAAAAAAAAAAAAA|2245", date: "12.10.2026 20:00:00" },
       { code: "GLGS1|D11|AAA-ABCB-AAAAAAAAAAA|400", date: "02.10.2026 21:15:00" },
       { code: "GLGS1|D10|AAA-AA-BAA|570", date: "28.09.2026 20:00:00" },
-      { code: "OKUL801|25.09.2026|61D-19Y-10B|54.70NET|358.55PUAN", date: "25.09.2026 10:00:00" },
-      { code: "GLGS1|TD04|BCACAAAAACADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-AAA-ACABAAAACBA-AABAB-CDBAAAAAAAAAAAA-AAA-AAAAA|1832", date: "24.09.2026 17:15:00" },
-      { code: "GLGS1|D07|ACBCDB-BA-ABAAXXAAAA|449", date: "23.09.2026 18:15:00" },
-      { code: "GLGS1|TD02|BXBCXBBBXAXABAAXXBAABAAA-AXA-XBAAAXXAAAAAAAAXAABC-B-AXAXXXAADXACDXXXAXAAAXAXXAAXAXAXA-XBXX|744", date: "22.09.2026 17:30:00" },
-      { code: "GLGS1|D05|ACBCDBDCXBBCXCDBBBC-|368", date: "16.09.2026 18:06:08" },
-      { code: "GLGS1|D04|BADBDDBXDBBDADCXBCDD|605", date: "15.09.2026 18:10:05" },
-      { code: "GLGS1|TD01|CADBBACDADBDDACDDAABDBXXXXXXXXDADBXXCBCABXACCXDXDCCBXDXBXXXXCXBAXXABCXBDADXXBXXXXXXXXCXAXX|2812", date: "12.09.2026 19:46:53" },
-      { code: "GLGS1|D03|DBCABCXABBDXCBXBCBDX|735", date: "11.09.2026 18:12:15" },
-      { code: "GLGS1|D02|ACABBAXDXDADBCDCCDBA|647", date: "11.09.2026 18:30:47" },
-      { code: "GLGS1|D01|ABCBBCXCDCBACCABAAAC|434", date: "10.09.2026 18:07:14" },
-      { code: "GLGS1|ST01|BABCACCDDCDCBBCAABADCCCDCCDBBDBBBBBBCABB|370", date: "08.09.2026 17:06:10" }
+      { code: "OKUL801|25.09.2026|61D-19Y-10B|54.70NET|358.55PUAN", date: "25.09.2026 10:00:00" }
     ];
 
     if(!localStorage.getItem('glgs_history')) {
@@ -190,7 +176,7 @@
 
     const createQ = (s, t, q, o, a, e) => ({ s, t, d: 3, q, o, a, e });
 
-    // TD09 90 Soruluk Zor Seviye Birebir Yeni Nesil Prova Sınavı
+    // TD09 90 Soruluk Tam Metinli Yeni Nesil Zor Deneme
     const generateTD09Questions = () => {
       let qList = [];
 
@@ -200,7 +186,7 @@
       qList.push(createQ("Türkçe", "T.8.3.9 Fiilimsilerin Cümledeki İşlevi", "[BOX]1. <u>Ağlayan</u> çocuğun sesini duyunca hemen yanına koştu.\n2. Kitap okurken <u>gülümsemeyi</u> hiçbir şeye değişmezdi.\n3. Yağmur şiddetlenince koşarak <u>sığınacak</u> bir yer aradı.[/BOX]\n\nCümlelerdeki altı çizili kelimelerden hangisi türce diğerlerinden <u>farklıdır</u>?", ["2. Cümledeki gülümsemeyi (İsim-fiil)", "1. Cümledeki ağlayan", "3. Cümledeki sığınacak", "1 ve 3 aynı türdür"], 0, "1'deki 'ağlayan' ve 3'teki 'sığınacak' Sıfat-fiildir. 2'deki 'gülümsemeyi' ise İsim-fiil olup farklıdır."));
       qList.push(createQ("Türkçe", "T.8.3.25 Grafik & Metin Eşleştirme", "[BOX]Grafik Yorumu: Bir ildeki kütüphane kullanım oranlarında Roman %50, Tarih %25, Bilim %15, Şiir %10'dur.[/BOX]\n\nGrafikle ilgili yapılan aşağıdaki yorumlardan hangisi <u>kesinlikle doğrudur</u>?", ["Okurların yarısı roman türündeki eserleri tercih etmiştir.", "Şiir kitapları hiç okunmamaktadır.", "Tarih okurlarının tamamı öğrencidir.", "Bilim kitapları tarihten daha çok tercih edilmiştir."], 0, "%50 oranı toplam okurların tam yarısını temsil eder."));
       qList.push(createQ("Türkçe", "T.8.3.7 Söz Sanatları Karmaşık Analiz", "[BOX]Derin bir uykuya daldı koca dağlar, / Rüzgar sustu, gece usulca ağlar.[/BOX]\n\nBu dizelerde ağırlıklı olarak kullanılan söz sanatı hangisidir?", ["Kişileştirme (Teşhis)", "Benzetme (Teşbih)", "Abartma (Mübalağa)", "Karşıtlık (Tezat)"], 0, "Dağların uyuması ve gecenin ağlaması kişileştirmedir."));
-      qList.push(createQ("Türkçe", "T.8.3.5 Bağlamdan Anlam Tahmini", "[BOX]Proje üzerindeki tartışmalarda taraflar <u>ipe un sermeye</u> başlayınca toplantı saatlerce uzadı ve bir karara varılamadı.[/BOX]\n\nMetindeki altı çizili deyimin anlamı hangisidir?", ["Geçerli olmayan engeller göstererek işi yokuşa sürmek", "İshi en kısa sürede bitirmek", "Tüm sorumluluğu üstlenmek", "Gizli bilgileri dışarı sızdırmak"], 0, "İpe un sermek güçlük çıkarmak, bahaneler üretmektir."));
+      qList.push(createQ("Türkçe", "T.8.3.5 Bağlamdan Anlam Tahmini", "[BOX]Proje üzerindeki tartışmalarda taraflar <u>ipe un sermeye</u> başlayınca toplantı saatlerce uzadı ve bir karara varılamadı.[/BOX]\n\nMetindeki altı çizili deyimin anlamı hangisidir?", ["Geçerli olmayan engeller göstererek işi yokuşa sürmek", "İşi en kısa sürede bitirmek", "Tüm sorumluluğu üstlenmek", "Gizli bilgileri dışarı sızdırmak"], 0, "İpe un sermek güçlük çıkarmak, bahaneler üretmektir."));
       qList.push(createQ("Türkçe", "T.8.3.21 Metinde Ana Fikir", "[BOX]Gerçek bir okur, bir kitabı sadece vakit geçirmek için okumaz. O, her sayfada kendi iç dünyasına bir yolculuk yapar ve kitabın son cümlesini okuduğunda artık eski insan değildir.[/BOX]\n\nMetne göre nitelikli okumanın temel amacı nedir?", ["Bireyin zihinsel ve ruhsal değişim yaşaması", "Çok sayıda kitap bitirmek", "Hızlı okuma tekniklerini geliştirmek", "Sınavlarda başarılı olmak"], 0, "Metinde okurun artık eski insan olmaması ruhsal/zihinsel değişimi gösterir."));
       qList.push(createQ("Türkçe", "T.8.3.16 Paragraf Bölme", "[BOX]I. Tiyatro insanı insana insanla anlatma sanatıdır. II. Sahnedeki oyuncunun jest ve mimikleri seyirciye doğrudan ulaşır. III. Tiyatro biletleri son dönemde internet üzerinden satışa sunulmaktadır. IV. Bu doğrudan temas izleyicide derin duygular uyandırır.[/BOX]\n\nMetinde anlam akışını bozan cümle hangisidir?", ["III. Cümle", "I. Cümle", "II. Cümle", "IV. Cümle"], 0, "III. cümle bilet satışından bahsederek sanat kurgusunun akışını bozar."));
       qList.push(createQ("Türkçe", "T.8.3.27 Afiş ve Slogan Yorumlama", "[BOX]Afiş: 'Damla Damla Gelecek, Suyu Boşa Akıtma!' sloganı altında kuraklaşmış bir toprak ve ortasında filizlenen tek bir yaprak görseli yer almaktadır.[/BOX]\n\nBu afişin iletmek istediği ana mesaj hangisidir?", ["Su tasarrufu ve geleceği koruma bilinci", "Sadece tarımsal sulama yapmak", "Şehir barajlarını büyütmek", "Yağmur duasına çıkmak"], 0, "Afiş su tasarrufu ve gelecek vurgusu yapmaktadır."));
@@ -237,7 +223,7 @@
       qList.push(createQ("Din Kültürü", "DIN.8.1.1 Ayet Analizi", "<u>'Biz her şeyi bir ölçüye göre yarattık.'</u> (Kamer Suresi, 49. ayet)\n\nBu ayet evrendeki hangi sisteme vurgu yapmaktadır?", ["Evrendeki mükemmel düzen ve Kader ölçüsüne", "İnsanların özgürlüğüne", "Sadece dünyadaki canlılara", "Savaşların nedenlerine"], 0, "Ölçüye göre yaratılış evrendeki düzeni ve kaderi temsil eder."));
       qList.push(createQ("Din Kültürü", "DIN.8.1.2 İnsanın Sorumluluğu", "İnsanın eylemlerinden sorumlu tutulmasının <u>temel iki şartı</u> hangisidir?", ["Akıl sağlığı ve Özgür İrade sahibi olması", "Zengin ve sağlıklı olması", "Uzun ömürlü ve güçlü olması", "Çok okumuş olması"], 0, "Sorumluluk akıl ve özgür irade gerektirir."));
       qList.push(createQ("Din Kültürü", "DIN.8.1.1 Fiziksel Yasa Örneği", "Güneş tutulmasının zamanının önceden hesaplanabilmesi hangi yasa sayesindedir?", ["Fiziksel Yasalar", "Toplumsal Yasalar", "Biyolojik Yasalar", "Ahlaki Yasalar"], 0, "Gök cisimlerinin değişmez düzeni Fiziksel yasadır."));
-      qList.push(createQ("Din Kültürü", "DIN.8.1.2 Yanlış Kader Anlayışı", "'Ne yapayım, kaderim böyleymiş!' diyerek hiç çalışmadan başarısızlığı kadere yükleyen kişinin hatası nedir?", ["Cüzi iradesini ve sorumluluğunu yok sayması", "Çok çalışması", "Kaderi tam anlaması", "Tevekkül etmesi"], 0, "İnsanın kendi seçim sorumluluğunu kadere yüklemesi yanlıştır."));
+      qList.push(createQ("Din Kültürü", "DIN.8.1.2 Yanlış Kader Anlayışı", "'Ne yapayım, kaderim böyleymiş!' diyerek hiç çalışmadan başarısızlığı kadere yükleyen kişinin hatası nedir?", ["Cüzi iradesini ve sorumluluğunu yok sayması", "Çok çalışması", "Kaderi tam anlaması", "Tevekkül etmesi"], 0, "İnsanın kendi seçim sorumluluğunu kadere yüklesi yanlıştır."));
       qList.push(createQ("Din Kültürü", "DIN.8.1.1 Sadaka-i Cariye", "İnsan öldükten sonra da sevabı devam eden okul, çeşme, köprü gibi kalıcı hayır eserlerine ne denir?", ["Sadaka-i Cariye", "Zekat", "Fitre", "Fidye"], 0, "Kalıcı hayır eserleri Sadaka-i Cariye'dir."));
 
       // İNGİLİZCE (41-50)
@@ -252,47 +238,47 @@
       qList.push(createQ("İngilizce", "E.8.1.4.2 Party Invitation Info", "[BOX]Event: Cinema Night\nDate: 20th October\nTime: 08:00 PM\nPlace: Star Cinema[/BOX]\n\nWhere is the cinema night going to be?", ["At Star Cinema", "On 20th October", "At 08:00 PM", "At home"], 0, "Yer (Place) Star Cinema'dır."));
       qList.push(createQ("İngilizce", "E.8.2.3.1 Music Taste", "Lisa: What type of music do you prefer?\nMark: I prefer classical music because it relaxes my mind.\n\nMark listens to classical music because it is ________.", ["relaxing", "boring", "loud", "ridiculous"], 0, "Zihnini dinlendirdiği (relaxing) için dinlemektedir."));
 
-      // MATEMATİK (51-70 - %100 YENİ NESİL ŞEKİLLİ, GRAFİKLİ & ZOR)
+      // MATEMATİK (51-70)
       qList.push(createQ("Matematik", "M.8.1.2.2 Üslü Sayılarda EBOB ile Sıralama Zor", "[BOX]Üslü Kartlar:\nA = 2^100\nB = 3^75\nC = 5^50[/BOX]\n\nBu üç üslü ifadenin küçükten büyüğe <u>doğru sıralanışı</u> hangisidir?", ["A < C < B", "A < B < C", "C < B < A", "B < A < C"], 0, "Üslerin EBOB'u 25'tir. A = (2^4)^25 = 16^25, B = (3^3)^25 = 27^25, C = (5^2)^25 = 25^25. Sıralama: A (16) < C (25) < B (27)."));
-      qList.push(createQ("Matematik", "M.8.1.1.2 EBOB / EKOK Tarla Etrafı Ağaç Dikme Zor", "[BOX]Kenar uzunlukları 120 m ve 150 m olan dikdörtgen biçimindeki bir arsanın etrafına, köşelere de gelmek şartıyla eşit aralıklarla en az sayıda aydınlatma direği dikilecektir.[/BOX]\n\nİki direk arası uzaklık kaç metre olur ve toplam kaç direk dikilir?", ["Aralık: 30 m, Toplam: 18 direk", "Aralık: 15 m, Toplam: 36 direk", "Aralık: 10 m, Toplam: 54 direk", "Aralık: 20 m, Toplam: 27 direk"], 0, "EBOB(120, 150) = 30 m (direk arası mesafe). Çevre = 2 x (120 + 150) = 540 m. Direk = 540 / 30 = 18 adet."));
+      qList.push(createQ("Matematik", "M.8.1.1.2 EBOB / EKOK Tarla Etrafı Ağaç Dikme Zor", "[BOX]Kenar uzunlukları 120 m ve 150 m olan dikdörtgen biçimindeki bir arsanın etrafına, köşelere de gelmek şartıyla eşit aralıklarla en az sayıda aydınlatma direği dikilecektir.[/BOX]\n\nİki direk arası uzaklık kaç metre olur ve toplam kaç direk dikilir?", ["Aralık: 30 m, Toplam: 18 direk", "Aralık: 15 m, Toplam: 36 direk", "Aralık: 10 m, Toplam: 54 direk", "Aralık: 20 m, Toplam: 27 direk"], 0, "EBOB(120, 150) = 30 m. Çevre = 2 x (120 + 150) = 540 m. Direk = 540 / 30 = 18 adet."));
       qList.push(createQ("Matematik", "M.8.1.2.2 Üssün Üssü Denkliği Çok Adımlı", "[BOX]İşlem: (8^4 * 16^3) / 32^3[/BOX]\n\nBu işlemin sonucu 2'nin kaçıncı kuvvetine eşittir?", ["2^9", "2^12", "2^15", "2^6"], 0, "(2^12 x 2^12) / 2^15 = 2^24 / 2^15 = 2^9."));
       qList.push(createQ("Matematik", "M.8.1.1.3 Aralarında Asallık Problem Kurgusu", "[BOX]Alanı 60 cm^2 olan bir dikdörtgenin kenar uzunlukları santimetre cinsinden birer tam sayı ve aralarında asaldır.[/BOX]\n\nBu dikdörtgenin çevresi en az kaç cm olabilir?", ["34 cm", "122 cm", "38 cm", "32 cm"], 0, "Çarpanlar: (1,60 -> Ç=122), (3,20 -> Ç=46), (4,15 -> Ç=38), (5,12 -> Ç=34). En az aralarında asal çevresi (5,12) ile 2x17 = 34 cm olur."));
       qList.push(createQ("Matematik", "M.8.1.1.2 Zillerin Birlikte Çalması EKOK", "[BOX]Üç farklı alarm sırasıyla 15, 20 ve 30 dakikada bir çalmaktadır. İlk kez birlikte saat 08:00'de çaldıklarına göre, üçüncü kez birlikte saat kaçta çalarlar?[/BOX]", ["10:00", "09:00", "11:00", "09:30"], 0, "EKOK(15, 20, 30) = 60 dk (1 saat). 1. Birlikte: 08:00, 2. Birlikte: 09:00, 3. Birlikte: 10:00."));
       qList.push(createQ("Matematik", "M.8.1.2.1 Negatif Üs ve Kesirli İşlem", "[BOX]İşlem: 3^-2 + 2^-3 - 1^-10[/BOX]\n\nİşleminin sonucu kaçtır?", ["-55/72", "17/72", "-1/72", "5/72"], 0, "1/9 + 1/8 - 1 = 8/72 + 9/72 - 72/72 = -55/72."));
-      qList.push(createQ("Matematik", "M.8.1.1.1 Pozitif Çarpan Sayısı Kurgusu", "[BOX]120 sayısının pozitif tam sayı çarpanlarından kaç tanesi 10'un katıdır?[/BOX]", ["6", "4", "8", "12"], 0, "120 = 10 x 12. 12'nin pozitif çarpan sayısı (1, 2, 3, 4, 6, 12) 6 tanedir. Bunların 10 katları 10'un katı çarpanlardır."));
+      qList.push(createQ("Matematik", "M.8.1.1.1 Pozitif Çarpan Sayısı Kurgusu", "[BOX]120 sayısının pozitif tam sayı çarpanlarından kaç tanesi 10'un katıdır?[/BOX]", ["6", "4", "8", "12"], 0, "120 = 10 x 12. 12'nin pozitif çarpan sayısı (1, 2, 3, 4, 6, 12) 6 tanedir."));
       qList.push(createQ("Matematik", "M.8.1.2.2 Ondalık Gösterim Çözümleme", "[BOX]7 * 10^2 + 4 * 10^0 + 5 * 10^-1 + 9 * 10^-3[/BOX]\n\nÇözümlememesi verilen ondalık gösterim hangisidir?", ["704,509", "74,59", "704,59", "740,509"], 0, "700 + 4 + 0,5 + 0,009 = 704,509."));
-      qList.push(createQ("Matematik", "M.8.1.1.2 Kumaş Kesme EBOB", "[BOX]84 m ve 108 m uzunluğundaki iki top kumaş terzi tarafından eşit uzunlukta en büyük parçalara kesilecektir. Her kesim işlemi 2 dakika sürmektedir.[/BOX]\n\nTüm kesim işlemi toplam kaç dakika sürer?", ["28 dakika", "32 dakika", "16 dakika", "24 dakika"], 0, "EBOB(84, 108) = 12 m. Parçalar: 84/12 = 7 parça (6 kesim), 108/12 = 9 parça (8 kesim). Toplam kesim = 6 + 8 = 14 kesim. Süre = 14 x 2 = 28 dakika."));
-      qList.push(createQ("Matematik", "M.8.1.2.2 Üslü Denklemler", "[BOX]5^(x+2) = 125 ve 2^(y-1) = 64 olduğuna göre (x + y)^2 kaçtır?[/BOX]", ["64", "49", "81", "36"], 0, "5^3 = 125 -> x+2=3 -> x=1. 2^6 = 64 -> y-1=6 -> y=7. (1+7)^2 = 8^2 = 64."));
-      qList.push(createQ("Matematik", "M.8.1.1.3 Aralarında Asal İki Sayı EKOK", "[BOX]Aralarında asal A ve B sayılarının EKOK'u 84'tür. A + B = 25 olduğuna göre bu sayılardan büyük olanı kaçtır?[/BOX]", ["21", "28", "42", "84"], 0, "Çarpımları 84, toplamları 25 olan aralarında asal sayılar 21 ve 4'tür. Büyük olanı 21'dir."));
-      qList.push(createQ("Matematik", "M.8.1.2.1 Sıfırıncı Kuvvet ve Parantez", "[BOX]İşlem: (-3)^0 - (-1)^99 + (-2)^2[/BOX]\n\nİşleminin sonucu kaçtır?", ["6", "4", "2", "0"], 0, "(-3)^0 = 1, (-1)^99 = -1, (-2)^2 = 4. 1 - (-1) + 4 = 1 + 1 + 4 = 6."));
-      qList.push(createQ("Matematik", "M.8.1.1.1 Asal Çarpan Toplamı", "[BOX]210 sayısının en büyük asal çarpanı ile en küçük asal çarpanının toplamı kaçtır?[/BOX]", ["9", "12", "10", "7"], 0, "210 = 2 x 3 x 5 x 7. En küçük 2, en büyük 7'dir. Toplam = 2 + 7 = 9."));
+      qList.push(createQ("Matematik", "M.8.1.1.2 Kumaş Kesme EBOB", "[BOX]84 m ve 108 m uzunluğundaki iki top kumaş terzi tarafından eşit uzunlukta en büyük parçalara kesilecektir. Her kesim işlemi 2 dakika sürmektedir.[/BOX]\n\nTüm kesim işlemi toplam kaç dakika sürer?", ["28 dakika", "32 dakika", "16 dakika", "24 dakika"], 0, "EBOB(84, 108) = 12 m. Parçalar: 84/12 = 7 parça (6 kesim), 108/12 = 9 parça (8 kesim). Toplam kesim = 14. Süre = 14 x 2 = 28 dakika."));
+      qList.push(createQ("Matematik", "M.8.1.2.2 Üslü Denklemler", "[BOX]5^(x+2) = 125 ve 2^(y-1) = 64 olduğuna göre (x + y)^2 kaçtır?[/BOX]", ["64", "49", "81", "36"], 0, "5^3 = 125 -> x=1. 2^6 = 64 -> y=7. (1+7)^2 = 8^2 = 64."));
+      qList.push(createQ("Matematik", "M.8.1.1.3 Aralarında Asal İki Sayı EKOK", "[BOX]Aralarında asal A ve B sayılarının EKOK'u 84'tür. A + B = 25 olduğuna göre bu sayılardan büyük olanı kaçtır?[/BOX]", ["21", "28", "42", "84"], 0, "Çarpımları 84, toplamları 25 olan aralarında asal sayılar 21 ve 4'tür."));
+      qList.push(createQ("Matematik", "M.8.1.2.1 Sıfırıncı Kuvvet ve Parantez", "[BOX]İşlem: (-3)^0 - (-1)^99 + (-2)^2[/BOX]\n\nİşleminin sonucu kaçtır?", ["6", "4", "2", "0"], 0, "(-3)^0 = 1, (-1)^99 = -1, (-2)^2 = 4. 1 - (-1) + 4 = 6."));
+      qList.push(createQ("Matematik", "M.8.1.1.1 Asal Çarpan Toplamı", "[BOX]210 sayısının en büyük asal çarpanı ile en küçük asal çarpanının toplamı kaçtır?[/BOX]", ["9", "12", "10", "7"], 0, "210 = 2 x 3 x 5 x 7. En küçük 2, en büyük 7'dir. Toplam = 9."));
       qList.push(createQ("Matematik", "M.8.1.2.2 Üslü Çarpma Bölme", "[BOX](2^8 * 4^3) / 8^3[/BOX]\n\nİşleminin sonucu kaçtır?", ["32", "16", "64", "8"], 0, "(2^8 x 2^6) / 2^9 = 2^14 / 2^9 = 2^5 = 32."));
-      qList.push(createQ("Matematik", "M.8.1.1.2 Bilye Dağıtımı EKOK", "[BOX]Bir torbadaki bilyeler 8'erli ve 12'şerli sayıldığında her defasında 5 bilye artmaktadır. Bilye sayısı 100 ile 130 arasında olduğuna göre torbada kaç bilye vardır?[/BOX]", ["125", "101", "113", "120"], 0, "EKOK(8, 12) = 24. Katları: 24, 48, 72, 96, 120. 100-130 arasında 120 kattır. 120 + 5 = 125 bilye."));
+      qList.push(createQ("Matematik", "M.8.1.1.2 Bilye Dağıtımı EKOK", "[BOX]Bir torbadaki bilyeler 8'erli ve 12'şerli sayıldığında her defasında 5 bilye artmaktadır. Bilye sayısı 100 ile 130 arasında olduğuna göre torbada kaç bilye vardır?[/BOX]", ["125", "101", "113", "120"], 0, "EKOK(8, 12) = 24. 120 + 5 = 125 bilye."));
       qList.push(createQ("Matematik", "M.8.1.2.1 Negatif Üs Çarpımı", "[BOX]2^-3 * 2^7 * 2^-2 işleminin sonucu kaçtır?[/BOX]", ["4", "8", "2", "16"], 0, "2^(-3+7-2) = 2^2 = 4."));
-      qList.push(createQ("Matematik", "M.8.1.1.1 Çarpan Kümesi Sayısı", "[BOX]96 sayısının kaç tane pozitif tam sayı çarpanı vardır?[/BOX]", ["12", "10", "8", "14"], 0, "96 = 2^5 x 3^1. Çarpan sayısı = (5+1) x (1+1) = 6 x 2 = 12 tanedir."));
+      qList.push(createQ("Matematik", "M.8.1.1.1 Çarpan Kümesi Sayısı", "[BOX]96 sayısının kaç tane pozitif tam sayı çarpanı vardır?[/BOX]", ["12", "10", "8", "14"], 0, "96 = 2^5 x 3^1. Çarpan sayısı = (5+1) x (1+1) = 12 tanedir."));
       qList.push(createQ("Matematik", "M.8.1.2.2 Bilimsel Gösterim Kurgusu", "[BOX]0,000000045 sayısının bilimsel gösterimi a * 10^b şeklindedir.[/BOX]\n\na * b işleminin sonucu kaçtır?", ["-36", "36", "-45", "4,5"], 0, "a = 4,5 ve b = -8. a x b = 4,5 x (-8) = -36."));
-      qList.push(createQ("Matematik", "M.8.1.1.3 Aralarında Asal Kenarlar", "[BOX]Çevresi 30 cm olan bir dikdörtgenin kenar uzunlukları tam sayı ve aralarında asaldır. Bu dikdörtgenin alanı kaç cm^2 olabilir?[/BOX]", ["56 cm^2", "50 cm^2", "44 cm^2", "36 cm^2"], 0, "K+U = 15. Aralarında asal çiftler: (1,14 -> A=14), (2,13 -> A=26), (4,11 -> A=44), (7,8 -> A=56). Şıklarda 56 cm^2 vardır."));
+      qList.push(createQ("Matematik", "M.8.1.1.3 Aralarında Asal Kenarlar", "[BOX]Çevresi 30 cm olan bir dikdörtgenin kenar uzunlukları tam sayı ve aralarında asaldır. Bu dikdörtgenin alanı kaç cm^2 olabilir?[/BOX]", ["56 cm^2", "50 cm^2", "44 cm^2", "36 cm^2"], 0, "K+U = 15. Aralarında asal çiftler: (7,8 -> A=56). Şıklarda 56 cm^2 vardır."));
       qList.push(createQ("Matematik", "M.8.1.2.2 Üslü Taban Eşitleme", "[BOX]9^x = 27^4 olduğuna göre x kaçtır?[/BOX]", ["6", "4", "8", "5"], 0, "(3^2)^x = (3^3)^4 -> 3^(2x) = 3^12 -> 2x = 12 -> x = 6."));
 
-      // FEN BİLİMLERİ (71-90 - %100 YENİ NESİL HİPOTEZ, DENEY & DNA)
-      qList.push(createQ("Fen Bilimleri", "F.8.2.1.3 DNA Eşlenmesi Deney Kurgusu Zor", "[BOX]Deney: Bir hücredeki DNA'nın eşlenmesi sırasında sitoplazmadaki serbest nükleotid sayısının zamana bağlı değişim grafiği inceleniyor.\n- Adenin: 400'den 100'e düşüyor (300 kullanıldı)\n- Guanin: 600'den 200'e düşüyor (400 kullanıldı)[/BOX]\n\nBu DNA eşlenmesi tamamlandığında yeni oluşan <u>iki DNA molekülündeki toplam nükleotid sayısı kaçtır</u>?", ["2800", "1400", "700", "2100"], 0, "Kullanılan A=300 (T=300), G=400 (S=400). Bir yeni DNA için 1400 nükleotid gerekir. İki yeni DNA toplamı = 2800'dür."));
+      // FEN BİLİMLERİ (71-90)
+      qList.push(createQ("Fen Bilimleri", "F.8.2.1.3 DNA Eşlenmesi Deney Kurgusu Zor", "[BOX]Deney: Bir hücredeki DNA'nın eşlenmesi sırasında sitoplazmadaki serbest nükleotid sayısının zamana bağlı değişim grafiği inceleniyor.\n- Adenin: 400'den 100'e düşüyor (300 kullanıldı)\n- Guanin: 600'den 200'e düşüyor (400 kullanıldı)[/BOX]\n\nBu DNA eşlenmesi tamamlandığında yeni oluşan <u>iki DNA molekülündeki toplam nükleotid sayısı kaçtır</u>?", ["2800", "1400", "700", "2100"], 0, "Kullanılan A=300 (T=300), G=400 (S=400). İki yeni DNA toplamı = 2800'dür."));
       qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Mevsimler ve Gölge Boyu Grafik Analizi", "[BOX]Grafik: Bir şehirde öğle vakti özdeş çubuğun gölge boyu değişimleri:\n- 21 Haziran: Gölge Boyu Sıfır\n- 21 Aralık: Gölge Boyu Maksimum[/BOX]\n\nBu şehir ve Dünya'nın konumuyla ilgili hangisi <u>kesinlikle doğrudur</u>?", ["Şehir Kuzey Yarım Küre'de Yengeç Dönencesi üzerindedir.", "Şehir Güney Yarım Küre'dedir.", "21 Aralık'ta Güneş ışınları dik gelir.", "Şehir Ekvator çizgisindedir."], 0, "21 Haziran'da gölge boyu sıfırsa yer Yengeç Dönencesi üzerindedir."));
-      qList.push(createQ("Fen Bilimleri", "F.8.1.2.1 Rüzgar ve Basınç Deney Düzeneği", "[BOX]Deney Düzeneği:\n- A kutusu: 4 adet yanan mum (Sıcak - Alçak Basınç)\n- B kutusu: 1 adet yanan mum (Soğuk - Yüksek Basınç)\nKutular arası borudaki köpük strafor tanelerinin hareketi gözlemleniyor.[/BOX]\n\nStrafor tanelerinin hareket yönü ve nedeni hangisidir?", ["B'den A'ya doğru; soğuk yüksek basınçtan sıcak alçak basınca rüzgar eser.", "A'dan B'ye doğru", "Hareket etmez", "A'da alçalıcı hava hareketi vardır"], 0, "Rüzgar B'den (soğuk/yüksek basınç) A'ya (sıcak/alçak basınç) doğru eser."));
+      qList.push(createQ("Fen Bilimleri", "F.8.1.2.1 Rüzgar ve Basınç Deney Düzeneği", "[BOX]Deney Düzeneği:\n- A kutusu: 4 adet yanan mum (Sıcak - Alçak Basınç)\n- B kutusu: 1 adet yanan mum (Soğuk - Yüksek Basınç)\nKutular arası borudaki köpük strafor tanelerinin hareketi gözlemleniyor.[/BOX]\n\nStrafor tanelerinin hareket yönü ve nedeni hangisidir?", ["B'den A'ya doğru; soğuk yüksek basınçtan sıcak alçak basınca rüzgar eser.", "A'dan B'ye doğru", "Hareket etmez", "A'da alçalıcı hava hareketi vardır"], 0, "Rüzgar B'den A'ya doğru eser."));
       qList.push(createQ("Fen Bilimleri", "F.8.2.1.2 Nükleotid Yapısı Hatası", "[BOX]Bir öğrenci modelinde Adenin Nükleotidi oluştururken: 1 Fosfat + 1 Deoksiriboz Şekeri + 1 Guanin bazı kullanmıştır.[/BOX]\n\nModeldeki hatanın düzeltilmesi için ne yapılmalıdır?", ["Guanin organik bazı çıkarılıp yerine Adenin organik bazı eklenmelidir.", "Fosfat sayısı iki katına çıkarılmalıdır.", "Şeker çıkarılmalıdır.", "Sitozin eklenmelidir."], 0, "Adenin nükleotidi için Adenin organik bazı gereklidir."));
-      qList.push(createQ("Fen Bilimleri", "F.8.2.1.1 Karmaşıklık Yapısı", "[BOX]Hücre -> K -> L -> M -> Nükleotid[/BOX]\n\nHiyerarşik sıralamada K ve L yerine sırasıyla hangileri gelmelidir?", ["Kromozom / DNA", "DNA / Gen", "Gen / DNA", "Nükleotid / Gen"], 0, "Karmaşıktan basite: Kromozom (K) > DNA (L) > Gen (M) > Nükleotid. K: Kromozom, L: DNA'dır."));
-      qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Gece-Gündüz Süre Değişimi", "[BOX]Grafik: K şehrinde 21 Haziran'dan 21 Aralık'a kadar gündüz sürelerinin sürekli kısaldığı görülmektedir.[/BOX]\n\nBu K şehri için aşağıdakilerden hangisi doğrudur?", ["K şehri Kuzey Yarım Küre'dedir.", "K şehri Güney Yarım Küre'dedir.", "21 Haziran'da en uzun gece yaşanır.", "21 Aralık'ta yaz başlar."], 0, "21 Haziran'dan sonra gündüzlerin kısalmaya başladığı yer Kuzey Yarım Küre'dir."));
-      qList.push(createQ("Fen Bilimleri", "F.8.1.2.2 İklim ve Hava Olayı Kartları", "[BOX]I. Erzurum'da kışlar soğuk ve kar yağışlı geçer. (İklim)\nII. Yarın Trabzon'da yer yer sağanak yağış bekleniyor. (Hava Olayı)[/BOX]\n\nBu kartlarla ilgili hangisi <u>yanlıştır</u>?", ["I. ifade Meteorologların günlük tahminidir.", "II. ifade dar bir alanda kısa sürelidir.", "I. ifade 35-40 yıllık ortalamadır.", "II. ifade değişkenliği yüksektir."], 0, "I. ifade İklimdir ve Klimatologların inceleme alanıdır, günlük tahmin değildir."));
+      qList.push(createQ("Fen Bilimleri", "F.8.2.1.1 Karmaşıklık Yapısı", "[BOX]Hücre -> K -> L -> M -> Nükleotid[/BOX]\n\nHiyerarşik sıralamada K ve L yerine sırasıyla hangileri gelmelidir?", ["Kromozom / DNA", "DNA / Gen", "Gen / DNA", "Nükleotid / Gen"], 0, "K: Kromozom, L: DNA'dır."));
+      qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Gece-Gündüz Süre Değişimi", "[BOX]Grafik: K şehrinde 21 Haziran'dan 21 Aralık'a kadar gündüz sürelerinin sürekli kısaldığı görülmektedir.[/BOX]\n\nBu K şehri için aşağıdakilerden hangisi doğrudur?", ["K şehri Kuzey Yarım Küre'dedir.", "K şehri Güney Yarım Küre'dedir.", "21 Haziran'da en uzun gece yaşanır.", "21 Aralık'ta yaz başlar."], 0, "21 Haziran'dan sonra gündüzlerin kısaldığı yer Kuzey Yarım Küre'dir."));
+      qList.push(createQ("Fen Bilimleri", "F.8.1.2.2 İklim ve Hava Olayı Kartları", "[BOX]I. Erzurum'da kışlar soğuk ve kar yağışlı geçer. (İklim)\nII. Yarın Trabzon'da yer yer sağanak yağış bekleniyor. (Hava Olayı)[/BOX]\n\nBu kartlarla ilgili hangisi <u>yanlıştır</u>?", ["I. ifade Meteorologların günlük tahminidir.", "II. ifade dar bir alanda kısa sürelidir.", "I. ifade 35-40 yıllık ortalamadır.", "II. ifade değişkenliği yüksektir."], 0, "I. ifade İklimdir ve Meteorologların günlük tahmini değildir."));
       qList.push(createQ("Fen Bilimleri", "F.8.2.1.3 DNA Onarım Mekanizması", "[BOX]DNA Hasarları:\n- 1. Bölge: Tek zincirde nükleotid eksik.\n- 2. Bölge: Karşılıklı iki zincirde de nükleotid eksik.[/BOX]\n\nHangi bölge hücre tarafından <u>onarılmaz</u>?", ["Yalnız 2. Bölge", "Yalnız 1. Bölge", "Her iki bölge de onarılır", "Hiçbiri onarılamaz"], 0, "Karşılıklı iki zincirin boş olduğu 2. bölge hücre tarafından onarılamaz."));
-      qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Işık Açısı ve Birim Yüzey", "[BOX]Eşit miktarda ışık enerjisi veren kaynaklar P yüzeyine 90° (dik), R yüzeyine 45° (eğik) açıyla tutuluyor.[/BOX]\n\nSıcaklık artışları karşılaştırıldığında hangisi doğrudur?", ["P yüzeyindeki sıcaklık artışı R yüzeyinden daha fazladır.", "R yüzeyi daha çok ısınır.", "İki yüzey eşit ısınır.", "P yüzeyinde gölge boyu maksimumdur."], 0, "Dik açıyla gelen P yüzeyi birim alana daha fazla ısı aktarır ve daha çok ısınır."));
-      qList.push(createQ("Fen Bilimleri", "F.8.2.1.1 Farklı Türlerde Kromozom", "[BOX]İnsan (46 Kromozom) ve Moli Balığı (46 Kromozom)[/BOX]\n\nBu durumdan çıkarılacak <u>en doğru bilimsel sonuç</u> hangisidir?", ["Kromozom sayısının aynı olması canlıların gelişmişliği veya türü hakkında bilgi vermez.", "İnsan ve moli balığı akrabadır.", "DNA dizilimleri birebir aynıdır.", "Moli balığı insandan daha gelişmiştir."], 0, "Kromozom sayısı gelişmişlik ve tür benzerliği göstergesi değildir."));
+      qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Işık Açısı ve Birim Yüzey", "[BOX]Eşit miktarda ışık enerjisi veren kaynaklar P yüzeyine 90° (dik), R yüzeyine 45° (eğik) açıyla tutuluyor.[/BOX]\n\nSıcaklık artışları karşılaştırıldığında hangisi doğrudur?", ["P yüzeyindeki sıcaklık artışı R yüzeyinden daha fazladır.", "R yüzeyi daha çok ısınır.", "İki yüzey eşit ısınır.", "P yüzeyinde gölge boyu maksimumdur."], 0, "Dik açıyla gelen P yüzeyi daha çok ısınır."));
+      qList.push(createQ("Fen Bilimleri", "F.8.2.1.1 Farklı Türlerde Kromozom", "[BOX]İnsan (46 Kromozom) ve Moli Balığı (46 Kromozom)[/BOX]\n\nBu durumdan çıkarılacak <u>en doğru bilimsel sonuç</u> hangisidir?", ["Kromozom sayısının aynı olması canlıların gelişmişliği veya türü hakkında bilgi vermez.", "İnsan ve moli balığı akrabadır.", "DNA dizilimleri birebir aynıdır.", "Moli balığı insandan daha gelişmiştir."], 0, "Kromozom sayısı gelişmişlik göstergesi değildir."));
       qList.push(createQ("Fen Bilimleri", "F.8.1.2.1 Nem ve Yoğuşma Çeşitleri", "[BOX]Su buharının gökyüzüne yakın yerlerde buz kristalleri haline gelerek yeryüzüne inmesine ne ad verilir?[/BOX]", ["Kar", "Yağmur", "Çiy", "Sis"], 0, "Gökyüzüne yakın buz kristalleri Kar'dır."));
-      qList.push(createQ("Fen Bilimleri", "F.8.2.1.2 Nükleotid Çeşitliliği", "Bütün canlılarda aynı 4 çeşit organik baz (A, T, G, S) bulunmasına rağmen canlıların farklı olmasının nedeni nedir?", ["Nükleotidlerin sayı ve dizilim sırasının farklı olması", "Şeker türünün değişmesi", "Fosfat yapısının farklılığı", "Kromozom şekli"], 0, "Nükleotid sayısı ve sıralama dizilimi canlıları farklı kılar."));
+      qList.push(createQ("Fen Bilimleri", "F.8.2.1.2 Nükleotid Çeşitliliği", "Bütün canlılarda aynı 4 çeşit organik baz bulunmasına rağmen canlıların farklı olmasının nedeni nedir?", ["Nükleotidlerin sayı ve dizilim sırasının farklı olması", "Şeker türünün değişmesi", "Fosfat yapısının farklılığı", "Kromozom şekli"], 0, "Nükleotid sayısı ve sıralama dizilimi canlıları farklı kılar."));
       qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Ekinoks Tarihleri", "21 Mart ve 23 Eylül Ekinoks tarihlerinde Dünya genelinde yaşanan ortak durum nedir?", ["Gece ve gündüz sürelerinin eşit (12 saat) olması", "En uzun gündüzün yaşanması", "Kuzey Kutbunda 6 ay gece başlaması", "Güneş'in hiç batmaması"], 0, "Ekinokslarda gece ve gündüz 12'şer saat eşittir."));
-      qList.push(createQ("Fen Bilimleri", "F.8.2.1.1 Gen Yapısı", "DNA üzerinde kalıtsal özellikleri (saç rengi, kan grubu) belirleyen anlamlı görev birimine ne ad verilir?", ["Gen", "Nükleotid", "Kromozom", "Fosfat"], 0, "DNA'nın anlamlı görev birimi Gen'dir."));
-      qList.push(createQ("Fen Bilimleri", "F.8.1.2.1 Alçak Basınç Özellikleri", "[BOX]Alçak Basınç Alanı Özellikleri:\n- Hava sıcaklığı yüksektir.\n- Yükselici hava hareketi görülür.\n- Bulutlanma ve yağış ihtimali yüksektir.[/BOX]\n\nBuna göre alçak basınç alanı için hangisi <u>yanlıştır</u>?", ["Hava daima açık ve güneşlidir.", "Yağış ihtimali fazladır.", "Yükselici hava görülür.", "Hava sıcaktır."], 0, "Alçak basınç alanında hava bulutlu ve yağışlıdır, daima açık değildir."));
-      qList.push(createQ("Fen Bilimleri", "F.8.2.1.3 DNA Eşlenmesi Çekirdek Hareketi", "[BOX]DNA eşlenmesi sırasında sitoplazmadaki serbest nükleotidler çekirdeğe girer.[/BOX]\n\nBu süreçte sitoplazmadaki nükleotid sayısı ve çekirdekteki DNA miktarı nasıl değişir?", ["Sitoplazmadaki azalır, Çekirdekteki DNA miktarı iki katına çıkar.", "İkisi de artar.", "Sitoplazmadaki artar.", "Çekirdekte değişim olmaz."], 0, "Sitoplazmadakiler kullanıldığı için azalır, çekirdekteki DNA iki katına çıkar."));
+      qList.push(createQ("Fen Bilimleri", "F.8.2.1.1 Gen Yapısı", "DNA üzerinde kalıtsal özellikleri belirleyen anlamlı görev birimine ne ad verilir?", ["Gen", "Nükleotid", "Kromozom", "Fosfat"], 0, "DNA'nın anlamlı görev birimi Gen'dir."));
+      qList.push(createQ("Fen Bilimleri", "F.8.1.2.1 Alçak Basınç Özellikleri", "[BOX]Alçak Basınç Alanı Özellikleri:\n- Hava sıcaklığı yüksektir.\n- Yükselici hava hareketi görülür.\n- Bulutlanma ve yağış ihtimali yüksektir.[/BOX]\n\nBuna göre alçak basınç alanı için hangisi <u>yanlıştır</u>?", ["Hava daima açık ve güneşlidir.", "Yağış ihtimali fazladır.", "Yükselici hava görülür.", "Hava sıcaktır."], 0, "Alçak basınç alanında hava bulutlu ve yağışlıdır."));
+      qList.push(createQ("Fen Bilimleri", "F.8.2.1.3 DNA Eşlenmesi Çekirdek Hareketi", "[BOX]DNA eşlenmesi sırasında sitoplazmadaki serbest nükleotidler çekirdeğe girer.[/BOX]\n\nBu süreçte sitoplazmadaki nükleotid sayısı ve çekirdekteki DNA miktarı nasıl değişir?", ["Sitoplazmadaki azalır, Çekirdekteki DNA miktarı iki katına çıkar.", "İkisi de artar.", "Sitoplazmadaki artar.", "Çekirdekte değişim olmaz."], 0, "Sitoplazmadakiler azalır, çekirdekteki DNA iki katına çıkar."));
       qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Dönenceler ve Güneş", "21 Aralık tarihinde Güneş ışınlarının dik açıyla düştüğü Güney Yarım Küre'deki enlem hangisidir?", ["Oğlak Dönencesi", "Yengeç Dönencesi", "Ekvator", "Kuzey Kutup Dairesi"], 0, "21 Aralık'ta Güneş ışınları Oğlak Dönencesi'ne dik gelir."));
-      qList.push(createQ("Fen Bilimleri", "F.8.2.1.2 Deoksiriboz Şekeri", "Bir DNA molekülünde 3000 Nükleotid bulunduğu bilindiğine göre, bu DNA'da kaç adet <u>Deoksiriboz Şekeri</u> vardır?", ["3000", "1500", "6000", "750"], 0, "Nükleotid sayısı = Şeker sayısı = Fosfat sayısı = 3000 adettir."));
+      qList.push(createQ("Fen Bilimleri", "F.8.2.1.2 Deoksiriboz Şekeri", "Bir DNA molekülünde 3000 Nükleotid bulunduğu bilindiğine göre, bu DNA'da kaç adet <u>Deoksiriboz Şekeri</u> vardır?", ["3000", "1500", "6000", "750"], 0, "Nükleotid sayısı = Şeker sayısı = 3000 adettir."));
       qList.push(createQ("Fen Bilimleri", "F.8.1.2.2 Klimatolog İncelemesi", "Aşağıdakilerden hangisi bir <u>Klimatoloğun</u> çalışma alanına girer?", ["Karadeniz bölgesinin 40 yıllık yağış rejimini incelemek", "Yarınki fırtına uyarısını yapmak", "Haftalık sıcaklık değişimini sunmak", "Anlık dolu yağışını bildirmek"], 0, "40 yıllık uzun süreli iklim rejimleri Klimatoloğun işidir."));
       qList.push(createQ("Fen Bilimleri", "F.8.2.1.1 Yönetici Molekül", "Hücredeki tüm yaşamsal faaliyetleri yöneten, kalıtsal bilgileri taşıyan çift sarmallı yapı hangisidir?", ["DNA", "RNA", "Ribozom", "Protein"], 0, "Hücrenin yönetici molekülü DNA'dır."));
 
@@ -326,16 +312,16 @@
     const LESSONS = [
       {
         id: "L30",
-        date: "2026-10-14",
-        subject: "D13 Sınavı Genel Değerlendirmesi",
-        icon: "ANALİZ",
-        title: "D13 · Günce'nin 20 Netlik FULL Başarısı",
-        subtitle: "Yeni Nesil Sorularda Kusursuz Performans",
+        date: "2026-10-18",
+        subject: "TD09 Provası Kullanım Rehberi",
+        icon: "ZOR SEVİYE",
+        title: "TD09 · Görsel ve Paragraf Kurgulu 90 Soruluk LGS Provası Yayında",
+        subtitle: "Afiş Yorumlama, EBOB/EKOK Kurguları ve DNA Grafikleri",
         body: `
           <div class="lesson-box">
-            <h3>D13 Başarı Özeti</h3>
-            <p>Günce D13 mini denemesinde 20 sorunun tamamını doğru yanıtlayarak <b>20.00 Net (500 Tam Puan)</b> elde etti!</p>
-            <p>Süre kullanımı ve odaklanması üst düzeydeydi. Artık üst düzey derece hedefleyen <b>TD09</b> denemesine tamamen hazır.</p>
+            <h3>TD09 Sınav Sistemi</h3>
+            <p>TD09 sınavındaki tüm metinler, grafik kurguları ve özel soru box'ları güncellendi.</p>
+            <p>Günce sınavda karşılaşacağı Türkçe afiş okuma, Matematik EBOB-EKOK kurguları ve Fen Bilimleri DNA grafikleri ile gerçek LGS provasını 155 dakikalık süreyle yapabilir.</p>
           </div>
         `
       }
@@ -420,8 +406,21 @@
       document.getElementById('q-subject').innerText = q.s.toUpperCase();
       document.getElementById('q-topic').innerText = q.t;
       
-      let fmtText = q.q.replace(/[BOX]/g, '<div class="q-box">')
-                         .replace(/\[\/BOX\]/g, '</div>');
+      let rawText = q.q;
+      let fmtText = "";
+      
+      if (rawText.includes("[BOX]")) {
+        let parts = rawText.split("[BOX]");
+        fmtText += parts[0];
+        for (let i = 1; i < parts.length; i++) {
+          let innerParts = parts[i].split("[/BOX]");
+          fmtText += '<div class="q-box">' + innerParts[0] + '</div>';
+          if (innerParts[1]) fmtText += innerParts[1];
+        }
+      } else {
+        fmtText = rawText;
+      }
+      
       document.getElementById('q-text').innerHTML = fmtText;
 
       const optsContainer = document.getElementById('q-options');

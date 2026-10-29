@@ -111,14 +111,14 @@
       <section id="sec-quiz" class="section">
         <div class="quiz-header">
           <div class="quiz-progress">
-            <span id="q-counter">Soru 1/20</span>
+            <span id="q-counter">Soru 1/90</span>
             <span id="q-timer" style="font-family: var(--font-mono);">00:00</span>
           </div>
           <div class="progress-bar"><div id="q-progress-fill" class="progress-fill"></div></div>
         </div>
         <div id="quiz-body">
           <div id="q-subject" style="font-size: 0.75rem; font-weight: 700; color: var(--accent); margin-bottom: 4px;">TÜRKÇE</div>
-          <div id="q-topic" style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">TD09 Pekiştirme Mini Sınavı</div>
+          <div id="q-topic" style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">Yeni Nesil LGS Provası</div>
           <div id="q-text" class="q-text">Soru metni yükleniyor...</div>
           <div id="q-options" class="options"></div>
           <div class="quiz-nav">
@@ -181,54 +181,125 @@
 
     const createQ = (s, t, q, o, a, e) => ({ s, t, d: 3, q, o, a, e });
 
-    // D14 Pekiştirme Mini Denemesi (TD09 Eksiklerine Özel 20 Soru)
-    const generateD14Questions = () => {
+    // TD10 90 Soruluk Tam Metinli Yeni Nesil LGS Provası
+    const generateTD10Questions = () => {
       let qList = [];
 
-      // TÜRKÇE (1-4)
-      qList.push(createQ("Türkçe", "T.8.4.16 Noktalama İşaretleri - Ünlem ve Cümle Sonu", "[BOX]Eyvah, anahtarımı evde unuttum! Ne yapacağımı bilmiyorum...[/BOX]\n\nBu cümledeki noktalama hatası nasıl düzeltilir?", ["Üç nokta yerine tek nokta konmalıdır.", "Virgül yerine noktalı virgül konmalıdır.", "Ünlem işareti kaldırılmalıdır.", "Aynen kalmalıdır."], 0, "Duygu ifadesi tamamlanıp duygu ünlemi konulduğunda cümlenin sonuna üç nokta değil nokta konur."));
-      qList.push(createQ("Türkçe", "T.8.4.16 Yazım Kuralları - Ayrı Yazılanlar", "Aşağıdakilerin hangisinde <u>yazım kuralına uyulmuştur</u>?", ["Pazardan pek çok taze meyve aldık.", "Açılışa bir çok davetli katıldı.", "Herşey zamanla düzelir.", "Pekçok soru çözdük."], 0, "'Pek çok' ve 'bir çok' ayrı yazılır. A şıkkı doğrudur."));
-      qList.push(createQ("Türkçe", "T.8.3.9 Fiilimsi Çeşitleri", "[BOX]1. <u>Koşarak</u> gelen çocuk haber verdi.\n2. <u>Kırılan</u> oyuncağını tamir etti.\n3. Kitap <u>okumak</u> insanı geliştirir.[/BOX]\n\nFiilimsilerin türleri sırasıyla hangisidir?", ["Zarf-fiil / Sıfat-fiil / İsim-fiil", "Sıfat-fiil / İsim-fiil / Zarf-fiil", "İsim-fiil / Zarf-fiil / Sıfat-fiil", "Zarf-fiil / İsim-fiil / Sıfat-fiil"], 0, "1. koşarak (Zarf-fiil), 2. kırılan (Sıfat-fiil), 3. okumak (İsim-fiil)."));
-      qList.push(createQ("Türkçe", "T.8.3.32 Sözel Mantık", "[BOX]Ali, Buse, Can ve Deniz sinemaya gitmiştir. Ali, Buse'den hemen önceki seansadır. Deniz son seansa gitmiştir.[/BOX]\n\nBuna göre Ali kaçıncı seansa gitmiştir?", ["1. veya 2. Seansa", "Son Seansa", "3. Seansa", "4. Seansa"], 0, "Deniz 4. seans ise Ali ile Buse 1-2 veya 2-3 seanslarında yer alır. Ali 1. veya 2. seanstadır."));
+      // TÜRKÇE (1-20)
+      qList.push(createQ("Türkçe", "T.8.3.32 Sözel Mantık / Çizelge Okuma", "[BOX]Kaan, Leyla, Mert ve Nur; Pazartesi, Salı, Çarşamba ve Perşembe günlerinde yüzme kursuna gitmektedir.\n- Leyla, Kaan'dan hemen bir gün sonra gitmiştir.\n- Mert Perşembe günü gitmemiştir.\n- Nur, Çarşamba günü gitmiştir.[/BOX]\n\nBu bilgilere göre Kaan yüzme kursuna hangi gün gitmiştir?", ["Pazartesi", "Salı", "Çarşamba", "Perşembe"], 0, "Nur Çarşamba ise Leyla ve Kaan Pazartesi-Salı günlerinde yer alır. Kaan Pazartesi gitmiştir."));
+      qList.push(createQ("Türkçe", "T.8.4.16 Yazım Kuralları - Ayrı Yazılanlar", "Aşağıdaki cümlelerin hangisinde <u>yazım kuralına uyulmuştur</u>?", ["Kütüphanede pek çok yeni araştırma kitabı bulduk.", "Pekçok öğrenci kurum adı eklerini ayırarak yazıyor.", "Bir çok kişi herşeyin yolunda olduğunu düşündü.", "Soru kitapçığındaki 09.05'de çalan zil herkesi şaşırttı."], 0, "'Pek çok' sözcüğü her zaman ayrı yazılır. A şıkkı doğrudur."));
+      qList.push(createQ("Türkçe", "T.8.3.9 Fiilimsi Çeşitleri", "[BOX]1. <u>Koşarak</u> içeri giren çocuk haber verdi.\n2. <u>Kırılan</u> vazonun parçalarını topladı.\n3. Kitap <u>okumak</u> insanı geliştirir.[/BOX]\n\nFiilimsilerin türleri sırasıyla hangisidir?", ["Zarf-fiil / Sıfat-fiil / İsim-fiil", "Sıfat-fiil / İsim-fiil / Zarf-fiil", "İsim-fiil / Zarf-fiil / Sıfat-fiil", "Zarf-fiil / İsim-fiil / Sıfat-fiil"], 0, "1. koşarak (Zarf-fiil), 2. kırılan (Sıfat-fiil), 3. okumak (İsim-fiil)."));
+      qList.push(createQ("Türkçe", "T.8.3.25 Grafik & Metin Eşleştirme", "[BOX]Grafik Yorumu: Bir okuldaki kulüp tercihlerinde Spor %40, Müzik %30, Resim %20, Tiyatro %10'dur.[/BOX]\n\nGrafikle ilgili yapılan aşağıdaki yorumlardan hangisi <u>kesinlikle doğrudur</u>?", ["En çok tercih edilen kulüp Spor kulübüdür.", "Tiyatro kulübüne kimse katılmamıştır.", "Resim kulübündeki öğrencilerin hepsi kızdır.", "Müzik kulübü spordan daha çok tercih edilmiştir."], 0, "%40 en yüksek oran olduğu için spor en çok tercih edilendir."));
+      qList.push(createQ("Türkçe", "T.8.3.7 Söz Sanatları Analizi", "[BOX]Güneş usulca küstü dağların arkasında, / Rüzgar ağıt yaktı dökülen yapraklara.[/BOX]\n\nBu dizelerde ağırlıklı olarak kullanılan söz sanatı hangisidir?", ["Kişileştirme (Teşhis)", "Benzetme (Teşbih)", "Abartma (Mübalağa)", "Karşıtlık (Tezat)"], 0, "Güneşin küsmesi ve rüzgarın ağıt yakması kişileştirmedir."));
+      qList.push(createQ("Türkçe", "T.8.3.5 Deyimler", "[BOX]Toplantıda her şeye muhalefet ediyor, adeta <u>ipe un seriyordu</u>.[/BOX]\n\nAltı çizili deyimin cümleye kattığı anlam nedir?", ["Bahaneler üreterek zorluk çıkarmak", "İşi hızlıca bitirmek", "Soruları cevapsız bırakmak", "Sessiz kalmak"], 0, "İpe un sermek güçlük çıkarmak anlamındadır."));
+      qList.push(createQ("Türkçe", "T.8.3.21 Metinde Ana Fikir", "[BOX]Okumak sadece bilgi edinmek değildir. Gerçek bir okuma, bireyin düşünce dünyasını genişletir ve onu farklı bakış açılarıyla buluşturur.[/BOX]\n\nMetinde vurgulanan temel düşünce hangisidir?", ["Okuma eyleminin zihinsel ve entelektüel gelişimi sağladığı", "Çok kitap okumanın zaman kaybı olduğu", "Sadece ders kitaplarının okutulması gerektiği", "Okumanın tek amacının sınav başarısı olduğu"], 0, "Metinde düşünce dünyasının genişlemesi ve gelişimi vurgulanmaktadır."));
+      qList.push(createQ("Türkçe", "T.8.3.16 Paragraf Bölme", "[BOX]I. Müzik ruhun gıdasıdır. II. Enstrüman çalmak beyin fonksiyonlarını geliştirir. III. Konser biletleri son dönemde çok pahalılandı. IV. Müzikle ilgilenen bireylerin odaklanma süresi artar.[/BOX]\n\nMetinde anlam akışını bozan cümle hangisidir?", ["III. Cümle", "I. Cümle", "II. Cümle", "IV. Cümle"], 0, "III. cümle bilet fiyatlarından bahsederek müziğin gelişimsel kurgusunu bozar."));
+      qList.push(createQ("Türkçe", "T.8.3.27 Afiş ve Slogan Yorumlama", "[BOX]Afiş: 'Ormanlar Geleceğimizdir, Bir Fidan da Sen Dik!' görselinde yeşeren ağaçlar resmedilmiştir.[/BOX]\n\nBu afişin ana mesajı hangisidir?", ["Doğayı koruma ve ağaçlandırma bilinci", "Kağıt tasarrufu yapmak", "Orman yangınlarını söndürmek", "Tarımsal üretimi artırmak"], 0, "Afiş fidan dikme ve ağaçlandırma vurgusu yapmaktadır."));
+      qList.push(createQ("Türkçe", "T.8.3.9 Fiilimsi Ek Çeldiricileri", "Aşağıdaki cümlelerin hangisinde '-me/-ma' eki <u>olumsuzluk eki</u> olarak kullanılmıştır?", ["Lütfen ders çalışırken gürültü yapma!", "Onunla tanışmayı ben de isterim.", "Okulun boyama işleri tamamlandı.", "Yüzme sporu sağlığa yararlıdır."], 0, "'Gürültü yapma!' cümlesi emrin olumsuzunu ifade eder."));
+      qList.push(createQ("Türkçe", "T.8.4.16 Noktalama İşaretleri", "Aşağıdaki cümlelerin hangisinde noktalama işareti <u>yanlış</u> kullanılmıştır?", ["Eyvah! Otobüsü kaçırdık...", "Pazardan elma, armut aldı.", "Saat 10.30'da buluşacağız.", "Ankara, Türkiye'nin başkentidir."], 0, "Duygu cümlesi tamamlandığı için sonuna üç nokta değil nokta konmalıdır."));
+      qList.push(createQ("Türkçe", "T.8.3.17 Metnin Konusu", "[BOX]Geleneksel Türk el sanatları, nesilden nesile aktarılan zengin bir kültür mirasıdır.[/BOX]\n\nMetnin konusu hangisidir?", ["Türk el sanatlarının kültürel değeri ve sürekliliği", "Sanat ürünlerinin fiyatları", "Modern resim teknikleri", "Müze ziyaretleri"], 0, "Metin kültür mirası ve aktarımı konusunu işler."));
+      qList.push(createQ("Türkçe", "T.8.3.25 Çıkarım Yapma", "[BOX]Düzenli spor yapan bireylerin bağışıklık sisteminin güçlendiği bilimsel olarak kanıtlanmıştır.[/BOX]\n\nBu cümleden hangisine kesinlikle ulaşılır?", ["Fiziksel aktiviteler sağlık üzerinde olumlu etkiye sahiptir.", "Spor yapanlar hiç hasta olmaz.", "Sadece profesyonel sporcular sağlıklı kalır.", "Beslenme spordan önemlidir."], 0, "Bağışıklığın güçlenmesi sağlığa olumlu etkidir."));
+      qList.push(createQ("Türkçe", "T.8.3.6 Deyimler", "[BOX]Sınav sorularını gözü kapalı çözdü, adeta tereyağından kıl çeker gibi bitirdi.[/BOX]\n\nAltı çizili deyimin anlamı nedir?", ["Bir işi çok kolay ve pürüzsüz yapmak", "Zorlanarak yapmak", "Sorulardan kaçmak", "Süreyi yetiştirememek"], 0, "Tereyağından kıl çeker gibi kolayca yapmaktır."));
+      qList.push(createQ("Türkçe", "T.8.3.7 Tezat Sanatı", "Aşağıdaki dizelerin hangisinde <u>karşıtlık (tezat)</u> sanatı vardır?", ["Ağlarım hatıra geldikçe gülüştüklerimiz...", "Dağlar başı dumanlıdır.", "Kuşlar uçar gökyüzünde.", "Bahar geldi yeşerdi bağlar."], 0, "Ağlamak ve gülüşmek zıt kavramlardır."));
+      qList.push(createQ("Türkçe", "T.8.3.21 Paragraf Tamamlama", "[BOX]Başarı tesadüf değildir. Bireyler hedeflerine ulaşmak için ----.[/BOX]\n\nAnlam akışına göre boşluğa hangisi gelmelidir?", ["planlı ve disiplinli çalışmalıdır", "şanslarına güvenmelidir", "sürekli ertelemelidir", "kolay yolları seçmelidir"], 0, "Planlı ve disiplinli çalışmak akışı tamamlar."));
+      qList.push(createQ("Türkçe", "T.8.3.25 Metin Analizi", "[BOX]Kitaplar zaman ve mekan sınırlarını aşarak bizi farklı dünyalara taşır.[/BOX]\n\nMetinde kitapların hangi yönü vurgulanmıştır?", ["Evrensel ve sınır tanımayan yapısı", "Pahalı bir hobi olması", "Sadece çocuklara hitap etmesi", "Yavaş okunması"], 0, "Zaman ve mekan sınırlarını aşması vurgulanmıştır."));
+      qList.push(createQ("Türkçe", "T.8.3.5 Sözcükte Anlam", "'Açmak' sözcüğü hangisinde 'bir engeli ortadan kaldırmak' anlamındadır?", ["Karla kapanan yolu kepçe açtı.", "Çiçekler baharda açtı.", "Radyoyu açtı.", "Dükkan açtı."], 0, "Yolun açılması engelin kaldırılmasıdır."));
+      qList.push(createQ("Türkçe", "T.8.3.6 Atasözleri", "<u>'Damlaya damlaya göl olur'</u> atasözünün anlamı nedir?", ["Küçük birikimler zamanla büyük değerlere dönüşür.", "Su tasarrufu yapılmalıdır.", "Yağmur çok yağmalıdır.", "Dere yatakları temizlenmelidir."], 0, "Birikimin önemini anlatır."));
+      qList.push(createQ("Türkçe", "T.8.3.27 Görsel Tablo", "[BOX]Tablo: Yenilenebilir Enerji Kullanım Oranları verilmiştir.[/BOX]\n\nTablodan çıkarılacak temel yargı nedir?", ["Çevre dostu enerji kaynaklarının kullanımı yaygınlaşmaktadır.", "Kömür kullanımı artmıştır.", "Petrol tükenmiştir.", "Rüzgar enerjisi tehlikelidir."], 0, "Yenilenebilir enerji çevre dostu kullanımı simgeler."));
 
-      // İNKILAP TARİHİ (5-6)
-      qList.push(createQ("İnkılap Tarihi", "ITA.8.1.3 Şehirler ve M. Kemal", "Mustafa Kemal'in Sofya'da Askeri Ateşe iken Bulgar Parlamentosunu takip etmesi ona ne kazandırmıştır?", ["Diplomasi ve Parlamenter Sistem tecrübesi", "Denizcilik bilgisi", "Sadece yabancı dil", "Ticaret uzmanlığı"], 0, "Sofya'da meclisi izlemesi diplomasi tecrübesi kazandırdı."));
-      qList.push(createQ("İnkılap Tarihi", "ITA.8.1.4 Çanakkale ve Kişilik", "M. Kemal'in Çanakkale'de düşmanın nereden çıkarma yapacağını tahmin etmesi hangi özelliğidir?", ["İleri Görüşlülük", "İnkılapçılık", "Sanatseverlik", "Açık sözlülük"], 0, "Olayları öngörmek İleri Görüşlülüktür."));
+      // İNKILAP TARİHİ (21-30)
+      qList.push(createQ("İnkılap Tarihi", "ITA.8.1.3 Şehirler Haritası Analizi", "[BOX]M. Kemal'in Bulunduğu Şehirler:\n- Selanik: Batı kültürüne açık liman kenti\n- Manastır: Vatan şairlerinin okunduğu askeri idadi\n- Şam: Vatan ve Hürriyet Cemiyeti'nin kuruluşu\n- Sofya: Askeri Ateşe ve Meclis izleme[/BOX]\n\nSofya şehri M. Kemal'e en çok ne kazandırmıştır?", ["Diplomasi ve Parlamenter sistem tecrübesi", "Denizcilik stratejisi", "Sadece Almanca öğrenme", "Ticari ortaklıklar"], 0, "Sofya'da meclis izlemesi diplomasi tecrübesi kazandırdı."));
+      qList.push(createQ("İnkılap Tarihi", "ITA.8.1.4 Trablusgarp ve Teşkilatçılık", "Mustafa Kemal'in Trablusgarp'ta halkı örgütleyerek İtalyanlara karşı başarı kazanması hangi özelliğidir?", ["Teşkilatçılık ve Vatanseverlik", "İnkılapçılık", "Kararsızlık", "Sömürgecilik"], 0, "Halkı örgütlemek teşkilatçılıktır."));
+      qList.push(createQ("İnkılap Tarihi", "ITA.8.1.1 Sanayi İnkılabı", "Sanayi İnkılabı sonrası Avrupalı devletlerin hammadde arayışı Osmanlı'yı nasıl etkilemiştir?", ["Osmanlı toprakları pazar haline gelmiş ve yerli sanayi çökmüştür.", "Osmanlı zenginleşmiştir.", "Fabrikalar çoğalmıştır.", "Borçlar bitmiştir."], 0, "Açık pazar haline gelip yerli sanayi çökmüştür."));
+      qList.push(createQ("İnkılap Tarihi", "ITA.8.1.2 Eğitimde Çeşitlilik", "Mahalle mektebi ile Şemsi Efendi Mektebi'nin aynı dönemde olması neyi gösterir?", ["Eğitimde birlik bulunmadığını", "Tüm okulların yabancı olduğunu", "Eğitimin zorunlu olduğunu", "Askeri eğitimin tek seçenek olduğunu"], 0, "Farklı anlayıştaki okullar eğitimde birliğin olmadığını gösterir."));
+      qList.push(createQ("İnkılap Tarihi", "ITA.8.1.4 Çanakkale Savaşları", "Mustafa Kemal'in Çanakkale'de düşman çıkarma yerini doğru tahmin etmesi hangi özelliğidir?", ["İleri Görüşlülük", "İnkılapçılık", "Sanatseverlik", "Barışçıllık"], 0, "Öngörü İleri Görüşlülüktür."));
+      qList.push(createQ("İnkılap Tarihi", "ITA.8.1.3 Manastır Yılları", "Manastır Askeri İdadisinde Fransız yazarları okuyan M. Kemal'de hangi fikir gelişmiştir?", ["Eşitlik, Hürriyet ve Demokrasi", "Manda yönetimi", "Monarşi", "İzolasyonizm"], 0, "Fransız yazarlar hürriyet ve demokrasi fikrini aşılamaştır."));
+      qList.push(createQ("İnkılap Tarihi", "ITA.8.1.4 31 Mart Vakası", "Hareket Ordusu'nda M. Kemal'in Kurmay Başkanı olarak ısyanı bastırması neye bağlılığını gösterir?", ["Yeniliklere ve Demokrasiye", "Padişah mutlakiyetine", "Sömürgeciliğe", "Geleneksel medreseye"], 0, "Yenilik ve demokrasi taraftarlığını gösterir."));
+      qList.push(createQ("İnkılap Tarihi", "ITA.8.1.2 Selanik Konumu", "Selanik'in liman ve demir yolu bağlantısı olması hangi alanını güçlendirmiştir?", ["Ekonomik ve kültürel etkileşimi", "İzole kalmasını", "Tarımı", "Askeri zayıflığı"], 0, "Liman ve demir yolu etkileşimi artırır."));
+      qList.push(createQ("İnkılap Tarihi", "ITA.8.1.3 Vatan ve Hürriyet Cemiyeti", "M. Kemal'in Şam'da cemiyet kurması neyin kanıtıdır?", ["Liderlik ve örgütleyicilik yaptığının", "Askerliği bıraktığının", "Sadece edebiyatla ilgilendiğinin", "Ressam olduğunun"], 0, "Cemiyet kurmak liderlik kanıtıdır."));
+      qList.push(createQ("İnkılap Tarihi", "ITA.8.1.1 Fransız İhtilali", "Fransız İhtilali ile yayılan Milliyetçilik akımı Osmanlı'yı nasıl etkilemiştir?", ["Azınlık isyanlarına yol açmıştır.", "Ordunu güçlendirmiştir.", "Ekonomiyi artırmıştır.", "Padişah yetkisini büyütmüştür."], 0, "Çok uluslu yapıda azınlık isyanlarına sebep olmuştur."));
 
-      // DİN KÜLTÜRÜ (7-8)
-      qList.push(createQ("Din Kültürü", "DIN.8.1.2 Cüzi İrade ve Yanlış Kader Anlayışı", "'Çalışmadan başarılı olunmaz, kişi kendi seçimlerinden sorumludur.' diyen biri hangisini savunmaktadır?", ["Cüzi iradenin ve kişisel sorumluluğun varlığını", "Sorumsuzluğu", "Kaderin değiştirilemeyeceğini", "Külli iradeyi"], 0, "İnsanın seçim yapma özgürlüğü Cüzi iradedir."));
-      qList.push(createQ("Din Kültürü", "DIN.8.1.1 Evrensel Yasalar", "[BOX]Güneş ve Ay belirlenmiş bir yörüngede hareket eder. Yer çekimi cisimleri çeker.[/BOX]\n\nBu durum hangi evrensel yasadır?", ["Fiziksel Yasalar", "Biyolojik Yasalar", "Toplumsal Yasalar", "Hukuki Yasalar"], 0, "Madde ve enerjinin kuralları Fiziksel yasalardır."));
+      // DİN KÜLTÜRÜ (31-40)
+      qList.push(createQ("Din Kültürü", "DIN.8.1.1 Kader ve Kaza", "[BOX]I. Su 100 °C'de kaynar. (Kader)\nII. Bugün İzmir'e yağmur yağdı. (Kaza)[/BOX]\n\nBu karşılaştırmanın özü nedir?", ["Kader genel kural, Kaza gerçekleşmedir.", "İkisi aynı şeydir.", "Kaza önce gerçekleşir.", "İnsanın rolü yoktur."], 0, "Kader ölçü, kaza gerçekleşmedir."));
+      qList.push(createQ("Din Kültürü", "DIN.8.1.2 Cüzi ve Külli İrade", "Aşağıdakilerden hangisi insanın <u>Külli İradesi</u> (Allah'ın takdiri) alanındadır?", ["Doğduğu yer ve anne-babası", "Ahlaklı olmayı seçmesi", "Ders çalışması", "İbadet etmesi"], 0, "Anne-baba ve doğum yeri Külli iradedir."));
+      qList.push(createQ("Din Kültürü", "DIN.8.1.1 Biyolojik Yasalar", "[BOX]Develerin hörgüçlerinde yağ depolaması ve kuşların kemiklerinin hafif olması.[/BOX]\n\nBu durum hangi evrensel yasadır?", ["Biyolojik Yasalar", "Fiziksel Yasalar", "Toplumsal Yasalar", "Kimyasal Yasalar"], 0, "Canlı yapısı Biyolojik yasadır."));
+      qList.push(createQ("Din Kültürü", "DIN.8.1.1 Toplumsal Yasalar", "Adaletin olmadığı yerde kargaşa olması hangi evrensel yasadır?", ["Toplumsal Yasalar", "Fiziksel Yasalar", "Biyolojik Yasalar", "Kimyasal Yasalar"], 0, "Toplum kuralları Toplumsal yasalardır."));
+      qList.push(createQ("Din Kültürü", "DIN.8.1.2 Tevekkül", "Tarlasını sürüp suladıktan sonra Allah'a dua eden çiftçinin tutumu nedir?", ["Doğru Tevekkül anlayışı", "Tembellik", "Kaderi zorlama", "Cahillik"], 0, "Tedbir alıp güvenmek doğru tevekküldür."));
+      qList.push(createQ("Din Kültürü", "DIN.8.1.1 Ayet Analizi", "'Biz her şeyi bir ölçüye göre yarattık.' ayeti neyi vurgular?", ["Evrendeki mükemmel düzeni ve Kaderi", "İnsan özgürlüğünü", "Savaşları", "Ticareti"], 0, "Ölçü ve düzen kaderi simgeler."));
+      qList.push(createQ("Din Kültürü", "DIN.8.1.2 İnsanın Sorumluluğu", "İnsanın eylemlerinden sorumlu olmasının temel iki şartı nedir?", ["Akıl sağlığı ve Özgür İrade sahibi olması", "Zengin ve sağlıklı olması", "Uzun ömürlü olması", "Çok okumuş olması"], 0, "Sorumluluk akıl ve özgür irade gerektirir."));
+      qList.push(createQ("Din Kültürü", "DIN.8.1.1 Fiziksel Yasa", "Güneş tutulmasının zamanının önceden hesaplanması hangi yasadır?", ["Fiziksel Yasalar", "Toplumsal Yasalar", "Biyolojik Yasalar", "Ahlaki Yasalar"], 0, "Gök cisimlerinin düzeni Fiziksel yasadır."));
+      qList.push(createQ("Din Kültürü", "DIN.8.1.2 Yanlış Kader Anlayışı", "'Kaderim böyleymiş' diyerek çalışmayan kişinin hatası nedir?", ["Cüzi iradesini ve sorumluluğunu yok sayması", "Çok çalışması", "Kaderi tam anlaması", "Tevekkül etmesi"], 0, "Kendi sorumluluğunu kadere yüklemek yanlıştır."));
+      qList.push(createQ("Din Kültürü", "DIN.8.1.1 Sadaka-i Cariye", "İnsan öldükten sonra da sevabı devam eden okul, çeşme gibi eserlere ne denir?", ["Sadaka-i Cariye", "Zekat", "Fitre", "Fidye"], 0, "Kalıcı hayırlar Sadaka-i Cariye'dir."));
 
-      // İNGİLİZCE (9-10)
-      qList.push(createQ("İngilizce", "E.8.2.3.1 Expressing Preferences", "I prefer detective books to fantasy books because I think detective stories are more mysterious.\n\nWhich statement is <u>CORRECT</u>?", ["He likes detective books more than fantasy books.", "He hates detective books.", "Fantasy books are his favorite.", "He never reads books."], 0, "Detectives (dedektif) kitaplarını fantastiğe tercih eder."));
-      qList.push(createQ("İngilizce", "E.8.1.4.1 Friendship Traits", "A true friend always supports you and never lies.\n\nA true friend is ________.", ["honest and supportive", "unreliable", "selfish", "stingy"], 0, "Dürüst (honest) ve destekçidir (supportive)."));
+      // İNGİLİZCE (41-50)
+      qList.push(createQ("İngilizce", "E.8.1.4.1 True Friendship", "[BOX]A true friend always supports you and never lies.[/BOX]\n\nA true friend is NOT ________.", ["unreliable and selfish", "honest", "supportive", "helpful"], 0, "Gerçek dost güvenilmez (unreliable) ve bencil değildir."));
+      qList.push(createQ("İngilizce", "E.8.2.3.1 Preferences", "I prefer trekking to watching TV because outdoor activities give me energy.\n\nWhich statement is <u>FALSE</u>?", ["He thinks watching TV gives more energy.", "He likes outdoor activities.", "He prefers trekking to TV.", "Trekking gives him energy."], 0, "TV'nin daha çok enerji verdiği iddiası yanlıştır."));
+      qList.push(createQ("İngilizce", "E.8.1.5.1 Invitation Refusal", "[BOX]I'd love to come to your party, but I can't because I must help my parents in the garden.[/BOX]\n\nWhat is the excuse?", ["Helping parents in the garden", "Studying for exam", "Feeling ill", "Going to cinema"], 0, "Bahçede ailesine yardım etmektir."));
+      qList.push(createQ("İngilizce", "E.8.2.4.1 Routine Chart", "[BOX]Schedule:\n- 07:00 AM: Wake up\n- 08:00 AM: Go to school by bus\n- 04:00 PM: Basketball practice[/BOX]\n\nWhich question has <u>NO answer</u>?", ["What does he eat for breakfast?", "How does he go to school?", "What time is basketball practice?", "What time does he wake up?"], 0, "Kahvaltıda ne yediğinin cevabı yoktur."));
+      qList.push(createQ("İngilizce", "E.8.1.4.2 Acceptance", "Would you like to join our cycling event?\n- ________! I love cycling.", ["Awesome, I'd love to", "I am sorry", "No, thanks", "I must study"], 0, "Awesome I'd love to kabul cümlesidir."));
+      qList.push(createQ("İngilizce", "E.8.2.3.1 Dislikes", "Sarah can't stand heavy metal music because she finds it unbearable.\n\nSarah thinks heavy metal is ________.", ["unbearable", "fun", "relaxing", "exciting"], 0, "Unbearable (dayanılmaz) bulmaktadır."));
+      qList.push(createQ("İngilizce", "E.8.1.4.1 Bad Personality", "A person who only thinks about himself is ________.", ["selfish", "generous", "honest", "polite"], 0, "Sadece kendini düşünen kişi bencil (selfish) biridir."));
+      qList.push(createQ("İngilizce", "E.8.2.4.1 Book Preferences", "David prefers detective books to fantasy books.\n\nDavid likes ________ books more.", ["detective", "fantasy", "romance", "biography"], 0, "Dedektif kitaplarını daha çok sever."));
+      qList.push(createQ("İngilizce", "E.8.1.4.2 Event Info", "[BOX]Event: Cinema Night\nDate: 20th October\nPlace: Star Cinema[/BOX]\n\nWhere is the event?", ["At Star Cinema", "On 20th October", "At 8 PM", "At home"], 0, "Yer Star Cinema'dır."));
+      qList.push(createQ("İngilizce", "E.8.2.3.1 Music Taste", "Mark listens to classical music because it relaxes his mind.\n\nClassical music is ________.", ["relaxing", "boring", "loud", "ridiculous"], 0, "Zihnini dinlendiricidir (relaxing)."));
 
-      // MATEMATİK (11-15)
-      qList.push(createQ("Matematik", "M.8.1.1.3 Aralarında Asal Kenarlar ve Çevre", "[BOX]Çevresi 30 cm olan bir dikdörtgenin kenar uzunlukları tam sayı ve aralarında asaldır.[/BOX]\n\nBu dikdörtgenin alanı kaç cm^2 olabilir?", ["56 cm^2", "50 cm^2", "40 cm^2", "30 cm^2"], 0, "K+U = 15. Aralarında asal kenar çifti (7,8) seçilirse Alan = 7 x 8 = 56 cm^2 olur."));
+      // MATEMATİK (51-70)
       qList.push(createQ("Matematik", "M.8.1.2.2 Üslü Sayılarda EBOB ile Sıralama", "[BOX]a = 2^100, b = 3^75, c = 5^50[/BOX]\n\nBu sayıların küçükten büyüğe <u>sıralanışı</u> hangisidir?", ["a < c < b", "a < b < c", "c < b < a", "b < a < c"], 0, "Üslerin EBOB'u 25'tir. a=(2^4)^25=16^25, b=(3^3)^25=27^25, c=(5^2)^25=25^25. Sıralama: a < c < b."));
-      qList.push(createQ("Matematik", "M.8.1.1.2 EBOB Paketleme", "48 kg un ve 60 kg şeker karıştırılmadan eşit çuvallara konacaktır. <u>En az kaç çuval gerekir</u>?", ["9 çuval", "12 çuval", "10 çuval", "8 çuval"], 0, "EBOB(48,60)=12 kg. Çuval = (48/12)+(60/12) = 4 + 5 = 9 çuval."));
-      qList.push(createQ("Matematik", "M.8.1.2.2 Üslü Denkliği", "2^(x-1) = 32 olduğuna göre x kaçtır?", ["6", "5", "4", "7"], 0, "2^5 = 32 -> x-1 = 5 -> x = 6."));
-      qList.push(createQ("Matematik", "M.8.1.2.1 Negatif Üs", "3^-2 + 2^-3 işleminin sonucu kaçtır?", ["17/72", "5/72", "1/72", "11/72"], 0, "1/9 + 1/8 = 8/72 + 9/72 = 17/72."));
+      qList.push(createQ("Matematik", "M.8.1.1.2 EBOB / EKOK Tarla Problemi", "[BOX]Kenarları 120 m ve 150 m olan arsanın etrafına eşit aralıklarla en az sayıda direk dikilecektir.[/BOX]\n\nİki direk arası kaç metre olur ve kaç direk dikilir?", ["Aralık: 30 m, Toplam: 18 direk", "Aralık: 15 m, Toplam: 36 direk", "Aralık: 10 m, Toplam: 54 direk", "Aralık: 20 m, Toplam: 27 direk"], 0, "EBOB(120,150) = 30 m. Çevre = 540 m. Direk = 540 / 30 = 18 adet."));
+      qList.push(createQ("Matematik", "M.8.1.2.2 Üssün Üssü Denkliği", "[BOX]İşlem: (8^4 * 16^3) / 32^3[/BOX]\n\nSonuç 2'nin kaçıncı kuvvetine eşittir?", ["2^9", "2^12", "2^15", "2^6"], 0, "(2^12 x 2^12) / 2^15 = 2^24 / 2^15 = 2^9."));
+      qList.push(createQ("Matematik", "M.8.1.1.3 Aralarında Asal Kenarlar", "[BOX]Alanı 60 cm^2 olan dikdörtgenin kenarları aralarında asal tam sayılardır.[/BOX]\n\nÇevresi en az kaç cm olabilir?", ["34 cm", "122 cm", "38 cm", "32 cm"], 0, "Çarpanlar: (5,12) için Çevre = 2 x (5 + 12) = 34 cm."));
+      qList.push(createQ("Matematik", "M.8.1.1.2 Zillerin Çalması EKOK", "[BOX]Ziller 15, 20 ve 30 dakikada bir çalıyor. İlk kez saat 08:00'de çaldıklarına göre 3. kez saat kaçta çalarlar?[/BOX]", ["10:00", "09:00", "11:00", "09:30"], 0, "EKOK(15,20,30) = 60 dk (1 saat). 1. 08:00, 2. 09:00, 3. 10:00."));
+      qList.push(createQ("Matematik", "M.8.1.2.1 Negatif Üs", "[BOX]İşlem: 3^-2 + 2^-3 - 1^-10[/BOX]\n\nSonuç kaçtır?", ["-55/72", "17/72", "-1/72", "5/72"], 0, "1/9 + 1/8 - 1 = 8/72 + 9/72 - 72/72 = -55/72."));
+      qList.push(createQ("Matematik", "M.8.1.1.1 Pozitif Çarpan Sayısı", "[BOX]120 sayısının pozitif tam sayı çarpanlarından kaçı 10'un katıdır?[/BOX]", ["6", "4", "8", "12"], 0, "120 = 10 x 12. 12'nin çarpan sayısı 6 tanedir."));
+      qList.push(createQ("Matematik", "M.8.1.2.2 Ondalık Çözümleme", "[BOX]7 * 10^2 + 4 * 10^0 + 5 * 10^-1 + 9 * 10^-3[/BOX]\n\nOndalık gösterim hangisidir?", ["704,509", "74,59", "704,59", "740,509"], 0, "700 + 4 + 0,5 + 0,009 = 704,509."));
+      qList.push(createQ("Matematik", "M.8.1.1.2 Kumaş Kesme EBOB", "[BOX]84 m ve 108 m kumaşlar eşit en büyük parçalara kesilecektir. Her kesim 2 dakika sürer.[/BOX]\n\nKesim toplam kaç dakika sürer?", ["28 dakika", "32 dakika", "16 dakika", "24 dakika"], 0, "EBOB(84,108)=12 m. Kesimler = 6 + 8 = 14 kesim. Süre = 14 x 2 = 28 dakika."));
+      qList.push(createQ("Matematik", "M.8.1.2.2 Üslü Denklem", "[BOX]5^(x+2) = 125 ve 2^(y-1) = 64 olduğuna göre (x + y)^2 kaçtır?[/BOX]", ["64", "49", "81", "36"], 0, "x=1, y=7 -> (1+7)^2 = 64."));
+      qList.push(createQ("Matematik", "M.8.1.1.3 Aralarında Asal EKOK", "[BOX]Aralarında asal A ve B sayılarının EKOK'u 84, toplamları 25'tir.[/BOX]\n\nBüyük olanı kaçtır?", ["21", "28", "42", "84"], 0, "Çarpımları 84, toplamları 25 olan sayılar 21 ve 4'tür. Büyük olan 21'dir."));
+      qList.push(createQ("Matematik", "M.8.1.2.1 Parantez Üssü", "[BOX]İşlem: (-3)^0 - (-1)^99 + (-2)^2[/BOX]\n\nSonuç kaçtır?", ["6", "4", "2", "0"], 0, "1 - (-1) + 4 = 6."));
+      qList.push(createQ("Matematik", "M.8.1.1.1 Asal Çarpan", "[BOX]210 sayısının en büyük ve en küçük asal çarpanının toplamı kaçtır?[/BOX]", ["9", "12", "10", "7"], 0, "210 = 2 x 3 x 5 x 7. Toplam = 2 + 7 = 9."));
+      qList.push(createQ("Matematik", "M.8.1.2.2 Üslü İşlem", "[BOX](2^8 * 4^3) / 8^3[/BOX]\n\nSonuç kaçtır?", ["32", "16", "64", "8"], 0, "(2^8 x 2^6) / 2^9 = 2^14 / 2^9 = 2^5 = 32."));
+      qList.push(createQ("Matematik", "M.8.1.1.2 Bilye Sayısı", "[BOX]8'erli ve 12'şerli sayılınca 5 bilye artıyor. Bilye sayısı 100-130 arasındadır.[/BOX]\n\nKaç bilye vardır?", ["125", "101", "113", "120"], 0, "EKOK(8,12) = 24. 120 + 5 = 125."));
+      qList.push(createQ("Matematik", "M.8.1.2.1 Negatif Üs", "[BOX]2^-3 * 2^7 * 2^-2 işleminin sonucu kaçtır?[/BOX]", ["4", "8", "2", "16"], 0, "2^(-3+7-2) = 2^2 = 4."));
+      qList.push(createQ("Matematik", "M.8.1.1.1 Çarpan Sayısı", "[BOX]96 sayısının kaç tane pozitif tam sayı çarpanı vardır?[/BOX]", ["12", "10", "8", "14"], 0, "96 = 2^5 x 3^1. Çarpan sayısı = (5+1) x (1+1) = 12."));
+      qList.push(createQ("Matematik", "M.8.1.2.2 Bilimsel Gösterim", "[BOX]0,000000045 sayısının bilimsel gösterimi a * 10^b şeklindedir.[/BOX]\n\na * b kaçtır?", ["-36", "36", "-45", "4,5"], 0, "a = 4,5 ve b = -8. a x b = -36."));
+      qList.push(createQ("Matematik", "M.8.1.1.3 Aralarında Asal Çevre", "[BOX]Çevresi 30 cm olan dikdörtgenin kenarları aralarında asaldır.[/BOX]\n\nAlan kaç cm^2 olabilir?", ["56 cm^2", "50 cm^2", "44 cm^2", "36 cm^2"], 0, "K+U = 15. Kenarlar 7 ve 8 seçilirse Alan = 56 cm^2."));
+      qList.push(createQ("Matematik", "M.8.1.2.2 Taban Eşitleme", "[BOX]9^x = 27^4 olduğuna göre x kaçtır?[/BOX]", ["6", "4", "8", "5"], 0, "3^(2x) = 3^12 -> 2x = 12 -> x = 6."));
 
-      // FEN BİLİMLERİ (16-20)
-      qList.push(createQ("Fen Bilimleri", "F.8.2.1.3 DNA Eşlenmesi Nükleotid Hesabı", "[BOX]Bir DNA eşlenmesinde sitoplazmadan çekirdeğe 200 Adenin ve 300 Guanin girdiği görülmüştür.[/BOX]\n\nEşlenme tamamlandığında yeni oluşan <u>iki DNA molekülündeki toplam nükleotid sayısı kaçtır</u>?", ["2000", "1000", "500", "1500"], 0, "Kullanılan A=200 (T=200), G=300 (S=300). Tek yeni DNA için 1000 nükleotid. İki yeni DNA toplamı = 2000 nükleotiddir."));
-      qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Yengeç Dönencesi ve Güneş Açısı", "21 Haziran'da Yengeç Dönencesi'ne Güneş ışınları dik geldiğinde ne gerçekleşir?", ["Öğle vakti gölge boyu sıfır olur ve yaz başlar.", "En uzun gece yaşanır.", "Gölge boyu maksimum olur.", "Kış başlar."], 0, "Dik gelen ışınlarda gölge sıfır olur ve yaz başlar."));
-      qList.push(createQ("Fen Bilimleri", "F.8.1.2.1 Rüzgar Yönü", "[BOX]K Bölgesi: Soğuk (Yüksek Basınç)\nL Bölgesi: Sıcak (Alçak Basınç)[/BOX]\n\nRüzgarın yönü hangisidir?", ["K bölgesinden -> L bölgesine doğru", "L bölgesinden -> K bölgesine doğru", "Rüzgar esmez", "Yukarıdan aşağıya"], 0, "Rüzgar yüksek basınçtan (K) alçak basınca (L) eser."));
-      qList.push(createQ("Fen Bilimleri", "F.8.2.1.3 DNA Hasarı Onarımı", "[BOX]1. Hasar: Tek zincirde nükleotid eksik.\n2. Hasar: Karşılıklı iki zincirde de nükleotid eksik.[/BOX]\n\nHangi hasar hücre tarafından <u>onarilamaz</u>?", ["Yalnız 2. Hasar", "Yalnız 1. Hasar", "İkisi de onarılır", "Hiçbiri onarılamaz"], 0, "Karşılıklı boş olan 2. hasar onarılamaz."));
-      qList.push(createQ("Fen Bilimleri", "F.8.2.1.1 Karmaşıklık Hiyerarşisi", "Kromozom, DNA, Gen ve Nükleotid yapılarından <u>en karmaşık olanı</u> hangisidir?", ["Kromozom", "DNA", "Gen", "Nükleotid"], 0, "En karmaşık yapı Kromozomdur."));
+      // FEN BİLİMLERİ (71-90)
+      qList.push(createQ("Fen Bilimleri", "F.8.2.1.3 DNA Eşlenmesi Grafiği", "[BOX]DNA eşlenmesinde sitoplazmadan çekirdeğe 300 Adenin ve 400 Guanin giriyor.[/BOX]\n\nYeni oluşan iki DNA'daki toplam nükleotid sayısı kaçtır?", ["2800", "1400", "700", "2100"], 0, "Kullanılan A=300 (T=300), G=400 (S=400). İki yeni DNA toplamı = 2800'dür."));
+      qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Gölge Boyu Grafiği", "[BOX]21 Haziran'da öğle vakti gölge sıfır, 21 Aralık'ta maksimumdur.[/BOX]\n\nBu şehir nerededir?", ["Yengeç Dönencesi üzerinde", "Güney Yarım Küre'de", "Ekvatorda", "Kutup Dairesinde"], 0, "21 Haziran'da gölge sıfırsa Yengeç Dönencesi üzerindedir."));
+      qList.push(createQ("Fen Bilimleri", "F.8.1.2.1 Rüzgar Yönü Deneyi", "[BOX]A kutusu: 4 mum (Sıcak), B kutusu: 1 mum (Soğuk).[/BOX]\n\nRüzgarın yönü hangisidir?", ["B'den A'ya doğru", "A'dan B'ye doğru", "Rüzgar esmez", "Yukarıdan aşağıya"], 0, "Rüzgar soğuktan (B) sıcağa (A) eser."));
+      qList.push(createQ("Fen Bilimleri", "F.8.2.1.2 Nükleotid Yapısı", "[BOX]Adenin Nükleotidi için: 1 Fosfat + 1 Şeker + 1 Guanin kullanılmış.[/BOX]\n\nHata nasıl düzeltilir?", ["Guanin yerine Adenin konulmalıdır.", "Fosfat ikiye katlanmalıdır.", "Şeker çıkarılmalıdır.", "Sitozin eklenmelidir."], 0, "Adenin nükleotidi için Adenin organik bazı gerekir."));
+      qList.push(createQ("Fen Bilimleri", "F.8.2.1.1 Karmaşıklık Sırası", "[BOX]Hücre -> K -> L -> M -> Nükleotid[/BOX]\n\nK ve L nedir?", ["Kromozom / DNA", "DNA / Gen", "Gen / DNA", "Nükleotid / Gen"], 0, "K: Kromozom, L: DNA'dır."));
+      qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Gece-Gündüz Süresi", "[BOX]K şehrinde 21 Haziran'dan 21 Aralık'a gündüz süresi kısalıyor.[/BOX]\n\nBu şehir nerededir?", ["Kuzey Yarım Küre'dedir.", "Güney Yarım Küre'dedir.", "Ekvatordadır.", "Kutuptadır."], 0, "21 Haziran'dan sonra gündüzlerin kısaldığı yer Kuzey Yarım Küre'dir."));
+      qList.push(createQ("Fen Bilimleri", "F.8.1.2.2 İklim ve Hava Olayı", "[BOX]I. Erzurum'da kışlar soğuk geçer. (İklim)\nII. Yarın Trabzon'da yağmur bekleniyor. (Hava Olayı)[/BOX]\n\nHangisi yanlıştır?", ["I. ifade Meteorologların günlük tahminidir.", "II. ifade kısa sürelidir.", "I. ifade 30-40 yıllık ortalamadır.", "II. ifade değişkendir."], 0, "I. ifade İklimdir ve günlük tahmin değildir."));
+      qList.push(createQ("Fen Bilimleri", "F.8.2.1.3 DNA Onarımı", "[BOX]1. Hasar: Tek zincir boş.\n2. Hasar: Karşılıklı iki zincir de boş.[/BOX]\n\nHangi hasar onarılmaz?", ["Yalnız 2. Hasar", "Yalnız 1. Hasar", "İkisi de onarılır", "Hiçbiri onarılamaz"], 0, "Karşılıklı boş olan 2. hasar onarılamaz."));
+      qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Işık Açısı ve Sıcaklık", "[BOX]P yüzeyine ışık 90° (dik), R yüzeyine 45° (eğik) geliyor.[/BOX]\n\nHangi yüzey daha çok ısınır?", ["P yüzeyi R yüzeyinden daha çok ısınır.", "R yüzeyi daha çok ısınır.", "Eşit ısınırlar.", "P yüzeyinde gölge maksimumdur."], 0, "Dik açıyla gelen P yüzeyi daha çok ısınır."));
+      qList.push(createQ("Fen Bilimleri", "F.8.2.1.1 Kromozom Sayısı", "[BOX]İnsan (46) ve Moli Balığı (46)[/BOX]\n\nBu durum neyi gösterir?", ["Kromozom sayısı gelişmişlik veya tür göstergesi değildir.", "Akrabadırlar.", "DNA'ları aynıdır.", "Moli balığı daha gelişmiştir."], 0, "Kromozom sayısı gelişmişlik göstermez."));
+      qList.push(createQ("Fen Bilimleri", "F.8.1.2.1 Yağış Şekli", "Gökyüzüne yakın yerde buz kristallerine dönüşerek inen yağış nedir?", ["Kar", "Yağmur", "Çiy", "Sis"], 0, "Gökyüzünde buz kristali Kar'dır."));
+      qList.push(createQ("Fen Bilimleri", "F.8.2.1.2 Nükleotid Çeşitliliği", "Canlıların birbirinden farklı olmasının temel sebebi nedir?", ["Nükleotidlerin sayı ve dizilim sırasının farklı olması", "Şeker türünün değişmesi", "Fosfatın farklılığı", "Kromozom şekli"], 0, "Nükleotid sayı ve dizilimi canlıları farklı kılar."));
+      qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Ekinoks Tarihleri", "21 Mart ve 23 Eylül Ekinokslarında ne yaşanır?", ["Gece ve gündüz süreleri eşit (12 saat) olur.", "En uzun gündüz yaşanır.", "6 ay gece başlar.", "Güneş hiç batmaz."], 0, "Ekinokslarda gece-gündüz 12'şer saat eşittir."));
+      qList.push(createQ("Fen Bilimleri", "F.8.2.1.1 Gen Yapısı", "DNA üzerindeki kalıtsal özellikleri belirleyen anlamlı görev birimi nedir?", ["Gen", "Nükleotid", "Kromozom", "Fosfat"], 0, "DNA'nın görev birimi Gen'dir."));
+      qList.push(createQ("Fen Bilimleri", "F.8.1.2.1 Alçak Basınç", "[BOX]Alçak Basınç: Sıcak hava, yükselici hava, bulutlu ve yağışlı.[/BOX]\n\nHangisi yanlıştır?", ["Hava daima açık ve güneşlidir.", "Yağış ihtimali yüksektir.", "Yükselici hava görülür.", "Hava sıcaktır."], 0, "Alçak basınç bulutlu ve yağışlıdır, açık değildir."));
+      qList.push(createQ("Fen Bilimleri", "F.8.2.1.3 DNA Eşlenmesi", "DNA eşlenirken sitoplazmadaki nükleotid sayısı ve çekirdekteki DNA nasıl değişir?", ["Sitoplazmadaki azalır, Çekirdekteki DNA iki katına çıkar.", "İkisi de artar.", "Sitoplazmadaki artar.", "Çekirdekteki değişmez."], 0, "Sitoplazmadakiler azalır, çekirdekteki DNA iki katına çıkar."));
+      qList.push(createQ("Fen Bilimleri", "F.8.1.1.1 Dönenceler", "21 Aralık'ta Güneş ışınlarının dik geldiği Güney Yarım Küre enlemi nedir?", ["Oğlak Dönencesi", "Yengeç Dönencesi", "Ekvator", "Kutup Dairesi"], 0, "21 Aralık'ta ışınlar Oğlak Dönencesi'ne dik gelir."));
+      qList.push(createQ("Fen Bilimleri", "F.8.2.1.2 Deoksiriboz Şekeri", "3000 Nükleotidli bir DNA'da kaç adet Deoksiriboz Şekeri vardır?", ["3000", "1500", "6000", "750"], 0, "Nükleotid sayısı = Şeker sayısı = 3000 adettir."));
+      qList.push(createQ("Fen Bilimleri", "F.8.1.2.2 Klimatolog", "Aşağıdakilerden hangisi bir Klimatoloğun çalışma alanıdır?", ["Karadeniz'in 40 yıllık yağış rejimini incelemek", "Yarınki fırtına uyarısı", "Haftalık sıcaklık değişimi", "Anlık dolu uyarısı"], 0, "40 yıllık uzun rejimler Klimatoloğun işidir."));
+      qList.push(createQ("Fen Bilimleri", "F.8.2.1.1 Yönetici Molekül", "Hücredeki yaşamsal faaliyetleri yöneten çift sarmallı yapı hangisidir?", ["DNA", "RNA", "Ribozom", "Protein"], 0, "Hücrenin yönetici molekülü DNA'dır."));
 
       return qList;
     };
 
     const EXAMS = [
       {
-        "id": "D14",
-        "date": "2026-10-20",
-        "title": "D14 · TD09 Eksiklerine Özel 20 Soruluk Pekiştirme Denemesi",
-        "tag": "MİNİ",
-        "duration": 35,
-        "questions": generateD14Questions()
+        "id": "TD10",
+        "date": "2026-10-30",
+        "title": "TD10 · 90 Soruluk Tam Kapsamlı LGS Prova Sınavı",
+        "tag": "TAM DENEME",
+        "duration": 155,
+        "questions": generateTD10Questions()
       },
+      { "id": "D14", "date": "2026-10-20", "title": "D14 · TD09 Eksiklerine Özel 20 Soruluk Pekiştirme Denemesi", "tag": "MİNİ", "duration": 35, "questions": [] },
       { "id": "TD09", "date": "2026-10-18", "title": "TD09 · Zor Seviye Görsel & Grafik Ağırlıklı 90 Soruluk LGS Provası", "tag": "TAM DENEME", "duration": 155, "questions": [] },
       { "id": "D13", "date": "2026-10-14", "title": "D13 · 20 Soruluk Yeni Nesil Mini Telafi Denemesi", "tag": "MİNİ", "duration": 35, "questions": [] },
       { "id": "D12", "date": "2026-10-13", "title": "D12 · 20 Soruluk Mini Telafi Denemesi", "tag": "MİNİ", "duration": 35, "questions": [] },
@@ -247,35 +318,20 @@
 
     const LESSONS = [
       {
-        id: "L31",
-        date: "2026-10-19",
-        subject: "TD09 Sınavı Yanlış ve Boş Soru Analiz Dersi",
-        icon: "DETAYLI ANALİZ",
-        title: "TD09 · Günce'nin 85.33 Netlik Derece Başarısı ve Soru Çözüm Rehberi",
-        subtitle: "Yanlış Yapılan ve Boş Bırakılan 4 Sorunun Birebir Yönlendirmeleri",
+        id: "L32",
+        date: "2026-10-29",
+        subject: "TD10 Tam Deneme Sınav Rehberi",
+        icon: "90 SORULUK",
+        title: "TD10 · 90 Soruluk Yeni Nesil LGS Provası Hazırlandı",
+        subtitle: "Sözel (50 Soru) ve Sayısal (40 Soru) Tam Kapsamlı Prova",
         body: `
           <div class="lesson-box">
-            <h3>🎯 TD09 Sınavı Yanlış & Boş Soruların Özel Analizi</h3>
-            <p>Günce 90 soruda <b>86 Doğru, 2 Yanlış, 2 Boş</b> yaparak <b>85.33 Net (479 Puan)</b> ile mükemmel bir derece elde etti! Takıldığı 4 sorunun çözümleri şöyledir:</p>
-            
-            <p><b>1. Soru 11 (Türkçe - Noktalama İşareti / Yanlış):</b><br>
-            <i>'Eyvah! Cüzdanımı evde unuttum...'</i> cümlesinde duygu belirten ünlem cümlesi tamamlandığı için cümlenin sonuna üç nokta değil <u>tek nokta (.)</u> konmalıdır.</p>
-
-            <p><b>2. Soru 39 (Din Kültürü - Kader Anlayışı / Boş):</b><br>
-            <i>'Ne yapayım kaderim böyleymiş!'</i> diyerek hiç çalışmadan başarısızlığı kadere yükleyen kişinin hatası, <u>kendi Cüzi İradesini ve seçim sorumluluğunu yok saymasıdır</u>.</p>
-
-            <p><b>3. Soru 48 (İngilizce - Prefer Yapısı / Boş):</b><br>
-            <i>'David prefers detective books to fantasy books...'</i> cümlesinde 'prefer A to B' kalıbı vardır. İnsanlar ilk yazdıkları seçeneği (Detective) ikincisine (Fantasy) tercih ederler. Doğru cevap <u>detective</u> olmalıdır.</p>
-
-            <p><b>4. Soru 69 (Matematik - Aralarında Asal Kenarlı Dikdörtgen / Yanlış):</b><br>
-            Çevresi 30 cm olan dikdörtgenin Kısa + Uzun kenar toplamı 15 cm'dir. Kenarları aralarında asal pozitif tam sayılar olacak şekilde seçtiğimizde:<br>
-            - $1 + 14 = 15 \rightarrow \text{Alan} = 14\text{ cm}^2$<br>
-            - $2 + 13 = 15 \rightarrow \text{Alan} = 26\text{ cm}^2$<br>
-            - $4 + 11 = 15 \rightarrow \text{Alan} = 44\text{ cm}^2$<br>
-            - $7 + 8 = 15 \rightarrow \text{Alan} = 56\text{ cm}^2$<br>
-            Şıklarda yer alan doğru alan değeri <b>$56\text{ cm}^2$</b>'dir.</p>
-
-            <div class="tip">💡 <b>Sonuç:</b> Bu 4 küçük detay öğrenildiğinde Günce'nin LGS'de 500 Tam Puan almasının önünde hiçbir engel kalmayacak!</div>
+            <h3>🎯 TD10 Genel Prova Rehberi</h3>
+            <p>TD10 sınavı MEB LGS formatında hazırlanmıştır. Toplam 155 dakikalık süre mantığı ile çözülmesi önerilir.</p>
+            <p><b>Sınav Taktikleri:</b><br>
+            - Sözel bölümde metinleri dikkatli okuyarak ana fikir sorularında çeldiricilere dikkat edin.<br>
+            - Matematikte üslü sayılar ve EBOB-EKOK sorularında turlama taktiği kullanın.<br>
+            - Fen Bilimlerinde DNA grafiklerindeki sayısal değişimleri dikkatle takip edin.</p>
           </div>
         `
       }
@@ -498,16 +554,7 @@
       let estimatedLgsScore = Math.round(194.75 + ((net / totalQuestions) * 300));
       if(estimatedLgsScore > 500) estimatedLgsScore = 500;
 
-      let wrongTopics = [];
-      if (wrong > 0 || empty > 0) {
-        if (examId === "TD09") {
-          wrongTopics = ["Türkçe Noktalama (S11)", "Din Kader/Cüzi İrade (S39)", "İngilizce Prefer (S48)", "Matematik Aralarında Asal (S69)"];
-        } else {
-          wrongTopics = ["Yanlış/Boş Konu Analizi"];
-        }
-      } else {
-        wrongTopics = ["Tebrikler, Pürüzsüz Başarı!"];
-      }
+      let wrongTopics = wrong > 0 ? ["Yanlış/Boş Konu Analizi"] : ["Tebrikler, Pürüzsüz Başarı!"];
 
       return { examId, answers, sec, correct, wrong, empty, notSeen, net, estimatedLgsScore, wrongTopics };
     }
